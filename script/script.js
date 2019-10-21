@@ -1,5 +1,7 @@
 'use strict'; //усиленный конроль синтаксиса
 
+
+//ЗАДАНИЕ 1
 //let _lang = 'en';
 let _lang = 'ru';
 //a)  конструкция if
@@ -54,22 +56,8 @@ for (let i = 0; i <= 6; i++) {
     let result = (_lang === 'ru') ? arr_ru[i] : arr_en[i];
     console.log(result);
 }
-/*
-console.log((lang = 'ru') ? 'Понедельник' : 'Monday');
-console.log((lang = 'ru') ? 'Вторник' : 'Tuesday');
-console.log((lang = 'ru') ? 'Среда' : 'Wednesday');
-console.log((lang = 'ru') ? 'Четверг' : 'Thirday');
-console.log((lang = 'ru') ? 'Пятница' : 'Friday');
-console.log((lang = 'ru') ? 'Суббота' : 'Saturday');
-console.log((lang = 'ru') ? 'Воскресенье' : 'Sunday');
 
-//a (if)
-
-//}
-
-if (lang = 'ru') {
-    for (let i = 1; i <= 7; i++) {
-        name = day_ + '' + i;
-        console.log(name);
-    }
-} */
+//ЗАДАНИЕ 2
+let namePerson = 'Александр';
+let _result = (namePerson === 'Артем') ? 'директор' : ((namePerson === 'Максим') ? 'преподаватель' : 'студент');
+console.log(_result);
