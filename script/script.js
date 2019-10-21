@@ -1,22 +1,11 @@
-let money = 149000,
-    income = '140000',
-    addExpenses = 'Аренда квартиры, банковский кредит, одежда, питание, обучение, расходы на семью',
-    deposit = false,
-    mission = 2500000,
-    period = 72;
+let num = 266219;
 
-console.log(typeof money);
-console.log(typeof income);
-console.log(typeof deposit);
-console.log(income.length);
-console.log('Период месяцев: ' + period);
-console.log('Цель заработать: ' + mission + ' руб.');
-console.log(addExpenses.toLowerCase().split(', '));
+numToStr = num.toString(); //преобразовали число в строку
+strToArr = numToStr.split([]); //преобразовали строку в массив по символу
 
-let budgetMonth = (money + Number(income)); //бюджет на месяц
-let budgetDay = budgetMonth / 30; //бюджет на день
-let restOfDivision = (budgetMonth % 30); //остаток от деления
+let reducer = (acc, currentValue) => acc * currentValue; //создаем функцию произведения элементов массива
+multiNum = strToArr.reduce(reducer); //исполняем функцию 
 
-//выводим в консоль дневной заработок и остаток от деления 'доход в месяц' / 'количество дней' 
-console.log(budgetDay.toFixed(2));
-console.log(restOfDivision);
+newNumber = multiNum ** 3; //возводим результат произведения в степень 3
+console.log(newNumber); //в консоль результат
+alert(String(newNumber).substr(0, 2)); //вывели на экран первые 2 цифры результата
