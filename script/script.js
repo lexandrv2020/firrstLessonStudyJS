@@ -1,6 +1,5 @@
-'use strict'; //усиленный конроль синтаксиса
+'use strict';
 
-//первый урок
 let money = 149000,
     income = '140000',
     addExpenses = 'Аренда квартиры, банковский кредит, одежда, питание, обучение, расходы на семью',
@@ -8,68 +7,38 @@ let money = 149000,
     mission = 2500000,
     period = 72;
 
-let showTypeof = function(data) {
-    // console.log(data, typeof(data));
-}
+let showTypeof = function(data) {}
 
 showTypeof(money);
 showTypeof(income);
 showTypeof(deposit);
-//console.log(typeof money);
-//console.log(typeof income);
-//console.log(typeof deposit);
-/*
-console.log(income.length);
-console.log('Период месяцев: ' + period);
-console.log('Цель заработать: ' + mission + ' руб.');
-console.log(addExpenses.toLowerCase().split(', '));
-*/
 
 let budgetMonth = (money + Number(income)); //бюджет на месяц
 let budgetDay = budgetMonth / 30; //бюджет на день
 let restOfDivision = (budgetMonth % 30); //остаток от деления
-/*
-//выводим в консоль дневной заработок и остаток от деления 'доход в месяц' / 'количество дней' 
-//console.log(budgetDay.toFixed(2));
-//console.log(restOfDivision);
-*/
+
 money = +prompt('Ваш месячный доход в рублях?', budgetMonth); //+ получаем доход в формате number
 addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', addExpenses); //расходы в формате string
-//console.log(addExpenses.split(','));
 deposit = confirm('Есть ли у вас депозит в банке?', deposit) //true / false
 
-//выводим результат ввода в консоль
-//console.log(typeof money);
-//console.log(typeof addExpenses);
-//console.log(typeof deposit);
-
 budgetMonth = money;
-let allValueExpenses = 0;
-for (let i = 1; i <= 2; i++) {
 
-    let listExpenses = 'listExpenses' + i;
-    let valueExpenses = 'valueExpenses' + i;
-    let question1 = '';
-    let question2 = '';
-    if (i === 1) {
-        question1 = 'Какие обязательные ежемесячные расходы у вас есть?';
-        question2 = 'Во сколько это обойдется?';
-    } else {
-        question1 = 'Какие еще обязательные ежемесячные расходы у вас есть?';
-        question2 = 'А во сколько это обойдется?';
-    }
+let question1_1 = 'Какие обязательные ежемесячные расходы у вас есть?';
+let listExpenses1 = prompt(question1_1, 'Ипотека');
+let question1_2 = 'Во сколько это обойдется?';
+let valueExpenses1 = +prompt(question1_2, 30000);
 
-    listExpenses = prompt(question1, );
-    valueExpenses = +prompt(question2, );
-    allValueExpenses = allValueExpenses + valueExpenses;
-}
-budgetMonth = budgetMonth - allValueExpenses;
+let question2_1 = 'Какие еще обязательные ежемесячные расходы у вас есть?';
+let listExpenses2 = prompt(question2_1, 'Дети: обучение, развлечения');
+let question2_2 = 'А во сколько это обойдется?';
+let valueExpenses2 = +prompt(question2_2, 90000);
 
-console.log('Доход за месяц: ', budgetMonth);
+budgetMonth = budgetMonth - valueExpenses1 - valueExpenses2;
+
+console.log(`Доход за месяц: ${budgetMonth}`);
 console.log(`Цель в ${mission} рублей с учетом дохода будет достигнута за ` +
     Math.ceil(mission / budgetMonth) + ' месяцев');
 budgetDay = Math.floor(budgetMonth / 30);
-//console.log(`Дневной бюджет = ${budgetDay} рублей`);
 
 
 let getStatusIncome = function() {
@@ -89,11 +58,8 @@ getStatusIncome();
 console.log('Оценка текущего дневного заработка: ', getStatusIncome() + ' (' + budgetDay + ' руб.)');
 
 
-//ДОМАШНЕЕ ЗАДАНИЕ 04 (basic)
-
-//функция возвращает все расходы в месяц... я ее посчитал ранее поэтому просто передаю значение переменной
-let getExpensesMonth = function() {
-    return allValueExpenses;
+let getExpensesMonth = function(Expenses1, Expenses2) {
+    return Expenses1 + Expenses2;
 }
 
 let getAccumulatedMonth = function(monthIncome, expensesMonth) {
@@ -104,10 +70,6 @@ let getTargetMonth = function(mission, accumulatedMonth) {
     return Math.floor(mission / budgetMonth);
 }
 
-let expensesMonth = getExpensesMonth();
+let expensesMonth = getExpensesMonth(valueExpenses1, valueExpenses2) //сводные расходы;
 let accumulatedMonth = getAccumulatedMonth(money, expensesMonth); //накопления за месяц
 let targetMonth = getTargetMonth(mission, accumulatedMonth); //срок достижения цели
-
-//console.log(expensesMonth);
-//console.log(accumulatedMonth);
-//console.log(targetMonth);
