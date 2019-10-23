@@ -26,6 +26,6 @@ for (let i = 2; i <= 100; i++) {
     let numberOfDivisions = 0;
     numberOfDivisions = getNumberOfDivisions(i);
     if (numberOfDivisions.length === 2) {
-        console.log(i + ' : ' + i + ' & ' + i);
+        console.log(i + ' : ' + numberOfDivisions[0] + ' & ' + numberOfDivisions[1]);
     }
 }
