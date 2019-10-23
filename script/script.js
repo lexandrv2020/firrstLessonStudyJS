@@ -10,3 +10,22 @@ for (let i = 0; i < arr.length; i++) {
         console.log('item: ', item);
     }
 }
+
+//2 задание
+function getNumberOfDivisions(i) {
+    let arrDivisions = new Array();
+    for (let d = 1; d <= i; d++) {
+        if (i % d === 0) {
+            arrDivisions[arrDivisions.length] = d;
+        }
+    }
+    return arrDivisions;
+}
+
+for (let i = 2; i <= 100; i++) {
+    let numberOfDivisions = 0;
+    numberOfDivisions = getNumberOfDivisions(i);
+    if (numberOfDivisions.length === 2) {
+        console.log(i + ' : ' + i + ' & ' + i);
+    }
+}
