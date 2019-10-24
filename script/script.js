@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 let firstYear,
     secondYear,
     questin_1 = 'Введите начальный год',
@@ -49,4 +49,4 @@ function getHighYears(valuemin, valuemax) {
 
     }
     return arrYears;
-}
+}*/
