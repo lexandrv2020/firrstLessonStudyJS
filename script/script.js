@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 let itemNumber,
     sumNumber = 0,
     question = 'Введите число';
@@ -28,3 +28,4 @@ function isNotNumber(value) {
 function isCanseled(value) {
     return (value === null);
 }
+*/
