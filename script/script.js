@@ -7,15 +7,16 @@ let itemNumber,
 do {
     itemNumber = prompt(question, '')
     if (isNotNumber(itemNumber)) {
-        question = 'Вы ввели не число число';
+        question = 'Вы ввели не число.';
     } else if (!(isCanseled(itemNumber))) {
-        question = 'Введите следующее число';
+        question = 'Введите следующее число.';
     } else {
-        alert('Сумма введенных Вами чисел равна ', sumNumber);
         break;
     }
 
     sumNumber += Number(itemNumber);
+    console.log('sumNumber: ', sumNumber);
+
 }
 while (!isCanseled(itemNumber));
 
