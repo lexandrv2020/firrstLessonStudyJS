@@ -1,31 +1,59 @@
 'use strict';
-/*
-let itemNumber,
-    sumNumber = 0,
-    question = 'Введите число';
 
-do {
-    itemNumber = prompt(question, '')
-    if (isNotNumber(itemNumber)) {
-        question = 'Вы ввели не число число';
-    } else if (!(isCanseled(itemNumber))) {
-        question = 'Введите следующее число';
-    } else {
-        alert('Сумма введенных Вами чисел равна ', sumNumber);
-        break;
+let anyNumber,
+    userNumber,
+    confirmGame,
+    result,
+    phrase = 'Введите число',
+    question = 'Сыграем в угадайку?. Я загадываю число от 1 до 100, ты угадываешь :)';
+
+startBot();
+
+function startBot() {
+    do {
+        if (confirmGame != false) {
+            confirmGame = confirm(question);
+            if (confirmGame === true) {
+                startGame();
+            } else {
+                break;
+            }
+        }
     }
-
-    sumNumber += Number(itemNumber);
+    while (confirmGame === false);
+    confirmGame = true;
 }
-while (!isCanseled(itemNumber));
 
-alert(`Сумма введенных Вами чисел равна ${sumNumber}.`);
+function startGame() {
+    anyNumber = Math.ceil(Math.random() * (100 - 0) + 0);
+    console.log(anyNumber);
+    do {
+        userNumber = getUserNumber();
+    }
+    while (Number(userNumber) !== anyNumber);
+    question = 'Хотите сыграть еще?';
+    phrase = 'Введите число';
+    startBot();
+}
+
+function getUserNumber() {
+    do {
+        userNumber = prompt(phrase, '')
+        if (isNotNumber(userNumber)) {
+            phrase = 'Вы ввели не числовое значение';
+        } else if (Number(userNumber) > anyNumber) {
+            phrase = 'Меньше!';
+        } else if (Number(userNumber) < anyNumber) {
+            phrase = 'Больше!';
+        } else if (Number(userNumber) === anyNumber) {
+            alert(`Поздравляю!! Вы угадали число ${anyNumber}.`);
+            break;
+        }
+    }
+    while (isNotNumber(userNumber));
+    return userNumber;
+}
 
 function isNotNumber(value) {
     return (isNaN(value) || value === '' || value === null);
 }
-
-function isCanseled(value) {
-    return (value === null);
-}
-*/
