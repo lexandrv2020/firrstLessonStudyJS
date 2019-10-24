@@ -1,31 +1,37 @@
 'use strict';
 
-//1 задание
-let arr = ['2411', '121215', '4898', '65461', '24154', '85245', '2841'];
-for (let i = 0; i < arr.length; i++) {
-    let item = arr[i];
+let firstNumber,
+    secondNumber,
+    questin_1 = 'Введите первое число',
+    questin_2 = 'Введите второе число',
+    result;
 
-    let firstSymbol = Number(item.substr(0, 1));
-    if (firstSymbol === 2 || firstSymbol === 4) {
-        console.log('item: ', item);
+do {
+    firstNumber = prompt(questin_1, '')
+    if (isNotNumber(firstNumber)) {
+        questin_1 = 'Вы ввели не числовое значение, повторите ввод.';
     }
 }
+while (isNotNumber(firstNumber));
 
-//2 задание
-function getNumberOfDivisions(i) {
-    let arrDivisions = new Array();
-    for (let d = 1; d <= i; d++) {
-        if (i % d === 0) {
-            arrDivisions[arrDivisions.length] = d;
-        }
+do {
+    secondNumber = prompt(questin_2, '')
+    if (isNotNumber(secondNumber)) {
+        questin_2 = 'Вы ввели не числовое значение второго числа, повторите ввод.';
     }
-    return arrDivisions;
+}
+while (isNotNumber(secondNumber));
+
+result = firstNumber - secondNumber;
+
+if (result === 0) {
+    alert(`Оба числа равны. (${firstNumber} = ${secondNumber})`);
+} else if (result > 0) {
+    alert(`Первое число больше второго. (${firstNumber} > ${secondNumber})`);
+} else if (result < 0) {
+    alert(`Второе число больше второго. (${firstNumber} < ${secondNumber})`);
 }
 
-for (let i = 2; i <= 100; i++) {
-    let numberOfDivisions = 0;
-    numberOfDivisions = getNumberOfDivisions(i);
-    if (numberOfDivisions.length === 2) {
-        console.log(i + ' : ' + numberOfDivisions[0] + ' & ' + numberOfDivisions[1]);
-    }
+function isNotNumber(value) {
+    return (isNaN(value) || value === '' || value === null);
 }
