@@ -1,37 +1,52 @@
 'use strict';
 
-let firstNumber,
-    secondNumber,
-    questin_1 = 'Введите первое число',
-    questin_2 = 'Введите второе число',
-    result;
+let firstYear,
+    secondYear,
+    questin_1 = 'Введите начальный год',
+    questin_2 = 'Введите конечный год',
+    arrYears;
 
 do {
-    firstNumber = prompt(questin_1, '')
-    if (isNotNumber(firstNumber)) {
-        questin_1 = 'Вы ввели не числовое значение, повторите ввод.';
+    firstYear = prompt(questin_1, '')
+    if (isNotNumber(firstYear)) {
+        questin_1 = 'Вы ввели не числовое значение. Год вводится числом. Повторите ввод.';
     }
 }
-while (isNotNumber(firstNumber));
+while (isNotNumber(firstYear));
 
 do {
-    secondNumber = prompt(questin_2, '')
-    if (isNotNumber(secondNumber)) {
-        questin_2 = 'Вы ввели не числовое значение второго числа, повторите ввод.';
+    secondYear = prompt(questin_2, '')
+    if (isNotNumber(secondYear)) {
+        questin_2 = 'Вы ввели не числовое значение конечного года, повторите ввод.';
+    } else if (firstYear === secondYear) {
+        alert(`Оба года равны. (${firstYear} = ${secondYear}). Введите значение отличного от начального года`);
     }
 }
-while (isNotNumber(secondNumber));
+while (isNotNumber(secondYear) || (firstYear === secondYear));
 
-result = firstNumber - secondNumber;
+let result = firstYear - secondYear;
 
-if (result === 0) {
-    alert(`Оба числа равны. (${firstNumber} = ${secondNumber})`);
-} else if (result > 0) {
-    alert(`Первое число больше второго. (${firstNumber} > ${secondNumber})`);
-} else if (result < 0) {
-    alert(`Второе число больше второго. (${firstNumber} < ${secondNumber})`);
-}
+arrYears = getHighYears((result < 0) ? firstYear : secondYear, (result < 0) ? secondYear : firstYear);
+console.log(arrYears);
 
 function isNotNumber(value) {
     return (isNaN(value) || value === '' || value === null);
+}
+
+function getHighYears(valuemin, valuemax) {
+    let arrYears = new Array();
+    for (let f = Number(valuemin); f <= valuemax; f++) {
+
+        if (f % 4 > 0) {
+            //не делится на 4 - не высокосный
+        } else if ((f % 100 === 0) && (f % 400 === 0)) {
+            // (+) делится на 100 и  делится на 400 - высокосный 
+            arrYears[arrYears.length] = f;
+        } else if (f % 100 > 0) {
+            // (+) не делится на 100 - высокосный 
+            arrYears[arrYears.length] = f;
+        }
+
+    }
+    return arrYears;
 }
