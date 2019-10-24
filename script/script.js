@@ -29,7 +29,7 @@ if (result === 0) {
 } else if (result > 0) {
     alert(`Первое число больше второго. (${firstNumber} > ${secondNumber})`);
 } else if (result < 0) {
-    alert(`Второе число больше второго. (${firstNumber} < ${secondNumber})`);
+    alert(`Второе число больше первого. (${firstNumber} < ${secondNumber})`);
 }
 
 function isNotNumber(value) {
