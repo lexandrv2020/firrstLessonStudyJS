@@ -1,32 +1,50 @@
 'use strict';
 
 let money,
-    income = 'Внешнее совместительство',
-    addExpenses = 'Аренда квартиры, банковский кредит, одежда, питание, обучение, расходы на семью',
-    deposit = false,
-    mission = 2500000,
-    period = 72;
-
-let start = function() {
-
-    do { money = prompt('Ваш месячный доход?', 289000) }
-    while (isNaN(money) || money === '' || money === null);
-}
+    start = function() {
+        do {
+            money = prompt('Ваш месячный доход?', 289000);
+        }
+        while (isNaN(money) || money === '' || money === null);
+    }
 
 start();
+
+let appData = {
+        income: {}, //доход
+        addIncome: [], //дополнительный доход
+        expenses: {}, //расходы
+        addExpenses: [], //массив дополнительных расходов
+        deposit: false, //наличие банковского депозита
+        mission: 2500000, //цель накопления
+        period: 72,
+        asking: function() {
+            //задаем вопросы и сохраняем сразу в наш объект (appData.nnnn)
+            let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Аренда квартиры, банковский кредит, одежда, питание, обучение, расходы на семью');
+            appData.addExpenses = addExpenses.toLowerCase().split(','); //полученные расходы сохраняем в объект массивом
+            appData.deposit = confirm('Есть ли у вас депозит в банке?'); //true / false
+        }
+    }
+    /*
+    let income = 'Внешнее совместительство',
+        addExpenses = 'Аренда квартиры, банковский кредит, одежда, питание, обучение, расходы на семью',
+        deposit = false,
+        mission = 2500000,
+        period = 72;
+    */
 
 let showTypeof = function(item) {
     //    console.log(item, typeof item);
 }
 
 showTypeof(money);
-showTypeof(income);
-showTypeof(deposit);
+showTypeof(appData.income);
+showTypeof(appData.deposit);
 
 let budgetMonth = money; //бюджет на месяц
 //money = +prompt('Ваш месячный доход в рублях?', budgetMonth); //+ получаем доход в формате number
-addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', addExpenses); //расходы в формате string
-deposit = confirm('Есть ли у вас депозит в банке?', deposit) //true / false
+//addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', addExpenses); //расходы в формате string
+//deposit = confirm('Есть ли у вас депозит в банке?', deposit) //true / false
 
 let budgetDay = budgetMonth / 30; //бюджет на день
 let restOfDivision = (budgetMonth % 30); //остаток от деления
@@ -42,7 +60,7 @@ let listExpenses1,
 console.log(`Доход за месяц: ${budgetMonth}`);
 console.log(`Цель в ${mission} рублей с учетом дохода будет достигнута за ` +
     Math.ceil(mission / budgetMonth) + ' месяцев');
-console.log(addExpenses.toLowerCase().split(','));
+console.log();
 */
 
 let getExpensesMonth = function() {
@@ -61,7 +79,7 @@ let getExpensesMonth = function() {
         while (isNaN(valueExpenses) || valueExpenses === '' || valueExpenses === null);
 
         sumExpenses += Number(valueExpenses);
-        console.log('sumExpenses: ', sumExpenses);
+        //console.log('sumExpenses: ', sumExpenses);
 
     }
     return sumExpenses;
@@ -72,15 +90,15 @@ let getAccumulatedMonth = function() {
     return money - expensesAmount;
 };
 let getTargetMonth = function() {
-    return Math.floor(mission / getAccumulatedMonth());
+    return Math.floor(appData.mission / getAccumulatedMonth());
 };
 let targetMonth = getTargetMonth();
 
 console.log(`Расходы за месяц: ${expensesAmount} рублей`);
 console.log(`Накопления за месяц: ${getAccumulatedMonth()} рублей`);
-console.log(`Срок достижения цели накопления в ${mission} руб.: ${targetMonth} месяцев`);
+console.log(`Срок достижения цели накопления в ${appData.mission} руб.: ${targetMonth} месяцев`);
 
-console.log(`Цель ${(targetMonth > 0) ? "" : " НИКОГДА не"} будет достигнута`);
+console.log(`Цель ${(targetMonth > 0) ? "когда-то :) " : "НИКОГДА :( не"} будет достигнута....`);
 
 budgetMonth = budgetMonth - expensesAmount;
 budgetDay = Math.floor(budgetMonth / 30);
