@@ -67,12 +67,28 @@ arr2.length = 30 // задаем длину массива
 */
 //методы
 
-let arr = ['Apple', 'Orange'];
-console.log('arr: ', arr);
-arr.push('Kiwi', 'Onion') // добавляет в конец элементы
+let arr = ['Apple', 'Orange', 'Onion'];
+//console.log('arr: ', arr);
+arr.push('kiwi') // добавляет в конец элементы
 arr.unshift('Banana', 'Potatoes') // добавляет в начало элементы
+    //console.log('arr: ', arr);
+arr.pop(); // удаляет 1 с конца - и возвращает удаленный
+//console.log(arr.shift()); // // удаляет 1 с начала - и возвращает удаленный
+arr.sort(); // сортирует по имени !! учитывает регистр (вначале с большой буквы)
+//console.log(arr.slice(2));
 console.log('arr: ', arr);
-arr.pop() // удаляет 1 с конца - и возвращает удаленный
-arr.shift() // // удаляет 1 с начала - и возвращает удаленный
+//console.log('arr: ', arr);
+//console.log(arr.slice(2)); //возвращает элементы с указанного индекса
+//console.log(arr.slice(1, 3)); //возвращает элементы с указанного нач индекса по кон. (не включительно!)
+//console.log(arr.slice(-2)); //отриц.!! возвращает кол элементов с конца
 
-console.log('arr: ', arr);
+//console.log(arr.splice(1, 2, '1 - papaya', '2 - kiwi'));
+//console.log('arr: ', arr);
+//удаляет элементы: С указанного индекса / В количестве сколько / все последующее вставятся туда где удалили
+//+возвращает удаленные
+
+//выводит на экран и вставляет между элементам указанный аргумент
+console.log(arr.join((" - ")));
+console.log(arr.join(("\n")));
+
+console.log(arr.reverse());
