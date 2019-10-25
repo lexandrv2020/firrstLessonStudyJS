@@ -2,12 +2,14 @@
 
 let itemNumber,
     sumNumber = 0,
+    numberItems = 0,
     question = 'Введите число';
 
 do {
     itemNumber = prompt(question, '')
     if (isNotNumber(itemNumber)) {
         question = 'Вы ввели не число.';
+        continue;
     } else if (!(isCanseled(itemNumber))) {
         question = 'Введите следующее число.';
     } else {
@@ -15,12 +17,13 @@ do {
     }
 
     sumNumber += Number(itemNumber);
-    console.log('sumNumber: ', sumNumber);
+    numberItems += 1;
+    //console.log('sumNumber: ', sumNumber, numberItems);
 
 }
 while (!isCanseled(itemNumber));
 
-alert(`Сумма введенных Вами чисел равна ${sumNumber}.`);
+alert(`Сумма введенных Вами чисел (${numberItems} раз) равна ${sumNumber}.`);
 
 function isNotNumber(value) {
     return (isNaN(value) || value === '' || value === null);
