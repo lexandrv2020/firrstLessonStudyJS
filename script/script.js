@@ -28,27 +28,31 @@ let appData = {
         let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Аренда квартиры, банковский кредит, одежда, питание, обучение, расходы на семью');
         appData.addExpenses = addExpenses.toLowerCase().split(',');
         appData.deposit = confirm('Есть ли у вас депозит в банке?');
-    },
-    getExpensesMonth: function() {
 
-        let sumExpenses = 0;
+        let listExpenses,
+            valueExpenses,
+            objExpenses = {};
 
-        let valueExpenses;
         for (let i = 0; i < 2; i++) {
             if (i === 0) {
-                listExpenses1 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Ипотека');
+                listExpenses = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Ипотека');
             } else {
-                listExpenses2 = prompt('Какие еще обязательные ежемесячные расходы у вас есть?', 'Дети: обучение, развлечения');
+                listExpenses = prompt('Какие еще обязательные ежемесячные расходы у вас есть?', 'Дети: обучение, развлечения');
             }
-
             do { valueExpenses = prompt('А во сколько это обойдется?', 90000) }
             while (isNaN(valueExpenses) || valueExpenses === '' || valueExpenses === null);
+            objExpenses[listExpenses] = Number(valueExpenses);
+        }
+        appData.expenses = objExpenses;
+        //console.log('objExpenses: ', objExpenses);
 
-            sumExpenses += Number(valueExpenses);
-
+    },
+    getExpensesMonth: function() {
+        let sumExpenses = 0;
+        for (let key in appData.expenses) {
+            sumExpenses += appData.expenses[key];
         }
         appData.expensesMonth = sumExpenses
-
     },
     getAccumulatedMonth: function() {
         appData.accumulatedMonth = appData.budget - appData.expensesMonth;
@@ -76,8 +80,8 @@ let appData = {
     }
 }
 
-let listExpenses1,
-    listExpenses2;
+//let listExpenses,
+//    listExpenses2;
 
 appData.asking();
 appData.getExpensesMonth();
@@ -96,3 +100,5 @@ if (appData.budgetDay < 0) {
 } else {
     console.log('Оценка текущего дневного заработка: ', statusIncome + ' (' + appData.budgetDay + ' руб.)');
 }
+
+console.log(appData);

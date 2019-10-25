@@ -42,8 +42,8 @@ let listExpenses1,
 console.log(`Доход за месяц: ${budgetMonth}`);
 console.log(`Цель в ${mission} рублей с учетом дохода будет достигнута за ` +
     Math.ceil(mission / budgetMonth) + ' месяцев');
-console.log(addExpenses.toLowerCase().split(','));
 */
+console.log(addExpenses.toLowerCase().split(','));
 
 let getExpensesMonth = function() {
 
