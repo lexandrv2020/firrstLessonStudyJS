@@ -98,8 +98,8 @@ console.log(arr.concat(['eggs', 'oil'])); //складывает к массив
 console.log('arr: ', arr);
 */
 
-////ПЕРЕБОР  ЭЛЕМЕНТОВ
-let car = {
+////ПЕРЕБОР  ЭЛЕМЕНТОВ ОБЪЕКТА
+/*let car = {
     model: 'mazda',
     year: 2006,
     turbocharging: true,
@@ -110,5 +110,39 @@ let car = {
 };
 
 for (let key in car) {
+    console.log('Ключ: ' + key + ', Значение: ' + car[key]);
+}
+
+console.log(Object.keys(car)); //массив значений реквизитов объекта
+console.log(Object.keys(car).length); //количество элементов массива значений реквизитов объекта
+*/
+
+////ПЕРЕБОР ЭЛЕМЕНТОВ МАССИВА
+let arr = [1, 3, 5, 10, 15];
+
+for (let i = 0; i < arr.length; i++) {
+    //    console.log(arr[i]);
+}
+
+arr.forEach(function(item, i, array) { // callback функция
+    //    console.log(item, i, array);
+});
+
+for (let item of arr) {
+    //    console.log(item, arr);
+}
+//console.log(arr);
+//УДАЛИТЬ ЭЛЕМЕНТ ИЗ МАССИВА
+delete arr[3];
+//console.log(arr);
+
+//УДАЛИТЬ ЭЛЕМЕНТ ИЗ ОБЪЕКТА
+let obj = {
+    a: 1,
+    b: 2,
+    c: 3
 
 }
+console.log(obj);
+delete obj['b']; //(delete obj.b)
+console.log(obj);
