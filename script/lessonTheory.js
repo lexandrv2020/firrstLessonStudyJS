@@ -146,3 +146,16 @@ let obj = {
 console.log(obj);
 delete obj['b']; //(delete obj.b)
 console.log(obj);
+
+////////////////////////////////////
+/////ПСЕВДОМАССИВ///////////////////
+////////////////////////////////////
+
+//отсутствуют методы обычных методов.
+function test() {
+    console.log(arguments);
+    console.log(arguments.length);
+
+}
+
+test(1, 2, 3, 4, 5, 6);
