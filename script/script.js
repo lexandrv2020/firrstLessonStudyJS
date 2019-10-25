@@ -3,8 +3,7 @@
 let week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
 
 let div = document.getElementById('weekDay');
-let today = new Date();
-let day = today.getDay();
+let day = new Date().getDay();
 
 for (let i = 0; i < week.length; i++) {
     console.log(week[i], i);
