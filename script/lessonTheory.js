@@ -65,8 +65,9 @@ arr2.length = 30 // задаем длину массива
     //если длина больше того что есть сейчас - массив дополнится
     //если длина меньше того что есть сейчас - массив удалит последние лишние элементы
 */
+/*
 //методы
-
+///////////////////////////////////////////////////////////////////////
 let arr = ['Apple', 'Orange', 'Onion'];
 //console.log('arr: ', arr);
 arr.push('kiwi') // добавляет в конец элементы
@@ -91,4 +92,23 @@ console.log('arr: ', arr);
 console.log(arr.join((" - ")));
 console.log(arr.join(("\n")));
 
-console.log(arr.reverse());
+console.log(arr.reverse()); //меняет порядок Обратный
+
+console.log(arr.concat(['eggs', 'oil'])); //складывает к массиву доп элементы - но не меняет первый
+console.log('arr: ', arr);
+*/
+
+////ПЕРЕБОР  ЭЛЕМЕНТОВ
+let car = {
+    model: 'mazda',
+    year: 2006,
+    turbocharging: true,
+    specification: [],
+    style: {
+        color: 'green'
+    }
+};
+
+for (let key in car) {
+
+}
