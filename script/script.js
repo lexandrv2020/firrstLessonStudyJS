@@ -11,36 +11,38 @@ let money,
 start();
 
 let appData = {
-        income: {}, //доход
-        addIncome: [], //дополнительный доход
-        expenses: {}, //расходы
-        addExpenses: [], //массив дополнительных расходов
-        deposit: false, //наличие банковского депозита
-        mission: 2500000, //цель накопления
-        period: 72,
-        asking: function() {
-            //задаем вопросы и сохраняем сразу в наш объект (appData.nnnn)
-            let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Аренда квартиры, банковский кредит, одежда, питание, обучение, расходы на семью');
-            appData.addExpenses = addExpenses.toLowerCase().split(','); //полученные расходы сохраняем в объект массивом
-            appData.deposit = confirm('Есть ли у вас депозит в банке?'); //true / false
-        }
+
+    income: {}, //доход
+    addIncome: [], //дополнительный доход
+    expenses: {}, //расходы
+    addExpenses: [], //массив дополнительных расходов
+    deposit: false, //наличие банковского депозита
+    mission: 2500000, //цель накопления
+    period: 72,
+    budget: Number(money),
+    budgetDay: 0,
+    budgetMonth: 0,
+    expensesMonth: 0,
+    asking: function() {
+        //задаем вопросы и сохраняем сразу в наш объект (appData.nnnn)
+        let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Аренда квартиры, банковский кредит, одежда, питание, обучение, расходы на семью');
+        appData.addExpenses = addExpenses.toLowerCase().split(','); //полученные расходы сохраняем в объект массивом
+        appData.deposit = confirm('Есть ли у вас депозит в банке?'); //true / false
     }
-    /*
-    let income = 'Внешнее совместительство',
-        addExpenses = 'Аренда квартиры, банковский кредит, одежда, питание, обучение, расходы на семью',
-        deposit = false,
-        mission = 2500000,
-        period = 72;
-    */
-
-let showTypeof = function(item) {
-    //    console.log(item, typeof item);
 }
-
+console.log('appData: ', appData);
+/*
+let income = 'Внешнее совместительство',
+    addExpenses = 'Аренда квартиры, банковский кредит, одежда, питание, обучение, расходы на семью',
+    deposit = false,
+    mission = 2500000,
+    period = 72;
+*/
+/*
 showTypeof(money);
 showTypeof(appData.income);
 showTypeof(appData.deposit);
-
+*/
 let budgetMonth = money; //бюджет на месяц
 //money = +prompt('Ваш месячный доход в рублях?', budgetMonth); //+ получаем доход в формате number
 //addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', addExpenses); //расходы в формате string
