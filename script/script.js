@@ -54,11 +54,8 @@ let appData = {
         }
         appData.expensesMonth = sumExpenses
     },
-    getAccumulatedMonth: function() {
+    getBudget: function() {
         appData.accumulatedMonth = appData.budget - appData.expensesMonth;
-
-    },
-    getBudgetMonthDay: function() {
         appData.budgetMonth = appData.budget - appData.expensesMonth;
         appData.budgetDay = Math.floor(appData.budgetMonth / 30);
     },
@@ -80,25 +77,24 @@ let appData = {
     }
 }
 
-//let listExpenses,
-//    listExpenses2;
-
 appData.asking();
 appData.getExpensesMonth();
-appData.getAccumulatedMonth();
-appData.getBudgetMonthDay();
+appData.getBudget();
 let targetMonth = appData.getTargetMonth();
 let statusIncome = appData.getStatusIncome();
 
-console.log(`Доход за месяц: ${money} рублей.`);
+//console.log(`Доход за месяц: ${money} рублей.`);
 console.log(`Расходы за месяц: ${appData.expensesMonth} рублей`);
-console.log(`Накопления за месяц: ${appData.accumulatedMonth} рублей`);
+//console.log(`Накопления за месяц: ${appData.accumulatedMonth} рублей`);
 console.log(`Срок достижения цели накопления в ${appData.mission} руб.: ${targetMonth} месяцев`);
-console.log(`Цель ${(targetMonth > 0) ? "когда-то :) " : "НИКОГДА :( не"} будет достигнута....`);
+//console.log(`Цель ${(targetMonth > 0) ? "когда-то :) " : "НИКОГДА :( не"} будет достигнута....`);
 if (appData.budgetDay < 0) {
     console.log(statusIncome + ' (дневной заработок' + appData.budgetDay + ' руб.)');
 } else {
     console.log('Оценка текущего дневного заработка: ', statusIncome + ' (' + appData.budgetDay + ' руб.)');
 }
 
-console.log(appData);
+console.log("Наша программа включает в себя данные:");
+for (let element in appData) {
+    console.log("   " + element + ": " + appData[element]);
+}
