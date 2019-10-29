@@ -119,12 +119,12 @@ if (appData.budgetDay < 0) {
 } else {
     console.log('Оценка текущего дневного заработка: ', statusIncome + ' (' + appData.budgetDay + ' руб.)');
 }
-
+/*
 console.log("Наша программа включает в себя данные:");
 for (let element in appData) {
-    console.log("   " + element + ": " + appData[element]);
+     console.log("   " + element + ": " + appData[element]);
 }
-
+*/
 
 //функция проверки введенного значения на число
 function isNotANumber(value) {
@@ -137,6 +137,7 @@ function isNotAString(value) {
 }
 
 //Упражнение №2
+/*
 let itemsList = '';
 
 if (appData.addExpenses.length > 0) {
@@ -149,3 +150,4 @@ if (appData.addExpenses.length > 0) {
     }
 }
 console.log('itemsList: ', itemsList);
+*/
