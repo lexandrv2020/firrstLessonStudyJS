@@ -35,3 +35,8 @@ let adv = document.querySelector('.adv');
 adv.setAttribute('style', 'display : none;')
 
 //добавляем раздел в содержание книги №6
+collection = document.querySelectorAll('ul');
+let elemli_b6 = collection[5].querySelectorAll('li');
+let newElement = elemli_b6[8].cloneNode(true);
+newElement.textContent = "Глава 8: За пределами ES6";
+collection[5].insertBefore(newElement, elemli_b6[9]);
