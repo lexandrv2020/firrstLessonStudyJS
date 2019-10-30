@@ -59,22 +59,28 @@ let appData = {
             alert('Ошибка, для расчета необходимо заполнить месячный доход.');
             return;
         }
+        appData.budget = sallaryAmount.value;
+        //onsole.log('sallaryAmount.value: ', sallaryAmount.value);
+        appData.getExpenses();
         /*
                 appData.asking();
                 appData.getInfoDeposit();
                 appData.getExpensesMonth();
                 appData.getBudget();
         */
-        appData.budget = sallaryAmount.value;
-        console.log('sallaryAmount.value: ', sallaryAmount.value);
     },
-    addExpencesBlock: function() {
+    addExpensesBlock: function() {
         let cloneExpensesItem = expensesItems[0].cloneNode(true);
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, btnExpensesPlus);
         expensesItems = document.querySelectorAll('.expenses-items');
         if (expensesItems.length === 3) {
             btnExpensesPlus.style.display = 'none';
         }
+    },
+    getExpenses: function() {
+        expensesItems.forEach(function(item) {
+            console.log(item);
+        });
     },
     asking: function() {
         let listExpenses,
@@ -155,7 +161,7 @@ let appData = {
 }
 
 btnStart.addEventListener('click', appData.start);
-btnExpensesPlus.addEventListener('click', appData.addExpencesBlock);
+btnExpensesPlus.addEventListener('click', appData.addExpensesBlock);
 /*
 let targetMonth = appData.getTargetMonth();
 console.log(`Расходы за месяц: ${appData.expensesMonth} рублей`);
