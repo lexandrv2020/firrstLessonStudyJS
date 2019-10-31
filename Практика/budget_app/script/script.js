@@ -47,31 +47,21 @@ let appData = {
     deposit: false,
     percentDeposit: 0,
     moneyDeposit: 0,
-    //  mission: 2500000,
-    //  period: 72,
     start: function() {
-        /*        
-                do {
-                    money = prompt('Ваш месячный доход?', 289000);
-                }
-                while (isNotANumber(money));
-        */
         if (sallaryAmount.value === '') {
             alert('Ошибка, для расчета необходимо заполнить месячный доход.');
             return;
         }
-        appData.budget = sallaryAmount.value;
-        //onsole.log('sallaryAmount.value: ', sallaryAmount.value);
+        appData.budget = +sallaryAmount.value;
+
         appData.getExpenses();
-        /*
-                      appData.asking();
-        */
-        appData.getInfoDeposit();
+        appData.getIncome();
         appData.getExpensesMonth();
-        appData.getBudget();
+        //appData.getInfoDeposit();
         appData.getAddExpenses();
         appData.getAddIncome();
-        appData.getIncome();
+        appData.getBudget();
+
         appData.showResult();
 
     },
@@ -98,28 +88,24 @@ let appData = {
             let itemExpences = item.querySelector('.expenses-title').value;
             let cashExpences = item.querySelector('.expenses-amount').value;
             if (itemExpences !== '' && cashExpences !== '') {
-                appData.expenses[itemExpences] = cashExpences;
+                appData.expenses[itemExpences] = +cashExpences;
             }
         });
     },
 
-    getIncome: function() {
+    getIncome: function() { //исправить в домашней работе
         if (confirm('Есть у вас дополнительный заработок?')) {
 
-            do { itemIncome = prompt('Какой доп. заработок у вас есть?', 'Infostart, 1clancer') }
-            while (isNotAString(itemIncome));
-
-            do { cashIncome = prompt('Сколько в месяц вы зарабатываете на этом?', 5000) }
-            while (isNotANumber(cashIncome));
-
-            appData.income[itemIncome] = cashIncome;
+            let itemIncome = prompt('Какой доп. заработок у вас есть?', '-Infostart, 1clancer');
+            let cashIncome = prompt('Сколько в месяц вы зарабатываете на этом?', 5000);
+            appData.income[itemIncome] = +cashIncome;
         }
         for (let key in appData.income) {
             appData.incomeMonth += +appData.income[key];
         }
 
 
-    }
+    },
     getAddExpenses: function() {
         let add_Expenses = additionalExpensesItem.value.split(','); //получае массив из строки с ','
         //перебираем массив
@@ -139,37 +125,11 @@ let appData = {
             }
         });
     },
-    asking: function() {
-        let listExpenses,
-            valueExpenses,
-            cashIncome,
-            itemIncome,
-            add_Expenses,
-            objExpenses = {};
-
-        do { add_Expenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Аренда, кредит, одежда, питание, обучение, семья') }
-        while (isNotAString(add_Expenses));
-
-        appData.addExpenses = add_Expenses.toLowerCase().split(',');
-        /*
-                for (let i = 0; i < 2; i++) {
-                    if (i === 0) {
-                        listExpenses = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Ипотека');
-                    } else {
-                        listExpenses = prompt('Какие еще обязательные ежемесячные расходы у вас есть?', 'Дети: обучение, развлечения');
-                    }
-                    do { valueExpenses = prompt('А во сколько это обойдется?', 90000) }
-                    while (isNotANumber(valueExpenses));
-                    appData.expenses[listExpenses] = Number(valueExpenses);
-                }
-        */
-
-    },
     getExpensesMonth: function() {
 
         let sumExpenses = 0;
         for (let key in appData.expenses) {
-            sumExpenses += Number(appData.expenses[key]);
+            sumExpenses += +appData.expenses[key];
         }
         appData.expensesMonth = sumExpenses
     },
@@ -178,7 +138,7 @@ let appData = {
         appData.budgetDay = Math.floor(appData.budgetMonth / 30);
     },
     getTargetMonth: function() {
-        return Math.floor(targetAmount.value / appData.budgetMonth);
+        return Math.ceil(targetAmount.value / appData.budgetMonth);
     },
     getStatusIncome: function() {
         if (appData.budgetDay >= 800) {
@@ -231,4 +191,5 @@ function isNotANumber(value) {
 
 //функция проверки введенного значения на строку
 function isNotAString(value) {
-    return (!isNaN(value) || value === '' || value === null);
+    return (!isNaN(value) || value === '' || value === null)
+}
