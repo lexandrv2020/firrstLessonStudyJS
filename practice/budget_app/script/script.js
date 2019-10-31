@@ -17,9 +17,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
 //(a)
 let btnStart = document.getElementById('start');
 let btnСancel = document.getElementById('cancel');
+//btnСancel.setAttribute('type', 'reset');
 //(b)
 let btnIncomePlus = document.getElementsByTagName('button')[0],
     btnExpensesPlus = document.getElementsByTagName('button')[1];
@@ -243,10 +245,11 @@ btnIncomePlus.addEventListener('click', getaddIncomeBlock);
 btnExpensesPlus.addEventListener('click', getaddExpensesBlock);
 periodSelect.addEventListener('click', getPeriodAmount);
 
-btnСancel.addEventListener('click', reload);
+btnСancel.addEventListener('click', _reset);
 
-function reload() {
-    location.reload();
+function _reset() {
+    let _section = document.querySelector('section');
+
 }
 
 let checkAbilityOsStart = function() {
