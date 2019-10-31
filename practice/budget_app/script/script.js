@@ -1,10 +1,13 @@
 'use strict';
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", initial);
+
+function initial() {
+
     document.getElementById('start').disabled = (document.querySelector('.salary-amount').value === '');
 
-    let datdElements = document.querySelector('.data');
-    let textElem = datdElements.querySelectorAll('input');
+    let dataElements = document.querySelector('.data');
+    let textElem = dataElements.querySelectorAll('input');
     textElem.forEach(function(item) {
         if (item.getAttribute("placeholder") === "Наименование") {
             item.addEventListener('input', function() {
@@ -16,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
     });
-});
+};
 
 //(a)
 let btnStart = document.getElementById('start');
@@ -248,7 +251,30 @@ periodSelect.addEventListener('click', getPeriodAmount);
 btnСancel.addEventListener('click', _reset);
 
 function _reset() {
-    let _section = document.querySelector('section');
+    let dataElem = document.querySelector('.data');
+    let inputElem = dataElem.querySelectorAll('input');
+
+
+    let datdElements = document.querySelector('.data');
+    let textElem = datdElements.querySelectorAll('input');
+    textElem.forEach(function(item) {
+        item.value = '';
+        item.textContent = '';
+    });
+
+    appData.start();
+
+    appData.period = 1;
+    periodSelect.value = 1;
+    targetMonthValue.value = '';
+    inputElem.forEach(function(item) {
+        item.setAttribute("readonly", 'false');
+    });
+    btnStart.style.display = 'block';
+    btnСancel.style.display = 'none';
+    checkAbilityOsStart();
+    initial();
+    sallaryAmount.removeAttribute('readonly');
 
 }
 
