@@ -2,6 +2,23 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('start').disabled = (document.querySelector('.salary-amount').value === '');
+
+    let datdElements = document.querySelector('.data');
+    let textElem = datdElements.querySelectorAll('input');
+    textElem.forEach(function(item) {
+        if (item.getAttribute("placeholder") === "Наименование") {
+            item.addEventListener('input', function() {
+                item.value = item.value.replace(/[^а-яА-Я ,.:;'"()/]*$/, '');
+            });
+
+        } else if (item.getAttribute("placeholder") === "Сумма") {
+            item.addEventListener('input', function() {
+                item.value = item.value.replace(/[^0-9]/, '');
+            });
+        }
+
+        //item.setAttribute("readonly", true);
+    });
 });
 //(a)
 let btnStart = document.getElementById('start');
@@ -87,6 +104,10 @@ let appData = {
     },
     addExpensesBlock: function() {
         let cloneExpensesItem = expensesItems[0].cloneNode(true);
+        let inputElem = cloneExpensesItem.querySelectorAll('input');
+        inputElem.forEach(function(item) {
+            item.value = '';
+        });
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, btnExpensesPlus);
         expensesItems = document.querySelectorAll('.expenses-items');
         if (expensesItems.length === 3) {
@@ -104,6 +125,10 @@ let appData = {
     },
     addIncomeBlock: function() {
         let cloneIncomeItem = incomeItems[0].cloneNode(true);
+        let inputElem = cloneIncomeItem.querySelectorAll('input');
+        inputElem.forEach(function(item) {
+            item.value = '';
+        });
         incomeItems[0].parentNode.insertBefore(cloneIncomeItem, btnIncomePlus);
         incomeItems = document.querySelectorAll('.income-items');
         if (incomeItems.length === 3) {
