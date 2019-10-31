@@ -214,12 +214,13 @@ btnExpensesPlus.addEventListener('click', appData.addExpensesBlock);
 periodSelect.addEventListener('click', appData.getPeriodAmount);
 
 btnStart.addEventListener('click', appData.start);
+/*
 btnСancel.addEventListener('click', reload);
 
 function reload() {
     location.reload();
 }
-
+*/
 let checkAbilityOsStart = function() {
     btnStart.disabled = (sallaryAmount.value === '');
 }
