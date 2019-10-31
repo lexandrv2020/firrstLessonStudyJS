@@ -221,12 +221,9 @@ function reload() {
 }
 
 let checkAbilityOsStart = function() {
-    console.log('.value: ', sallaryAmount.value);
     btnStart.disabled = (sallaryAmount.value === '');
 }
 sallaryAmount.addEventListener('input', checkAbilityOsStart);
-
-
 
 /*
 let targetMonth = appData.getTargetMonth();
