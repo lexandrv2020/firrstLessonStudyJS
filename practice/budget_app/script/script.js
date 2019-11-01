@@ -183,6 +183,9 @@ let appData = {
         this.budgetDay = Math.floor(this.budgetMonth / 30);
     },
     getTargetMonth: function() {
+        if (isNotANumber(this.budgetMonth)) {
+            return 0;
+        }
         return Math.ceil(targetAmount.value / this.budgetMonth);
     },
     getStatusIncome: function() {
@@ -266,6 +269,7 @@ function _reset() {
 
     appData.period = 1;
     periodSelect.value = 1;
+    periodAmount.textContent = periodSelect.value;
     targetMonthValue.value = '';
     inputElem.forEach(function(item) {
         item.setAttribute("readonly", 'false');
