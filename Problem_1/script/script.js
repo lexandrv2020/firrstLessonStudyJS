@@ -18,6 +18,7 @@ const calculator = {
     }
 }
 
+
 let elem_num1 = document.getElementById('a'),
     elem_num2 = document.getElementById('b'),
     btn_sum = document.getElementById('sum'),
