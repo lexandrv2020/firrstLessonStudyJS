@@ -254,31 +254,13 @@ periodSelect.addEventListener('click', getPeriodAmount);
 btnСancel.addEventListener('click', _reset);
 
 function _reset() {
-    let
-        dataElem = document.querySelector('.data');
-    let inputElem = dataElem.querySelectorAll('input');
 
-    let datdElements = document.querySelector('.data');
-    let textElem = datdElements.querySelectorAll('input');
-    textElem.forEach(function(item) {
+    let allDataElements = document.querySelector('.data');
+    let allInputElements = allDataElements.querySelectorAll('input').forEach(function(item) {
         item.value = '';
         item.textContent = '';
     });
-    appData.period = 1;
-    periodSelect.value = 1;
-    sallaryAmount.value = 0;
-    appData.start();
-    sallaryAmount.value = '';
-    periodAmount.textContent = periodSelect.value;
-    targetMonthValue.value = '';
-    inputElem.forEach(function(item) {
-        item.setAttribute("readonly", 'false');
-    });
-    btnStart.style.display = 'block';
-    btnСancel.style.display = 'none';
-    checkAbilityOsStart();
-    initial();
-    sallaryAmount.removeAttribute('readonly');
+
     let removeElem = '';
     let quantityIncomes = document.querySelectorAll('.income-items').length - 1;
     let rIt = quantityIncomes;
@@ -297,7 +279,34 @@ function _reset() {
         removeElem.remove();
     }
     btnExpensesPlus.style.display = 'block';
-    //  console.log(appData);
+
+    appData.budget = 0;
+    appData.budgetDay = 0;
+    appData.budgetMonth = 0;
+    appData.income = {};
+    appData.incomeMonth = 0;
+    appData.addIncome = [];
+    appData.expenses = {};
+    appData.addExpenses = [];
+    appData.expensesMonth = 0;
+    appData.deposit = false;
+    appData.percentDeposit = 0;
+    appData.moneyDeposit = 0;
+    appData.period = 1;
+    periodSelect.value = 1;
+    sallaryAmount.value = 0;
+    sallaryAmount.value = '';
+    appData.start();
+    btnStart.style.display = 'block';
+    btnСancel.style.display = 'none';
+    checkAbilityOsStart();
+    periodAmount.textContent = periodSelect.value;
+    targetMonthValue.value = '';
+    allInputElements = allDataElements.querySelectorAll('input').forEach(function(item) {
+        console.log('item: ', item);
+        item.removeAttribute("readonly", 'false');
+    });
+    initial();
 }
 
 let checkAbilityOsStart = function() {
