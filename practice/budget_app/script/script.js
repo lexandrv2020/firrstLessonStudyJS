@@ -266,9 +266,9 @@ function _reset() {
     });
     appData.period = 1;
     periodSelect.value = 1;
-
+    sallaryAmount.value = 0;
     appData.start();
-
+    sallaryAmount.value = '';
     periodAmount.textContent = periodSelect.value;
     targetMonthValue.value = '';
     inputElem.forEach(function(item) {
@@ -279,6 +279,24 @@ function _reset() {
     checkAbilityOsStart();
     initial();
     sallaryAmount.removeAttribute('readonly');
+    let removeElem = '';
+    let quantityIncomes = document.querySelectorAll('.income-items').length - 1;
+    let rIt = quantityIncomes;
+    for (let i = 1; i <= quantityIncomes; i++) {
+        rIt = document.querySelectorAll('.income-items').length;
+        removeElem = document.querySelectorAll('.income-items')[rIt - 1];
+        removeElem.remove();
+    }
+    btnIncomePlus.style.display = 'block';
+
+    let quantityExpences = document.querySelectorAll('.expenses-items').length - 1;
+    let rEt = quantityExpences;
+    for (let i = 1; i <= quantityExpences; i++) {
+        rEt = document.querySelectorAll('.expenses-items').length;
+        removeElem = document.querySelectorAll('.expenses-items')[rEt - 1];
+        removeElem.remove();
+    }
+    btnExpensesPlus.style.display = 'block';
     console.log(appData);
 }
 
