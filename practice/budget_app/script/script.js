@@ -254,9 +254,9 @@ periodSelect.addEventListener('click', getPeriodAmount);
 btnСancel.addEventListener('click', _reset);
 
 function _reset() {
-    let dataElem = document.querySelector('.data');
+    let
+        dataElem = document.querySelector('.data');
     let inputElem = dataElem.querySelectorAll('input');
-
 
     let datdElements = document.querySelector('.data');
     let textElem = datdElements.querySelectorAll('input');
@@ -264,11 +264,11 @@ function _reset() {
         item.value = '';
         item.textContent = '';
     });
+    appData.period = 1;
+    periodSelect.value = 1;
 
     appData.start();
 
-    appData.period = 1;
-    periodSelect.value = 1;
     periodAmount.textContent = periodSelect.value;
     targetMonthValue.value = '';
     inputElem.forEach(function(item) {
@@ -279,7 +279,7 @@ function _reset() {
     checkAbilityOsStart();
     initial();
     sallaryAmount.removeAttribute('readonly');
-
+    console.log(appData);
 }
 
 let checkAbilityOsStart = function() {
