@@ -3,6 +3,7 @@
     display: inline-block;
 }
 
-.green {
-    background-color: #002151;
+input {
+    display: block;
+    margin: 10px 0;
 }
