@@ -1,6 +1,5 @@
 'use strict';
 
-
 const calculator = {
     num1: 0,
     num2: 0,
@@ -18,7 +17,6 @@ const calculator = {
         elem_result.value = result;
     }
 }
-
 
 let elem_num1 = document.getElementById('a'),
     elem_num2 = document.getElementById('b'),
