@@ -297,7 +297,7 @@ function _reset() {
         removeElem.remove();
     }
     btnExpensesPlus.style.display = 'block';
-    console.log(appData);
+    //  console.log(appData);
 }
 
 let checkAbilityOsStart = function() {
