@@ -230,7 +230,12 @@ AppData.prototype.getDisableAllInputs = function() {
     btnСancel.style.display = 'block';
 };
 
-
+AppData.prototype.getEventListeners = function() {
+    btnStart.addEventListener('click', getStartData);
+    btnIncomePlus.addEventListener('click', getaddIncomeBlock);
+    btnExpensesPlus.addEventListener('click', getaddExpensesBlock);
+    periodSelect.addEventListener('click', getPeriodAmount);
+};
 
 const appData = new AppData();
 
@@ -252,11 +257,7 @@ function getPeriodAmount() {
     appData.getPeriodAmount();
 }
 
-btnStart.addEventListener('click', getStartData);
-btnIncomePlus.addEventListener('click', getaddIncomeBlock);
-btnExpensesPlus.addEventListener('click', getaddExpensesBlock);
-periodSelect.addEventListener('click', getPeriodAmount);
-
+appData.getEventListeners();
 btnСancel.addEventListener('click', _reset);
 
 function _reset() {
