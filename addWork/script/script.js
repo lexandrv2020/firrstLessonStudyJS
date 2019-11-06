@@ -14,26 +14,19 @@ class DomElement {
     addElement() {
         if (this.selector !== '') {
             if (this.selector.substring(0, 1) === '.') {
-                let _div = document.createElement('div');
-                _div.innerHTML = 'Так как первый символ <strong>точка (.)</strong>, -  мы добавили <strong>"div"</strong>.';
-                elementSection.append(_div);
-                _div.style.height = this.height;
-                _div.style.width = this.width;
-                _div.style.background = this.bg;
-                _div.style.fontSize = this.fontSize;
+                let newEl = document.createElement('div');
+                newEl.innerHTML = 'Так как первый символ <strong>точка (.)</strong>, -  мы добавили <strong>"div"</strong>.';
+                elementSection.append(newEl);
+                newEl.style.cssText = 'height:' + this.height + '; width:' + this.width + '; background:' + this.bg + '; font-size:' + this.fontSize;
             } else if (this.selector.substring(0, 1) === '#') {
-                let _p = document.createElement('p');
-                _p.innerHTML = 'Так как первый символ <strong># (решетка)</strong>, -  мы добавили <strong>"p" (параграф)</strong>.';
-                elementSection.append(_p);
-                _p.style.height = this.height;
-                _p.style.width = this.width;
-                _p.style.background = this.bg;
-                _p.style.fontSize = this.fontSize;
+                let newEl = document.createElement('p');
+                newEl.innerHTML = 'Так как первый символ <strong># (решетка)</strong>, -  мы добавили <strong>"p" (параграф)</strong>.';
+                elementSection.append(newEl);
+                newEl.style.cssText = 'height:' + this.height + '; width:' + this.width + '; background:' + this.bg + '; font-size:' + this.fontSize;
             }
-            console.log(this);
+            // console.log(this);
         }
     }
 }
-
-const domElement2 = new DomElement('#divElement', '150px', '800px', 'green', '20px');
-domElement2.addElement();
+const domElement = new DomElement('.divElement', '50px', '800px', 'yellow', '20px');
+domElement.addElement();
