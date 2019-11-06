@@ -231,30 +231,24 @@ AppData.prototype.getDisableAllInputs = function() {
 };
 
 AppData.prototype.getEventListeners = function() {
-    btnStart.addEventListener('click', getStartData);
-    btnIncomePlus.addEventListener('click', getaddIncomeBlock);
-    btnExpensesPlus.addEventListener('click', getaddExpensesBlock);
-    periodSelect.addEventListener('click', getPeriodAmount);
+    /*    
+        btnIncomePlus.addEventListener('click', getaddIncomeBlock);
+        btnExpensesPlus.addEventListener('click', getaddExpensesBlock);
+        periodSelect.addEventListener('click', getPeriodAmount);
+    */
+    btnIncomePlus.addEventListener('click', this.addIncomeBlock);
+    btnExpensesPlus.addEventListener('click', this.addExpensesBlock);
+    periodSelect.addEventListener('click', this.getPeriodAmount);
+
 };
 
 const appData = new AppData();
 
-console.log('appData: ', appData);
+//console.log('appData: ', appData);
+btnStart.addEventListener('click', getStartData);
 
 function getStartData() {
     appData.start();
-}
-
-function getaddIncomeBlock() {
-    appData.addIncomeBlock();
-}
-
-function getaddExpensesBlock() {
-    appData.addExpensesBlock();
-}
-
-function getPeriodAmount() {
-    appData.getPeriodAmount();
 }
 
 appData.getEventListeners();
@@ -310,7 +304,6 @@ function _reset() {
     periodAmount.textContent = periodSelect.value;
     targetMonthValue.value = '';
     allInputElements = allDataElements.querySelectorAll('input').forEach(function(item) {
-        // console.log('item: ', item);
         item.removeAttribute("readonly", 'false');
     });
     initial();
@@ -321,6 +314,18 @@ let checkAbilityOsStart = function() {
 }
 sallaryAmount.addEventListener('input', checkAbilityOsStart);
 
+/*
+function getaddIncomeBlock() {
+    appData.addIncomeBlock();
+}
+
+function getaddExpensesBlock() {
+    appData.addExpensesBlock();
+}
+
+function getPeriodAmount() {
+    appData.getPeriodAmount();
+}
 //функция проверки введенного значения на число
 function isNotANumber(value) {
     return (isNaN(value) || value === '' || value === null);
@@ -329,3 +334,4 @@ function isNotANumber(value) {
 function isNotAString(value) {
     return (!isNaN(value) || value === '' || value === null)
 }
+*/
