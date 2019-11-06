@@ -216,13 +216,15 @@ AppData.prototype.calcSavedMonth = function() {
     return this.budgetMonth * periodSelect.value;
 };
 AppData.prototype.getPeriodAmount = function() {
+    //debugger;
     this.period = +periodSelect.value;
     periodAmount.textContent = periodSelect.value;
+    incomePeriodValue.value = this.period * appData.budgetMonth;
 };
 AppData.prototype.getDisableAllInputs = function() {
+
     let dataElem = document.querySelector('.data');
-    let
-        inputElem = dataElem.querySelectorAll('input');
+    let inputElem = dataElem.querySelectorAll('input');
     inputElem.forEach(function(item) {
         item.setAttribute("readonly", true);
     });
@@ -326,6 +328,7 @@ function getaddExpensesBlock() {
 function getPeriodAmount() {
     appData.getPeriodAmount();
 }
+*/
 //функция проверки введенного значения на число
 function isNotANumber(value) {
     return (isNaN(value) || value === '' || value === null);
@@ -334,4 +337,3 @@ function isNotANumber(value) {
 function isNotAString(value) {
     return (!isNaN(value) || value === '' || value === null)
 }
-*/
