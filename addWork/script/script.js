@@ -13,18 +13,22 @@ class DomElement {
     }
     addElement() {
         if (this.selector !== '') {
+            let classIdName = this.selector.substring(1);
             if (this.selector.substring(0, 1) === '.') {
                 let newEl = document.createElement('div');
+                newEl.setAttribute("class", classIdName);
+                newEl.cla
                 newEl.innerHTML = 'Так как первый символ <strong>точка (.)</strong>, -  мы добавили <strong>"div"</strong>.';
                 elementSection.append(newEl);
                 newEl.style.cssText = 'height:' + this.height + '; width:' + this.width + '; background:' + this.bg + '; font-size:' + this.fontSize;
             } else if (this.selector.substring(0, 1) === '#') {
                 let newEl = document.createElement('p');
+                newEl.setAttribute("id", classIdName);
                 newEl.innerHTML = 'Так как первый символ <strong># (решетка)</strong>, -  мы добавили <strong>"p" (параграф)</strong>.';
                 elementSection.append(newEl);
                 newEl.style.cssText = 'height:' + this.height + '; width:' + this.width + '; background:' + this.bg + '; font-size:' + this.fontSize;
             }
-            // console.log(this);
+            console.log(this);
         }
     }
 }
