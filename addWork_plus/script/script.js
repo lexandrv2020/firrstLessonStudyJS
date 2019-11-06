@@ -1,7 +1,7 @@
 'use strict';
 
 document.addEventListener("DOMContentLoaded", function() {
-    const domElement = new DomElement('.divSquare', '100px', '100px', 'green', '24');
+    const domElement = new DomElement('.divSquare', '100px', '100px', 'green');
     domElement.addElement();
 });
 
@@ -20,16 +20,12 @@ class DomElement {
         this.height = height;
         this.width = width;
         this.bg = bg;
-        this.fontSize = fontSize;
     }
     addElement() {
         if (this.selector !== '') {
 
             elementBody.append(_div);
-            _div.style.height = this.height;
-            _div.style.width = this.width;
-            _div.style.background = this.bg;
-            _div.style.position = 'absolute';
+            _div.style.cssText = 'height:' + this.height + '; width:' + this.width + '; background:' + this.bg + '; position: absolute;';
         }
         console.log(this);
     }
