@@ -10,18 +10,18 @@
 //проблемы ES5
 
 //... переопределение переменных
-/*
-console.log(n); //? undefined
 
+//console.log(n); //? undefined
+/*
 var n = 5;
-console.log(n);
+//console.log(n);
 var n = 10;
 var n = 0;
-
+*/
 
 
 //
-
+/*
 for (var i = 0; i < 5; i++) {
     setTimeout(function() {
         console.log(i); // >>>> 55555
@@ -53,7 +53,7 @@ const name = 'Alex',
 const newStr = `<h1>Hello<h1>    
                     <div>${name}</div>
                     <div>${age+1}</div>` //(переносы автоматические)?
-console.log('newStr: ', newStr);
+//console.log('newStr: ', newStr);
 */
 
 /*
@@ -97,4 +97,4 @@ console.log('sum3(6, 8); ', sum3(5, 6));
     console.log(e);
 });
 
-//стрелочная функция не имеет своего this
+//стрелочная функция не имеет своего this*/
