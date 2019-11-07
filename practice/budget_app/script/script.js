@@ -178,7 +178,7 @@ AppData.prototype.getIncomeMonth = function() {
     this.incomeMonth = sumIncome;
 };
 AppData.prototype.getBudget = function() {
-    this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + (this.moneyDeposit * this.percentDeposit / 12);
+    this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + Math.round(this.moneyDeposit * this.percentDeposit / 12);
     this.budgetDay = Math.floor(this.budgetMonth / 30);
 };
 AppData.prototype.getTargetMonth = function() {
@@ -210,7 +210,6 @@ AppData.prototype.calcSavedMonth = function() {
     return this.budgetMonth * periodSelect.value;
 };
 AppData.prototype.getPeriodAmount = function() {
-    //debugger;
     this.period = +periodSelect.value;
     periodAmount.textContent = periodSelect.value;
     incomePeriodValue.value = this.period * appData.budgetMonth;
@@ -231,7 +230,7 @@ AppData.prototype.getEventListeners = function() {
     periodSelect.addEventListener('click', this.getPeriodAmount);
 };
 
-const appData = new AppData();
+let appData = new AppData();
 
 function getStartData() {
     appData.start();
@@ -283,6 +282,12 @@ function _reset() {
     periodSelect.value = 1;
     sallaryAmount.value = 0;
     sallaryAmount.value = '';
+    debugger;
+    depositСheck.checked = false;
+    depositBank.style.display = 'none';
+    depositAmount.style.display = 'none';
+    depositAmount.value = '';
+    appData.deposit = 'false';
     appData.start();
     btnStart.style.display = 'block';
     btnСancel.style.display = 'none';
@@ -294,6 +299,8 @@ function _reset() {
     });
     initial();
 }
+
+
 let checkAbilityOsStart = function() {
     btnStart.disabled = (sallaryAmount.value === '');
 }
@@ -322,7 +329,6 @@ depositСheck.addEventListener('change', function() {
             } else {
                 depositPercent.style.display = 'none';
                 depositPercent.value = selectIndex;
-                console.log('selectIndex: ', depositPercent.value);
             }
         })
     } else {
