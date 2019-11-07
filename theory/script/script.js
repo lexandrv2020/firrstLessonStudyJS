@@ -89,14 +89,13 @@ class PassCar extends CarWash {
         //   this.washed = true; //машина помыта
         //   CarWash.counter++;
         //   this.report();
-        super.washReady(); //Наследуем из главного метода.
-        this.reportOffice();
+        super.washReady(); //Наследуем из основного класса
+        this.reportOffice(); //свой код в классе
     }
     reportOffice() { //информируем владельца
         console.log('на мойке для легковых автомобилей помыли: ' + this.brand, this.model, this.washed);
     }
 }
-
 
 ///создаем классу статические свойства (принадлежат классу а не объекту)
 CarWash.counter = 0;
