@@ -222,9 +222,8 @@ AppData.prototype.addBlock = function(items, btn, type) {
 AppData.prototype.getEventListeners = () => {
     btnIncomePlus.addEventListener('click', appData.addIncomeBlock);
     btnExpensesPlus.addEventListener('click', appData.addExpensesBlock);
-    periodSelect.addEventListener('click', appData.getPeriodAmount);
+    periodSelect.addEventListener('input', appData.getPeriodAmount);
 };
-
 
 
 function getStartData() {
