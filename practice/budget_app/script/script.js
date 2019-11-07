@@ -5,9 +5,15 @@ document.addEventListener("DOMContentLoaded", initial);
 function initial() {
 
     document.getElementById('start').disabled = (document.querySelector('.salary-amount').value === '');
+    setFormatOfValue();
 
-    const dataElements = document.querySelector('.data');
-    const textElem = dataElements.querySelectorAll('input');
+};
+
+function setFormatOfValue(textElem = undefined) {
+    if (textElem === undefined) {
+        const dataElements = document.querySelector('.data');
+        textElem = dataElements.querySelectorAll('input');
+    }
 
     textElem.forEach(function(item) {
         if (item.getAttribute("placeholder") === "Наименование") {
@@ -57,7 +63,7 @@ const incomeItems = document.querySelectorAll('.income-items'),
     expensesAmount = document.querySelector('.expenses-amount'),
     expensesItems = document.querySelectorAll('.expenses-items');
 
-let AppData = function() {
+let AppData = function() { //конструктор
     this.budget = 0;
     this.budgetDay = 0;
     this.budgetMonth = 0;
@@ -73,7 +79,8 @@ let AppData = function() {
     this.period = 1;
 };
 
-let appData = new AppData();
+let appData = new AppData(); //объект
+
 
 AppData.prototype.start = () => {
     appData.budget = +sallaryAmount.value;
@@ -98,7 +105,6 @@ AppData.prototype.showResult = () => {
     targetMonthValue.value = appData.getTargetMonth();
 };
 AppData.prototype.getExpenses = () => {
-    //const _this = this;
     expensesItems.forEach(function(item) {
         const itemExpences = item.querySelector('.expenses-title').value;
         const cashExpences = item.querySelector('.expenses-amount').value;
@@ -108,7 +114,6 @@ AppData.prototype.getExpenses = () => {
     });
 };
 AppData.prototype.getIncome = () => {
-    //const this_income = this.income;
     incomeItems.forEach(function(item) {
         const itemIncome = item.querySelector('.income-title').value;
         const cashIncome = item.querySelector('.income-amount').value;
@@ -162,7 +167,6 @@ AppData.prototype.getInfoDeposit = () => {
 };
 AppData.prototype.calcSavedMonth = () => { return appData.budgetMonth * periodSelect.value };
 
-
 AppData.prototype.getPeriodAmount = () => {
     appData.period = +periodSelect.value;
     periodAmount.textContent = periodSelect.value;
@@ -201,18 +205,14 @@ AppData.prototype.getAddAmount = function(addType, additionalItem) {
 };
 AppData.prototype.addExpensesBlock = () => appData.addBlock(expensesItems, btnExpensesPlus, '.expenses');
 AppData.prototype.addIncomeBlock = () => appData.addBlock(incomeItems, btnIncomePlus, '.income');
-//AppData.prototype.addExpensesBlock = function() {
-//    appData.addBlock(expensesItems, btnExpensesPlus, '.expenses');
-//};
-//AppData.prototype.addIncomeBlock = function() {
-//    appData.addBlock(incomeItems, btnIncomePlus, '.income');
-//};
+
 AppData.prototype.addBlock = function(items, btn, type) {
     const cloneItem = items[0].cloneNode(true);
     const inputElem = cloneItem.querySelectorAll('input');
     inputElem.forEach(function(item) {
         item.value = '';
     });
+    setFormatOfValue(inputElem);
     items[0].parentNode.insertBefore(cloneItem, btn);
     const _items = document.querySelectorAll(type + '-items');
     if (_items.length === 3) {
@@ -225,7 +225,6 @@ AppData.prototype.getEventListeners = () => {
     periodSelect.addEventListener('input', appData.getPeriodAmount);
 };
 
-
 function getStartData() {
     appData.start();
 }
@@ -236,7 +235,7 @@ btnСancel.addEventListener('click', _reset);
 function _reset() {
 
     const allDataElements = document.querySelector('.data');
-    let allInputElements = allDataElements.querySelectorAll('input').forEach(function(item) {
+    allDataElements.querySelectorAll('input').forEach(function(item) {
         item.value = '';
         item.textContent = '';
     });
@@ -287,7 +286,7 @@ function _reset() {
     checkAbilityOsStart();
     periodAmount.textContent = periodSelect.value;
     targetMonthValue.value = '';
-    allInputElements = allDataElements.querySelectorAll('input').forEach(function(item) {
+    allDataElements.querySelectorAll('input').forEach(function(item) {
         item.removeAttribute("readonly", 'false');
     });
     initial();
