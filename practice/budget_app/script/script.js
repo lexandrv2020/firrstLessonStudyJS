@@ -63,7 +63,7 @@ const incomeItems = document.querySelectorAll('.income-items'),
     expensesAmount = document.querySelector('.expenses-amount'),
     expensesItems = document.querySelectorAll('.expenses-items');
 
-let AppData = function() { //конструктор
+/*let AppData = function() { //конструктор
     this.budget = 0;
     this.budgetDay = 0;
     this.budgetMonth = 0;
@@ -77,10 +77,29 @@ let AppData = function() { //конструктор
     this.percentDeposit = 0;
     this.moneyDeposit = 0;
     this.period = 1;
-};
+};*/
+
+class AppData { //класс
+    constructor(budget = 0, budgetDay = 0, budgetMonth = 0, income = {}, incomeMonth = 0,
+        addIncome = [], expenses = {}, addExpenses = [], expensesMonth = 0, deposit = false,
+        percentDeposit = 0, moneyDeposit = 0, period = 1) {
+        this.budget = budget;
+        this.budgetDay = budgetDay;
+        this.budgetMonth = budgetMonth;
+        this.income = income;
+        this.incomeMonth = incomeMonth;
+        this.addIncome = addIncome;
+        this.expenses = expenses;
+        this.addExpenses = addExpenses;
+        this.expensesMonth = expensesMonth;
+        this.deposit = deposit;
+        this.percentDeposit = percentDeposit;
+        this.moneyDeposit = moneyDeposit;
+        this.period = period;
+    }
+}
 
 let appData = new AppData(); //объект
-
 
 AppData.prototype.start = () => {
     appData.budget = +sallaryAmount.value;
