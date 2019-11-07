@@ -1,294 +1,123 @@
+/*defineProperty, Геттеры, Сеттеры*/
+
 'use strict';
-/*
-Особенности современного стандарта ES6 (Ecma Script - стандарт) 'Harmony'
-17/06/2015 
-Интерполяция. Деструктуризация 
-Новый синтаксис
-*/
-
-//********ПЕРЕМЕННЫЕ**********************
-//проблемы ES5
-
-//... переопределение переменных
-
-//console.log(n); //? undefined
-/*
-var n = 5;
-//console.log(n);
-var n = 10;
-var n = 0;
-*/
 
 
-//
-/*
-for (var i = 0; i < 5; i++) {
-    setTimeout(function() {
-        console.log(i); // >>>> 55555
-    }, 1000);
-}
+/*defineProperty
 
-for (let i = 0; i < 5; i++) {
-    setTimeout(function() {
-        console.log(i); // >>>> 55555
-    }, 1000 * i);
-}
+const mazda = {
 
-let -  область видимости = блок кода ограниченный фигурными скобками {}  !!!!!!!!!!!!!!!
-const -  область видимости = весь код  !!!!!!!!!!!!!!!
-
-const , let - объявляются один раз
-
-массивы заданные через const могут расширяться элементами (добавлением).
-объекты заданные через const позвоялют изменять только свойства (добавить, менять свойства присутствующие)
-*/
-
-//********СТРОКИ**********************
-//-------------
-//+++++++++++++
-/*
-const name = 'Alex',
-    age = 30;
-
-const newStr = `<h1>Hello<h1>    
-                    <div>${name}</div>
-                    <div>${age+1}</div>` //(переносы автоматические)?
-//console.log('newStr: ', newStr);
-*/
-
-/*
-//********ПАРАМЕТРЫ ПО УМОЛЧАНИЮ (в параметрах функции)**********************
-const createHome = function(wall = 1, doors = 1, windows = 2) {
-    console.log(`Дом имеет:
-        стен: ${wall},
-        дверей: ${doors},
-        окон: ${windows}`);
+    model: 3,
+    year: 2006
 };
-createHome(5, 4);
+//***************добавляем свойства 
+//mazds.color = 'blue';
+//mazds['color'] = 'blue'; 
+Object.defineProperty(mazda, 'color', {
+    value: 'blue', //значение
+    writable: false, //разрешить перезапись
+    configurable: false, //разрешить удалять
+    enumerable: false, //разрешить на for ** in (невидимое свойство)
+});
+
+for (let key in mazda) {
+    console.log(key + ': ', mazda[key]);
+
+}
+console.log('mazda: ', mazda);
 */
 
-///СТЕРЕЛОЧНЫЕ ФУНКЦИИ***************************************
-/*
-const sum2 = (a, b) => {
-    return a + b;
-}
-console.log('sum2(5, 6); ', sum2(5, 6));
-
-//если функция сразу возвращает значение >>>
-const sum1 = (a, b) => a + b;
-console.log('sum1(6, 8); ', sum1(5, 6));
-
-//если функция возвращает объект >>> надо включать в скобки ({ })
-const sum3 = (a, b) => ({
-    a: a,
-    b: b,
-    sum: a + b,
-});
-console.log('sum3(6, 8); ', sum3(5, 6));
-
-//////////////////////
-[].forEach((e) => {
-    console.log(e);
-});
-
-// === 
-
-[].forEach(function(e) {
-    console.log(e);
-});
-
-//стрелочная функция не имеет своего this*/
-
-/////PART #2
-/*
-//Rest parametr !!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!
-//неопределенное количество параметров
-//через 3 точки (служебный параметр)
-//он всегда должен стоять последним
-function test(a, b, c, ...arr) {
-       console.log('a: ', a);
-        console.log('b: ', b);
-        console.log('c: ', c);
-        console.log('arr: ', arr);
-    
-}
-test('red', 5, 12, 'black', [], true, 9);
-
-//Spread operator !!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!
-const arr = ['red', 5, 12];
-
-function testR(a, b, c) {
-    // console.log('a, b, c: ', a, b, c);
-}
-testR(...arr);
-
-//можно комбинировать
-const arr11 = ['red', 5, 12];
-const arr12 = [17, true];
-
-function testR2(a, b, c, d, e, f) {
-
-    console.log('a, b, c: ', a, b, c);
-    console.log('d, e: ', d, e);
-}
-testR2(...arr11, 50, ...arr12);
-//
-//собрать из нескольких массивов SPREAD операторов - один.
-//!!!!!!!!!!!!!!!!!!!!!!!!!!
-const arr13 = [...arr11, 'hi', ...arr12];
-console.log('arr13: ', arr13);
-
-///преобразовтаь DOM в массив  !!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!
-const allEl = document.querySelectorAll('meta');
-console.log('allEl: ', allEl);
-const newArr = [...allEl];
-console.log('newArr: ', newArr);
-*/
-//////!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!
-//Деструктуризация объектов
+/*Геттеры, Сеттеры*/
 /*
 const car = {
     brand: 'mazda',
     model: 3,
-    options: {
-        color: 'red',
-        ABS: true
+    year: 2006,
+    get fullTitle() {
+        return this.brand + ' ' + this.model;
+    },
+    set fullTitle(value) {
+        this.brand = value;
+    },
+
+};
+car.color = 'blue'; //значение
+car.fullTitle = '   B M W   '; //без 'set' (в object) не смогли бы установить 
+
+console.log('car: ', car.fullTitle); //из getter
+*/
+
+class CarWash { //мОЙКА АВТО
+    constructor(brand, model = CarWash.noCarBaseModel(), services = []) {
+        this.brand = brand;
+        this.model = model;
+        this.washed = false; //машины поступают грязные        
+        this._services = services; //(для скрытия от пользователя свойства объекта "_" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    }
+
+    static noCarBaseModel() { //статические методы. нельзя вызвать из объекта. только из класса
+        return 'none';
+    }
+
+    washReady() {
+        this.washed = true; //машина помыта
+        CarWash.counter++;
+        this.report();
+    }
+    report() { //информируем владельца
+        console.log(this.brand, this.model, this.washed);
+    }
+    get services() {
+        console.log(this._services);
+        return this._services.length > 0 ? 'Есть доп.услуги (' + this._services + ')' : 'Нет доп.услуг';
+    }
+
+    set services(addServices) {
+        this._services.push(addServices);
     }
 }
 
-const { brand, model, transmission = 'auto' } = car; //свойства которые хотим взять и внести в переменную
-//добавили свойство по умолчанию               
-console.log('brand, model: ', brand, model);
-
-const { options: { color, ABS } } = car; //свойства которые хотим взять и внести в переменную
-const { options: { color: CarColor, ABS: CarABS } } = car; // + можно указать новое имя переменной
-console.log('CarColor: ', CarColor);
-console.log('color, ABS: ', color, ABS);
-
-
-const createCar = ({ brand = 'audi', model, color = 'black' }) => {
-    console.log(`
-        Запущено в производство ${brand} ${model}
-        цвет кузова ${color}
-    `)
-};
-//-либо без определения по умолчнию
-//const createCar = () => { 
-//    console.log(`
-//        Запущено в производство ${car.brand} ${car.model}
-//        цвет кузова ${car.color}
-//    `);
-//};
-
-createCar({
-    // brand: 'mazda',
-    model: 3,
-    options: {
-        color: 'red',
-        ABS: true
+///наследование!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// наследуемый класс наследует свойства и методы родителя
+class PassCar extends CarWash {
+    //ддя создания своих свойств указываем SUPER
+    constructor(brand, model, services, pass = 5) {
+        super(brand, model, services); //свойства какие будем наследовать
+        this.pass = pass;
     }
-});*/
-
-/*
-const car = {
-    brand: 'mazda',
-    model: 3,
-    options: {
-        color: 'red',
-        abs: true
+    washReady() {
+        //   this.washed = true; //машина помыта
+        //   CarWash.counter++;
+        //   this.report();
+        super.washReady(); //Наследуем из главного метода.
+        this.reportOffice();
+    }
+    reportOffice() { //информируем владельца
+        console.log('на мойке для легковых автомобилей помыли: ' + this.brand, this.model, this.washed);
     }
 }
 
-const { brand, ...options } = car;
-console.log('brand: ', brand, options); //свойство + недостающие параметры
-*/
+
+///создаем классу статические свойства (принадлежат классу а не объекту)
+CarWash.counter = 0;
+
+const car1 = new CarWash('brand', 3, ['black tires', 'wax']); //новый ОБЪЕКТ
+const car2 = new PassCar('bmw', 3); //новый ОБЪЕКТ
+const car3 = new CarWash('volvo', 3); //новый ОБЪЕКТ
+const car4 = new CarWash('ZAZ'); //новый ОБЪЕКТ
+
+car1.washReady();
+console.log('CarWash.counter: ', CarWash.counter);
+car2.washReady();
+console.log('CarWash.counter: ', CarWash.counter);
 /*
-const cars = ['mazda', 'audi', 'bmw', 'VAZ'];
-const [a, b, c] = cars;
-console.log('a, b, c: ', a,  b, c); //a, b, c:  mazda audi bmw
-*/
-/*
-const cars = [
-    ['mazda', 'audi'],
-    ['bmw', 'VAZ'], 'ЗИЛ'
-];
-const [
-    [a, b], c
-] = cars;
-console.log('a, b, c: ', a, b, c); // + можно вставить поумолчанию
-
-const carsModel = {
-    brand: 'Volvo',
-    models: {
-        sedan: ['s60', 's90'],
-        cross: ['v60', 'v90'],
-    }
-};
-const {
-    models: {
-        sedan: [s1, s2],
-        cross: [c1, c2]
-    }
-} = carsModel;
-console.log(s1, s2, c1, c2); //s60 s90 v60 v90
+car3.washReady();
+console.log('CarWash.counter: ', CarWash.counter);
+car4.washReady();
+console.log('CarWash.counter: ', CarWash.counter);
 */
 
-/*
-//создание объекта из переменных
-const car = 'bently';
-const cycle = 'bmx';
-const bike = 'honda';
-
-//раньше
-
-//const transport = {
-//    car: car,
-//    cycle: cycle,
-//    bike: bike,
-//    ride: function() {
-//        console.log('go');
-//    }
-//};
-
-
-//сейачс
-const transport = {
-        car,
-        cycle,
-        bike,
-        ride() { //не стрелочная функция
-            console.log('go');
-        }
-    }
-transport.ride();
-
-console.log('transport: ', transport);
-*/
-
-
-
-////////////********************************************** */
-///Object.assign/////////////////////////////////////////////
-//создаем объект, сливаем (объединяем свойства)
-
-const transport = {
-    bike: 'honda',
-    car: 'bently',
-    cycle: 'bmx',
-};
-
-const newTransport = {
-    bike: 'suzuki',
-    quadBike: 'polaris',
-};
-
-Object.assign(transport, newTransport); //перенесли свойства из newTrans в transport (добавили / заменили)
-
-const currentTrans = Object.assign({}, transport, newTransport); //создаем новый объект
-console.log('currentTrans: ', currentTrans);
-console.log('newTransport: ', newTransport);
-console.log('transport: ', transport);
+car2.services = 'Протирка стекол';
+console.log(car1);
+console.log(car2);
+//console.log('car1.services: ', car1.services);
