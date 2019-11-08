@@ -14,8 +14,65 @@ function storageAvailable(type) {
     }
 };
 
+function deleteAllCookies() {
+    let cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i];
+        let eqPos = cookie.indexOf("=");
+        let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+}
+
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+};
+
+function checkCookies(name) {
+    let с_budget_month = getCookie(name);
+    if (с_budget_month === 'undefined' || с_budget_month !== localStorage.getItem(name)) {
+        localStorage.clear();
+        deleteAllCookies();
+        return true;
+    }
+    return false;
+}
+
 function initial() {
+
+    //соответствие lokalStorage && cookies
+    let stop = false;
+
+    if (storageAvailable('localStorage')) {
+        if (!(stop)) {
+            stop = checkCookies('.budget_month-value');
+        }
+        if (!(stop)) {
+            stop = checkCookies('.budget_day-value');
+        }
+        if (!(stop)) {
+            stop = checkCookies('.expenses_month-value');
+        }
+        if (!(stop)) {
+            stop = checkCookies('.additional_income-value');
+        }
+        if (!(stop)) {
+            stop = checkCookies('.additional_expenses-value');
+        }
+        if (!(stop)) {
+            stop = checkCookies('.income_period-value');
+        }
+        if (!(stop)) {
+            stop = checkCookies('.target_month-value');
+        }
+    }
+
     let isFromLS = false;
+
     if (storageAvailable('localStorage')) {
         for (let key in localStorage) {
 
@@ -92,6 +149,7 @@ function setItems(name, value, exp_y, exp_m, exp_d, path, domain, security) {
 };
 
 function setCookieAndLocalStorage() {
+
     setItems('.budget_month-value', budgetMonthValue.value, 2020, 1, 1);
     setItems('.budget_day-value', budgetDayValue.value, 2020, 1, 1);
     setItems('.expenses_month-value', expensesMonthValue.value, 2020, 1, 1);
@@ -392,7 +450,7 @@ function _reset() {
     initial();
 
     localStorage.clear();
-    //document.cookie.clear();
+    deleteAllCookies();
 
 }
 
