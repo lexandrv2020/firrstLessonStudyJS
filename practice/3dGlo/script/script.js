@@ -73,7 +73,7 @@ window.addEventListener('DOMContentLoaded', function() {
             timerHours.textContent = (hours < 10) ? '0' + hours : hours;
             timerMinutes.textContent = (minutes < 10) ? '0' + minutes : minutes;
             timerSeconds.textContent = (seconds < 10) ? '0' + seconds : seconds;
-            console.log('theEnd: ', theEnd);
+            //console.log('theEnd: ', theEnd);
             if (theEnd) {
                 timerNumbers.style.color = '#7d0f0f';
                 timerNumbers.style.fontWeight = '700';

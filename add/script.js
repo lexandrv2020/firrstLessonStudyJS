@@ -1,5 +1,35 @@
 //setTimeout, setInterval и requestAnimationFrame
-//'use strict';
+'use strict';
+
+let currentTime = document.getElementsByTagName('h1'),
+    textHello = document.querySelector('.hello'),
+    getDay = document.querySelector('.getDay'),
+    getTime = document.querySelector('.getTime'),
+    toNewYear = document.querySelector('.toNewYear'),
+    arrDays = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+    curentDate = new Date(),
+    curentDay = curentDate.getDay(),
+    curentHour = curentDate.getHours(),
+    am_pm = curentHour >= 12 ? 'PM' : 'AM',
+    newYear = new Date('01 jan 2020 00:00:00');
+
+currentTime[0].textContent = curentDate;
+console.log('curentDay: ', curentDay);
+if (curentHour >= 22 & curentHour < 6) {
+    textHello.textContent = 'Доброй ночи';
+} else if (curentHour >= 6 & curentHour < 10) {
+    textHello.textContent = 'Доброе утро';
+} else if (curentHour >= 12 & curentHour < 18) {
+    textHello.textContent = 'Добрый день';
+} else if (curentHour >= 18 & curentHour < 22) {
+    textHello.textContent = 'Добрый вечер';
+};
+
+getDay.textContent = 'Сегодня: ' + arrDays[curentDay + 1];
+getTime.textContent = curentDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+
+
+
 
 //window.setTimeout(callback функция, время сек, [arg в функцию])
 // =     setTimeout(callback функция, время сек, [arg в функцию])
@@ -25,7 +55,7 @@ setTimeout(function() {
 
 //clearTimeout(idInterval);
 //clearInterval(idInterval);
-*/
+
 
 let worm = document.querySelector('.worm'),
     plane = document.querySelector('.airplane'),
@@ -50,6 +80,7 @@ let warmDown = () => {
 
 
 //requestAnimationFrame  - оптимизация анимации
+/*
 
 let flyInterval;
 let flyAnimate = () => {
@@ -67,9 +98,9 @@ let flyAnimate = () => {
     console.log(count);
 }
 
-/*idInterval = setTimeout(() => {
+idInterval = setTimeout(() => {
     warmDown();
-}, 100);*/
+}, 100);
 
 let animate = false;
 
@@ -84,7 +115,7 @@ document.addEventListener('click', function() {
 });
 
 //////**************************************
-//********************DATE */
+//********************DATE 
 
 
 
@@ -134,4 +165,4 @@ console.log(Date.parse('10 march 2012')); //миллисек до 10.03.2012 с 
 // console.log('час ' + (date6.getHours()));
 // console.log('мин ' + (date6.getMinutes()));
 // console.log('сек ' + (date6.getSeconds()));
-// console.log('миллсек ' + (date6.getMilliseconds));
+// console.log('миллсек ' + (date6.getMilliseconds));*/
