@@ -1,130 +1,137 @@
-//Коллекции Map и Set
-'use strict';
-///ОБЪЕКТ
-const obj = {
-        a: 5,
-        b: 10,
+//setTimeout, setInterval и requestAnimationFrame
+//'use strict';
+
+//window.setTimeout(callback функция, время сек, [arg в функцию])
+// =     setTimeout(callback функция, время сек, [arg в функцию])
+/*
+let getMessage = function(name) {
+    console.log('Привет ' + name + ' !')
+}
+setTimeout(function() {
+    console.log('Сообщение в конолью');
+}, 3000);
+//setInterval(callback функция, время сек, [arg в функцию])
+let count = 0;
+
+let idInterval = setInterval(getMessage, 1000, 'Георгий');
+//let idInterval = setInterval(function() {
+//    count++
+//    console.log('Привет я setInterval ' + count + '!');
+//}, 2000);
+
+setTimeout(function() {
+    clearInterval(idInterval);
+}, 10000);
+
+//clearTimeout(idInterval);
+//clearInterval(idInterval);
+*/
+
+let worm = document.querySelector('.worm'),
+    plane = document.querySelector('.airplane'),
+    count = 0;
+
+let warmDown = () => {
+        count++;
+        worm.style.top = count + 'px';
+        plane.style.left = count * 2 + 'px';
+        if (count < 360) {
+            setTimeout(warmDown, 10);
+        } else {
+            clearInterval(idInterval);
+        };
+        console.log(count);
     }
-    //ключ всегда =  Строка
-    //свойства всегда наследуются
-    //console.log('obj: ', obj);
-    //console.log(Object.keys(obj)); //коллекция свойство
+    /*
+    idInterval = setTimeout(() => {
+        warmDown();
+    }, 100);
+    */
 
 
+//requestAnimationFrame  - оптимизация анимации
 
-///КОЛЛЕКЦИЯ MAP
-const map = new Map(); //коллекция!!!!
-
-map.set('car', { brand: 'mazda', model: 3 })
-map.set(777, 'три топора') //ключ может быть и числом и Null
-    .set(null, 'даже так')
-    .set(NaN, 'Ух ты')
-    .set(undefined, 'неожиданно');
-
-const newObj = {
-    name: 'Maks',
-    age: 30,
+let flyInterval;
+let flyAnimate = () => {
+    flyInterval = requestAnimationFrame(flyAnimate);
+    count++;
+    if (count < 360) {
+        worm.style.top = count + 'px';
+        plane.style.left = count * 2 + 'px';
+    }
+    if (count < 500) {
+        plane.style.left = count * 2 + 'px';
+    } else {
+        cancelAnimationFrame(flyInterval);
+    };
+    console.log(count);
 }
-map.set(newObj, 111); //объект является ключом
 
-const func = () => {
-    console.log('Hello');
-}
-map.set(func, "фига се") //Функция является ключом !!!
-    .set(true, false); //и даже boolean
+/*idInterval = setTimeout(() => {
+    warmDown();
+}, 100);*/
 
-//получать значения - get
-//console.log(map.get(true));
+let animate = false;
 
-//проверить наличие значения свойст - set
-//console.log(map.has(null));
-//console.log(map.has('hi'));
-
-//у коллекции есть свойство size (количечество элементов )
-//console.log(map.size);
-
-//console.log('map: ', map);
-
-
-//можем передать значения сразу при создании коллекции
-//массивом устанавливаем сразу значения
-const newMap = new Map([
-    [2019, 'autumn'],
-    ['joker', 1]
-]);
-newMap.set(1222112, 'в значение чего то там');
-//console.log('newMap: ', newMap.get(2019));
-
-
-
-const collectMap = new Map([
-
-    ['hello', 'World'],
-    ['year', 2019],
-    ['month', 'July']
-]);
-//console.log('collectMap: ', collectMap);
-collectMap.delete('month'); //удаляем элемент
-//console.log('collectMap: ', collectMap);
-collectMap.clear(); //очищает коллекцию
-//console.log('collectMap: ', collectMap);
-
-
-const arr = Array.from(map); // = коллекцию массивов из Map
-//console.log('arr: ', arr);
-
-newMap.forEach(function(item) { ///по старому
-    //console.log('item: ', item);
+document.addEventListener('click', function() {
+    if (animate) {
+        requestAnimationFrame(flyAnimate);
+        animate = false;
+    } else {
+        cancelAnimationFrame(flyInterval);
+        animate = true;
+    }
 });
 
-newMap.forEach((value, key) => { //по новому
-    //console.log(key, value);
-});
-
-for (let [key, value] of newMap) { //по новому
-    console.log(key, value);
-};
+//////**************************************
+//********************DATE */
 
 
 
-function User(name) {
-    this.name = name;
-    this.isAdmin = false;
-}
-let user = new User('Ivan');
-//console.log('User: ', User); //конструктор - НЕ ДАННЫЕ
-//console.log('user: ', user); //ОБЪЕКТ-ДАННЫЕ из конструктора
+let date1 = new Date('1987 31 jan'),
+    date2 = new Date('31 march 1987'),
+    date3 = new Date(1987, 07, 23),
+    date4 = new Date(2010, 07, 23),
+    date5 = new Date(2010, 12 - 1, 23),
+    date6 = new Date(1980, 0, 23, 30, 15, 00),
+    date7 = new Date();
+//console.log(date1);
+//console.log(date2);
+//console.log(date3);
+//console.log(date4);
+//console.log(date5);
+console.log(date7);
+//Fri Nov 08 2019 15:17:40 GMT+0300 (Москва, стандартное время)
 
+//месяца от 0 до 11 (янв...дек)
+//день недели от 0 до 6 (вск, пн.....сб)
 
+//установить
+//date6.setMonth(10);
+//date6.setDate(23);
+//date6.setHours(10, 30, 15, 00);
+//...
 
+//по гринвичу c UTC
+//date6.getUTCFullYear()....; 
+console.log('время ' + date7.getTime());
 
+console.log(date7.toTimeString());
+console.log(date7.toDateString());
 
-///КОЛЛЕКЦИЯ SET (для хранения уникальных значений) // - (список значений - дубли неуникальные - не сохраняется)
-//ключи могут быть разные как и в Mat
-//менее ресурсозатратнее чем массив
-const carsSet = new Set();
-carsSet.add('Volvo');
-carsSet.add('Audio');
-carsSet.add('BMW');
-carsSet.add('Volvo');
-console.log('carsSet: ', carsSet.size);
-console.log('carsSet: ', carsSet);
+console.log(date7.toLocaleTimeString('ru'));
+console.log(date7.toLocaleDateString());
+console.log(date7.toLocaleTimeString('en'));
+console.log(date7.toISOString()); //2019-11-08T13:47:09.481Z
+console.log(date7.toISOString().substr(0, 10)); //2019-11-08
+console.log(Date.now()); //миллисек с 01.01.1970
+console.log(Date.parse('10 march 2012')); //миллисек до 10.03.2012 с 01.01.1970
 
-carsSet.has('Volvo') //true
-carsSet.has('VAZ') //false
-
-carsSet.delete('BMW');
-console.log('carsSet: ', carsSet);
-
-const carsSet2 = new Set(['Миша', 'Петя', 'Коля']);
-const carsSet3 = new Set(['Оля', 'Маша', 'Аня']);
-const [name1, name2] = carsSet2;
-console.log(name1, name2); //по индексу 'Миша', 'Петя'
-console.log([...carsSet2]); //превратил коллекцию в arr
-
-const carsSetAll = new Set([...carsSet2, ...carsSet3]);
-console.log('carsSetAll: ', carsSetAll);
-
-carsSetAll.forEach((key) => { //по новому
-    console.log(key);
-});
+// console.log('год ' + date6.getFullYear());
+// console.log('месяц ' + (date6.getMonth() + 1));
+// console.log('день месяца ' + (date6.getDate()));
+// console.log('день недели ' + (date6.getDay()));
+// console.log('час ' + (date6.getHours()));
+// console.log('мин ' + (date6.getMinutes()));
+// console.log('сек ' + (date6.getSeconds()));
+// console.log('миллсек ' + (date6.getMilliseconds));
