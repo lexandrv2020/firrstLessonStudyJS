@@ -2,11 +2,57 @@
 
 document.addEventListener("DOMContentLoaded", initial);
 
+function storageAvailable(type) {
+    try {
+        var storage = window[type],
+            x = '__storage_test__';
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+    } catch (e) {
+        return false;
+    }
+};
+
 function initial() {
+    let isFromLS = false;
+    if (storageAvailable('localStorage')) {
+        for (let key in localStorage) {
 
-    document.getElementById('start').disabled = (document.querySelector('.salary-amount').value === '');
+            if (!localStorage.hasOwnProperty(key)) {
+                continue;
+            }
+
+            let elem = document.querySelector(key);
+            elem.value = localStorage.getItem(key);
+            isFromLS = (elem.value === '' || elem.value === '0' || elem.value === 'NaN') ? false : true;
+        };
+
+    }
+    if ((isFromLS) && (document.querySelector('.salary-amount').value === '') && (document.querySelector('.budget_month-value').value !== '')) {
+        //получены данные с LS
+        btnStart.style.display = 'none';
+        btnСancel.style.display = 'block';
+        let allDataElements = document.querySelector('.data');
+        allDataElements.querySelectorAll('input').forEach(function(item) {
+            item.setAttribute("readonly", 'true');
+        });
+        periodAmount.textContent = periodSelect.value;
+        targetMonthValue.value = '';
+    } else {
+        btnStart.style.display = 'block';
+        btnСancel.style.display = 'none';
+        let allDataElements = document.querySelector('.data');
+        allDataElements.querySelectorAll('input').forEach(function(item) {
+            item.removeAttribute("readonly");
+        });
+        periodAmount.textContent = periodSelect.value;
+        targetMonthValue.value = '';
+
+        document.getElementById('start').disabled = (document.querySelector('.salary-amount').value === '');
+    }
+
     setFormatOfValue();
-
 };
 
 function setFormatOfValue(textElem = undefined) {
@@ -14,11 +60,10 @@ function setFormatOfValue(textElem = undefined) {
         const dataElements = document.querySelector('.data');
         textElem = dataElements.querySelectorAll('input');
     }
-
     textElem.forEach(function(item) {
         if (item.getAttribute("placeholder") === "Наименование") {
             item.addEventListener('input', function() {
-                item.value = item.value.replace(/[^а-яА-Я ,.:;'"()/]*$/, '');
+                item.value = item.value.replace(/[^а-яА-Я ,.:;Ёё'"()/]*$/, '');
             });
         } else if (item.getAttribute("placeholder") === "Сумма") {
             item.addEventListener('input', function() {
@@ -26,6 +71,35 @@ function setFormatOfValue(textElem = undefined) {
             });
         }
     });
+};
+
+function setItems(name, value, exp_y, exp_m, exp_d, path, domain, security) {
+    //localStorage
+    if (storageAvailable('localStorage') && (name !== 'isLoad')) {
+        localStorage.setItem(name, value);
+    }
+    //cookies
+    let cookieStr = name + '=' + encodeURI(value);
+    if (exp_y) {
+        let expires = new Date(exp_y, exp_m - 1, exp_d);
+        cookieStr += '; expires=' + expires.toGMTString();
+    }
+    cookieStr += path ? '; path=' + path : '';
+    cookieStr += domain ? '; domain=' + domain : '';
+    cookieStr += security ? '; security' : '';
+    cookieStr += '; isLoad=true';
+    document.cookie = cookieStr;
+};
+
+function setCookieAndLocalStorage() {
+    setItems('.budget_month-value', budgetMonthValue.value, 2020, 1, 1);
+    setItems('.budget_day-value', budgetDayValue.value, 2020, 1, 1);
+    setItems('.expenses_month-value', expensesMonthValue.value, 2020, 1, 1);
+    setItems('.additional_income-value', additionalIncomeValue.value, 2020, 1, 1);
+    setItems('.additional_expenses-value', additionalExpensesValue.value, 2020, 1, 1);
+    setItems('.income_period-value', incomePeriodValue.value, 2020, 1, 1);
+    setItems('.target_month-value', targetMonthValue.value, 2020, 1, 1);
+    setItems('isLoad', true, 2020, 1, 1);
 };
 
 const btnStart = document.getElementById('start');
@@ -116,6 +190,7 @@ AppData.prototype.start = () => {
 };
 AppData.prototype.showResult = () => {
     budgetMonthValue.value = appData.budgetMonth;
+    //debugger;
     budgetDayValue.value = appData.budgetDay;
     expensesMonthValue.value = appData.expensesMonth;
     additionalExpensesValue.value = appData.addExpenses.join(', ');
@@ -198,6 +273,8 @@ AppData.prototype.getDisableAllInputs = () => {
     inputElem.forEach(function(item) {
         item.setAttribute("readonly", true);
     });
+    setCookieAndLocalStorage();
+
     btnStart.style.display = 'none';
     btnСancel.style.display = 'block';
 };
@@ -253,7 +330,7 @@ btnСancel.addEventListener('click', _reset);
 
 function _reset() {
 
-    const allDataElements = document.querySelector('.data');
+    let allDataElements = document.querySelector('.data');
     allDataElements.querySelectorAll('input').forEach(function(item) {
         item.value = '';
         item.textContent = '';
@@ -300,8 +377,12 @@ function _reset() {
     depositAmount.value = '';
     appData.deposit = 'false';
     appData.start();
+
+
     btnStart.style.display = 'block';
     btnСancel.style.display = 'none';
+
+
     checkAbilityOsStart();
     periodAmount.textContent = periodSelect.value;
     targetMonthValue.value = '';
@@ -309,6 +390,10 @@ function _reset() {
         item.removeAttribute("readonly", 'false');
     });
     initial();
+
+    localStorage.clear();
+    //document.cookie.clear();
+
 }
 
 const checkAbilityOsStart = () => {
