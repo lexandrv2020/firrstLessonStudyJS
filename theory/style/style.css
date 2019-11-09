@@ -1,13 +1,8 @@
-/** {
-    box-sizing: border-box;
-    display: inline-block;
+img {
+    position: absolute;
 }
-
-.green {
-    background-color: #002151;
-}
-*/
 
 body {
-    font-weight: bold;
+    background: url('https://avatars.mds.yandex.net/get-pdb/1932994/b11bae9a-80d5-4cc4-a163-32118b9559ec/s1200') no-repeat center;
+    background-size: 100%;
 }
