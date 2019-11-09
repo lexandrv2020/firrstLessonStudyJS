@@ -8,13 +8,12 @@ window.addEventListener('DOMContentLoaded', function() {
             timerMinutes = document.querySelector('#timer-minutes'),
             timerSeconds = document.querySelector('#timer-seconds');
 
-
         function getTimeRemaining() {
 
-            let dateStop = new Date(deadline),
+            let dateStopLocal = new Date(deadline),
+                dateStopUTC = new Date(dateStopLocal.toUTCString().substr(0, 25)),
                 dateNow = new Date().getTime(),
-                timeRemaining = (dateStop - dateNow) / 1000,
-
+                timeRemaining = (dateStopUTC - dateNow) / 1000,
                 seconds = Math.floor(timeRemaining % 60),
                 minutes = Math.floor((timeRemaining / 60) % 60),
                 hours = Math.floor((timeRemaining / 60 / 60) % 24);
@@ -24,7 +23,6 @@ window.addEventListener('DOMContentLoaded', function() {
                 minutes,
                 seconds,
             }
-
         }
 
         function updateClock() {
@@ -34,14 +32,15 @@ window.addEventListener('DOMContentLoaded', function() {
             timerSeconds.textContent = timer.seconds;
             if (timer.timeRemaining > 0) {
                 setTimeout(updateClock, 1000)
+            } else {
+                let newDate = new Date(deadline);
+                newDate.setDate(newDate.getDate() + 1);
+                newDate = newDate.toUTCString();
+                countTimer(newDate);
             }
 
         }
-
         updateClock();
     }
-    timeOfMoscow = new Date();
-    console.log('timeOfMoscow: ', timeOfMoscow);
-    countTimer('09 nov 2019');
-
+    countTimer("10 nov 2019");
 });
