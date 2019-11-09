@@ -31,9 +31,11 @@ function startMove() {
     if (flying === false) {
         moveInterval = requestAnimationFrame(animeMosq);
         flying = true;
+        btnStart.textContent = 'Stop';
     } else {
         flying = false;
         cancelAnimationFrame(moveInterval);
+        btnStart.textContent = 'Start';
     }
 
 }
