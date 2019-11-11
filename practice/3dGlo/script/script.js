@@ -79,31 +79,70 @@ window.addEventListener('DOMContentLoaded', function() {
     countTimer(deadline);
 
     //меню
-
     const toggleMenu = () => {
 
         const btnMenu = document.querySelector('.menu'),
             menu = document.querySelector('menu'),
             menuItems = menu.querySelectorAll('ul>li'),
+            menuLi = menu.querySelectorAll('li>a'),
+            imgBtn = document.querySelector('main>a'),
             closeBtn = document.querySelector('.close-btn');
+        console.log('imgBtn: ', imgBtn);
 
+        /*
+                let serviceBlock = document.querySelector('#service-block'),
+                    portfolio = document.querySelector('#portfolio'),
+                    calc = document.querySelector('#calc'),
+                    companies = document.querySelector('#companies'),
+                    command = document.querySelector('#command'),
+                    connect = document.querySelector('#connect');
+
+                serviceBlock.scrollIntoView({ behavior: 'smooth' });
+                portfolio.scrollIntoView({ behavior: 'smooth' });
+                calc.scrollIntoView({ behavior: 'smooth' });
+                companies.scrollIntoView({ behavior: 'smooth' });
+                command.scrollIntoView({ behavior: 'smooth' });
+                connect.scrollIntoView({ behavior: 'smooth' });
+        */
         const actionMenu = () => {
             menu.classList.toggle('active-menu');
         };
 
-        btnMenu.addEventListener('click', actionMenu)
-        closeBtn.addEventListener('click', actionMenu)
+        btnMenu.addEventListener('click', actionMenu);
+        closeBtn.addEventListener('click', actionMenu);
         menuItems.forEach(element => {
-            element.addEventListener('click', actionMenu)
+            element.addEventListener('click', actionMenu);
         });
+
+        menuLi.forEach(element => {
+            element.addEventListener('click', function(event) {
+                event.preventDefault()
+                const blockId = element.getAttribute('href');
+                let missionBlock = document.querySelector(blockId);
+                document.querySelector(blockId).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        })
+        imgBtn.addEventListener('click', function(event) {
+            event.preventDefault()
+            const blockId = imgBtn.getAttribute('href');
+            let missionBlock = document.querySelector(blockId);
+            document.querySelector(blockId).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+
     };
 
     //popup
     const togglePopUp = () => {
         const popup = document.querySelector('.popup'),
             popupBtn = document.querySelectorAll('.popup-btn'),
-            formBtn = document.querySelectorAll('.form-btn'),
             popUpClose = document.querySelector('.popup-close');
+
         popup.classList.add('showBlock');
 
         function showBlock() {
@@ -125,16 +164,18 @@ window.addEventListener('DOMContentLoaded', function() {
             } else {
                 popup.style.display = 'block';
             }
-
         };
 
         popupBtn.forEach(element => {
-
             element.addEventListener('click', showBlock);
         });
         popUpClose.addEventListener('click', () => {
             popup.style.display = 'none';
         });
+
+        //переход по якорям
+        let li
+
     }
 
     toggleMenu();
