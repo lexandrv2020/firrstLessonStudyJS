@@ -30,7 +30,7 @@ if (curentHour >= 22 & curentHour < 6) {
     textHello.textContent = 'Добрый вечер';
 };
 
-getDay.textContent = 'Сегодня: ' + arrDays[curentDay + 1];
+getDay.textContent = 'Сегодня: ' + arrDays[curentDay - 1];
 curentHour = (curentHour < 10) ? '0' + curentHour : curentHour;
 curentMinute = (curentMinute < 10) ? '0' + curentMinute : curentMinute;
 curentSecond = (curentSecond < 10) ? '0' + curentSecond : curentSecond;
