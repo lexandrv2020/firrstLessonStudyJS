@@ -116,7 +116,6 @@ window.addEventListener('DOMContentLoaded', function() {
                 let stId = setInterval(() => {
                         let opacity = num / 100;
                         popup.style.opacity = '' + opacity;
-                        //console.log('popup.style.opacity: ', popup.style.opacity);
                         num++;
                         if (num === 100) {
                             clearInterval(stId);
