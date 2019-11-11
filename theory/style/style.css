@@ -1,3 +1,7 @@
+* {
+    padding: 0px;
+}
+
 img {
     position: absolute;
 }
@@ -5,4 +9,23 @@ img {
 body {
     background: url('https://avatars.mds.yandex.net/get-pdb/1932994/b11bae9a-80d5-4cc4-a163-32118b9559ec/s1200') no-repeat center;
     background-size: 100%;
+}
+
+div {
+    width: 400px;
+    height: 200px;
+    border: 3px solid #fff;
+    color: #fff;
+    font-size: 13px;
+    background: rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    margin: 100px 100px 15px 100px;
+    /*box-sizing: border-box;*/
+    white-space: nowrap;
+}
+
+.box__button {
+    width: 250px;
+    background-color: thistle;
+    font-size: 25px;
 }

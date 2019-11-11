@@ -1,137 +1,55 @@
-//setTimeout, setInterval и requestAnimationFrame
-//'use strict';
+'use strict';
+//console.log(window.screen);
+console.log(screen);
+//console.dir(document);
 
-//window.setTimeout(callback функция, время сек, [arg в функцию])
-// =     setTimeout(callback функция, время сек, [arg в функцию])
-/*
-let getMessage = function(name) {
-    console.log('Привет ' + name + ' !')
-}
-setTimeout(function() {
-    console.log('Сообщение в конолью');
-}, 3000);
-//setInterval(callback функция, время сек, [arg в функцию])
-let count = 0;
-
-let idInterval = setInterval(getMessage, 1000, 'Георгий');
-//let idInterval = setInterval(function() {
-//    count++
-//    console.log('Привет я setInterval ' + count + '!');
-//}, 2000);
-
-setTimeout(function() {
-    clearInterval(idInterval);
-}, 10000);
-
-//clearTimeout(idInterval);
-//clearInterval(idInterval);
-*/
-
-let worm = document.querySelector('.worm'),
-    plane = document.querySelector('.airplane'),
-    count = 0;
-
-let warmDown = () => {
-        count++;
-        worm.style.top = count + 'px';
-        plane.style.left = count * 2 + 'px';
-        if (count < 360) {
-            setTimeout(warmDown, 10);
-        } else {
-            clearInterval(idInterval);
-        };
-        console.log(count);
-    }
-    /*
-    idInterval = setTimeout(() => {
-        warmDown();
-    }, 100);
-    */
+//размеры экрана
+//console.log('document clientHeight: ', document.documentElement.clientHeight);
+//console.log('document clientWidth: ', document.documentElement.clientWidth);
 
 
-//requestAnimationFrame  - оптимизация анимации
+//размеры блока в экране
+//!!!        document.documentElement    - выжные свойства:
+let block = document.querySelector('.boxing');
+//console.dir(block);
+console.log('clientHeight: ', block.clientHeight); //без  паддинги, скролл...(все что видит )
+console.log('clientWidth: ', block.clientWidth); //без прокрутки и границ
 
-let flyInterval;
-let flyAnimate = () => {
-    flyInterval = requestAnimationFrame(flyAnimate);
-    count++;
-    if (count < 360) {
-        worm.style.top = count + 'px';
-        plane.style.left = count * 2 + 'px';
-    }
-    if (count < 500) {
-        plane.style.left = count * 2 + 'px';
-    } else {
-        cancelAnimationFrame(flyInterval);
-    };
-    console.log(count);
-}
+console.log('scrollHeight: ', block.scrollHeight); //размер всего блока который в скролле даже скрыт
+console.log('scrollWidth: ', block.scrollWidth);
 
-/*idInterval = setTimeout(() => {
-    warmDown();
-}, 100);*/
+console.log('offsetHeight: ', block.offsetHeight); //размер всего блока включая скролл и рамки
+console.log('offsetWidth: ', block.offsetWidth);
 
-let animate = false;
-
-document.addEventListener('click', function() {
-    if (animate) {
-        requestAnimationFrame(flyAnimate);
-        animate = false;
-    } else {
-        cancelAnimationFrame(flyInterval);
-        animate = true;
-    }
+let btn = document.querySelector('.box__button');
+btn.addEventListener('click', () => {
+    console.log(block.scrollTop);
+    console.log(block.scrollLeft);
+    //    block.scrollTop += 10;
+    //    block.scrollLeft += 10;
+    block.scrollBy(5, 0); // прокрутка документа на пиксели (ГОРИЗНТАЛЬНЫЕ, ВЕРТИКАЛЬНЫЕ)
+    block.scrollTo(50, 20); // прокрутка документа на указанные координаты  (ГОРИЗНТАЛЬНЫЕ, ВЕРТИКАЛЬНЫЕ)
+    console.log(block.getBoundingClientRect()); //координаты элемента боксинга
 });
 
-//////**************************************
-//********************DATE */
 
 
 
-let date1 = new Date('1987 31 jan'),
-    date2 = new Date('31 march 1987'),
-    date3 = new Date(1987, 07, 23),
-    date4 = new Date(2010, 07, 23),
-    date5 = new Date(2010, 12 - 1, 23),
-    date6 = new Date(1980, 0, 23, 30, 15, 00),
-    date7 = new Date();
-//console.log(date1);
-//console.log(date2);
-//console.log(date3);
-//console.log(date4);
-//console.log(date5);
-console.log(date7);
-//Fri Nov 08 2019 15:17:40 GMT+0300 (Москва, стандартное время)
+//объем видимой страницы пользвоателя
+//document.documentElement.clientHeight
+//document.documentElement.clientLeft
+//document.documentElement.clientTop
+//document.documentElement.clientWidth
 
-//месяца от 0 до 11 (янв...дек)
-//день недели от 0 до 6 (вск, пн.....сб)
+//document.documentElement.offsetHeight
+//document.documentElement.offsetLeft
+//document.documentElement.offsetTop
+//document.documentElement.offsetWidth
 
-//установить
-//date6.setMonth(10);
-//date6.setDate(23);
-//date6.setHours(10, 30, 15, 00);
-//...
 
-//по гринвичу c UTC
-//date6.getUTCFullYear()....; 
-console.log('время ' + date7.getTime());
+//сколько количество px от верха страницы (по скроллу) - можно менять
 
-console.log(date7.toTimeString());
-console.log(date7.toDateString());
-
-console.log(date7.toLocaleTimeString('ru'));
-console.log(date7.toLocaleDateString());
-console.log(date7.toLocaleTimeString('en'));
-console.log(date7.toISOString()); //2019-11-08T13:47:09.481Z
-console.log(date7.toISOString().substr(0, 10)); //2019-11-08
-console.log(Date.now()); //миллисек с 01.01.1970
-console.log(Date.parse('10 march 2012')); //миллисек до 10.03.2012 с 01.01.1970
-
-// console.log('год ' + date6.getFullYear());
-// console.log('месяц ' + (date6.getMonth() + 1));
-// console.log('день месяца ' + (date6.getDate()));
-// console.log('день недели ' + (date6.getDay()));
-// console.log('час ' + (date6.getHours()));
-// console.log('мин ' + (date6.getMinutes()));
-// console.log('сек ' + (date6.getSeconds()));
-// console.log('миллсек ' + (date6.getMilliseconds));
+//document.documentElement.scrollHeight
+//document.documentElement.scrollLeft
+//document.documentElement.scrollTop
+//document.documentElement.scrollWidth
