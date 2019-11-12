@@ -32,9 +32,11 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 };
 
-function checkCookies(name) {
+function checkCookie(name) {
     let с_budget_month = getCookie(name);
+    //console.log('с_budget_month: ', с_budget_month);
     if (с_budget_month === 'undefined' || с_budget_month !== localStorage.getItem(name)) {
+        //console.log("ну вот");
         localStorage.clear();
         deleteAllCookies();
         return true;
@@ -42,35 +44,39 @@ function checkCookies(name) {
     return false;
 }
 
-function initial() {
-
-    //соответствие lokalStorage && cookies
+const getCheckCookies = () => { //проверка по интервалу .1 сек
     let stop = false;
+    //console.log('stop: ', stop);
 
     if (storageAvailable('localStorage')) {
         if (!(stop)) {
-            stop = checkCookies('.budget_month-value');
+            stop = checkCookie('.budget_month-value');
         }
         if (!(stop)) {
-            stop = checkCookies('.budget_day-value');
+            stop = checkCookie('.budget_day-value');
         }
         if (!(stop)) {
-            stop = checkCookies('.expenses_month-value');
+            stop = checkCookie('.expenses_month-value');
         }
         if (!(stop)) {
-            stop = checkCookies('.additional_income-value');
+            stop = checkCookie('.additional_income-value');
         }
         if (!(stop)) {
-            stop = checkCookies('.additional_expenses-value');
+            stop = checkCookie('.additional_expenses-value');
         }
         if (!(stop)) {
-            stop = checkCookies('.income_period-value');
+            stop = checkCookie('.income_period-value');
         }
         if (!(stop)) {
-            stop = checkCookies('.target_month-value');
+            stop = checkCookie('.target_month-value');
         }
     }
 
+}
+
+function initial() {
+    getCheckCookies();
+    //соответствие lokalStorage && cookies
     let isFromLS = false;
 
     if (storageAvailable('localStorage')) {
@@ -493,3 +499,5 @@ depositСheck.addEventListener('change', function() {
 });
 
 btnStart.addEventListener('click', getStartData);
+
+setInterval(getCheckCookies, 1000);
