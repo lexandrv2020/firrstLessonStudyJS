@@ -89,21 +89,6 @@ window.addEventListener('DOMContentLoaded', function() {
             closeBtn = document.querySelector('.close-btn');
         console.log('imgBtn: ', imgBtn);
 
-        /*
-                let serviceBlock = document.querySelector('#service-block'),
-                    portfolio = document.querySelector('#portfolio'),
-                    calc = document.querySelector('#calc'),
-                    companies = document.querySelector('#companies'),
-                    command = document.querySelector('#command'),
-                    connect = document.querySelector('#connect');
-
-                serviceBlock.scrollIntoView({ behavior: 'smooth' });
-                portfolio.scrollIntoView({ behavior: 'smooth' });
-                calc.scrollIntoView({ behavior: 'smooth' });
-                companies.scrollIntoView({ behavior: 'smooth' });
-                command.scrollIntoView({ behavior: 'smooth' });
-                connect.scrollIntoView({ behavior: 'smooth' });
-        */
         const actionMenu = () => {
             menu.classList.toggle('active-menu');
         };
@@ -116,9 +101,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
         menuLi.forEach(element => {
             element.addEventListener('click', function(event) {
-                event.preventDefault()
+                event.preventDefault();
                 const blockId = element.getAttribute('href');
-                let missionBlock = document.querySelector(blockId);
                 document.querySelector(blockId).scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
@@ -128,13 +112,11 @@ window.addEventListener('DOMContentLoaded', function() {
         imgBtn.addEventListener('click', function(event) {
             event.preventDefault()
             const blockId = imgBtn.getAttribute('href');
-            let missionBlock = document.querySelector(blockId);
             document.querySelector(blockId).scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
         });
-
     };
 
     //popup
@@ -172,10 +154,6 @@ window.addEventListener('DOMContentLoaded', function() {
         popUpClose.addEventListener('click', () => {
             popup.style.display = 'none';
         });
-
-        //переход по якорям
-        let li
-
     }
 
     toggleMenu();
