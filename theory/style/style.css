@@ -20,7 +20,6 @@ div {
     background: rgba(0, 0, 0, 0.3);
     overflow: auto;
     margin: 100px 100px 15px 100px;
-    /*box-sizing: border-box;*/
     white-space: nowrap;
 }
 
