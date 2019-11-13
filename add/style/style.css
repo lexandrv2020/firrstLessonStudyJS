@@ -1,0 +1,14 @@
+section {
+    width: 400px;
+    display: block;
+}
+
+input {
+    margin: 10px 0;
+    width: 100%;
+}
+
+button {
+    width: 100%;
+    background-color: greenyellow;
+}

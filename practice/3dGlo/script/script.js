@@ -263,22 +263,16 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         slider.addEventListener('mouseover', (event) => {
-            //console.log(event.target);
             if (event.target.matches('.portfolio-btn, .dot ')) { //||
-                //event.target.matches('.dot')) {
                 stopSlide();
             }
         });
 
         slider.addEventListener('mouseout', (event) => {
-            //console.log(event.target);
             if (event.target.matches('.portfolio-btn, .dot')) { // ||
-                //event.target.matches('.dot')) {
                 startSlide();
             }
         });
-
-
         startSlide(500);
     }
 
