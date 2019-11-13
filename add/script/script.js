@@ -33,7 +33,6 @@ function getResult() {
 
     }
     res.value = palin;
-
 }
 
 

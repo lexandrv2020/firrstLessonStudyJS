@@ -222,7 +222,7 @@ window.addEventListener('DOMContentLoaded', function() {
             nextSlide(slide, currentSlide, 'portfolio-item-active');
             nextSlide(dot, currentSlide, 'dot-active');
         };
-        const startSlide = (time = 2000) => {
+        const startSlide = (time = 1500) => {
             interval = setInterval(autoPlaySlide, time);
         };
         const stopSlide = () => {
@@ -273,7 +273,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 startSlide();
             }
         });
-        startSlide(500);
+        startSlide(1500);
     }
 
     slider();
