@@ -87,7 +87,7 @@ window.addEventListener('DOMContentLoaded', function() {
             menuLi = menu.querySelectorAll('li>a'),
             imgBtn = document.querySelector('main>a'),
             closeBtn = document.querySelector('.close-btn');
-        console.log('imgBtn: ', imgBtn);
+        //console.log('imgBtn: ', imgBtn);
 
         /*
                 let serviceBlock = document.querySelector('#service-block'),
@@ -140,6 +140,7 @@ window.addEventListener('DOMContentLoaded', function() {
     //popup
     const togglePopUp = () => {
         const popup = document.querySelector('.popup'),
+            popupContent = document.querySelector('.popup-content'),
             popupBtn = document.querySelectorAll('.popup-btn'),
             popUpClose = document.querySelector('.popup-close');
 
@@ -148,7 +149,7 @@ window.addEventListener('DOMContentLoaded', function() {
         function showBlock() {
             document.documentElement.clientWidth
             if (document.documentElement.clientWidth > 768) {
-                console.log('document.documentElement.clientWidth: ', document.documentElement.clientWidth);
+                //console.log('document.documentElement.clientWidth: ', document.documentElement.clientWidth);
                 popup.style.opacity = '0';
                 popup.style.display = 'block';
                 let num = 0;
@@ -160,14 +161,68 @@ window.addEventListener('DOMContentLoaded', function() {
                             clearInterval(stId);
                         }
                     },
-                    10);
+                    30);
             } else {
                 popup.style.display = 'block';
             }
         };
+        //new animate
+        function makeEaseInOut(timing) {
+            return function(timeFraction) {
+                if (timeFraction < .5)
+                    return timing(2 * timeFraction) / 2;
+                else
+                    return (2 - timing(2 * (1 - timeFraction))) / 2;
+            }
+        }
+
+        function animate({ timing, draw, duration }) {
+
+            let start = performance.now();
+
+            requestAnimationFrame(function animate(time) {
+                // timeFraction изменяется от 0 до 1
+                let timeFraction = (time - start) / duration;
+                if (timeFraction > 1) timeFraction = 1;
+
+                // вычисление текущего состояния анимации
+                let progress = timing(timeFraction);
+
+                draw(progress); // отрисовать её
+
+                if (timeFraction < 1) {
+                    requestAnimationFrame(animate);
+                }
+
+            });
+        }
+
+        function bounce(timeFraction) {
+            for (let a = 0, b = 1, result; 1; a += b, b /= 2) {
+                if (timeFraction >= (7 - 4 * a) / 11) {
+                    return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2)
+                }
+            }
+        }
+
+        let bounceEaseInOut = makeEaseInOut(bounce);
+
+
+        function makeAnimate() {
+            animate({
+                duration: 3000,
+                timing: bounceEaseInOut,
+                draw: function(progress) {
+                    popupContent.style.left = progress * 500 + 'px';
+                }
+            });
+
+        }
+
 
         popupBtn.forEach(element => {
             element.addEventListener('click', showBlock);
+            element.addEventListener('click', makeAnimate);
         });
         popUpClose.addEventListener('click', () => {
             popup.style.display = 'none';
