@@ -14,11 +14,19 @@ class SliderCarousel {
         this.prev = document.querySelector(prev);
         this.next = document.querySelector(next);
         this.options = {
-            position = position
+            position
         };
     }
     init() {
         this.addGloClasses();
+        this.addStyle();
+
+        if (this.prev && this.next) {
+            this.controlSlider();
+        } else {
+            this.addArrow();
+            this.controlSlider();
+        }
     };
 
     addGloClasses() {
@@ -48,6 +56,21 @@ class SliderCarousel {
             `
         document.head.appendChild(style);
     }
+    controlSlider() {
+        this.prev.addEventListener('click', this.prevSlider.bind(this));
+        this.next.addEventListener('click', this.nextSlider.bind(this));
+    };
 
+    prevSlider() {
+        --this.options.position;
+        console.log('this.options.position: ', this.options.position);
+    }
+
+    nextSlider() {
+        ++this.options.position;
+        console.log('this.options.position: ', this.options.position);
+    }
+
+    addArrow() {};
 
 }
