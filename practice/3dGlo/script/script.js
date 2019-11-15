@@ -332,8 +332,37 @@ window.addEventListener('DOMContentLoaded', function() {
         });
         startSlide(1500);
     }
-
     slider();
 
+    //command   
+    const command = () => {
+        const photoCommand = document.querySelectorAll('.command__photo');
+        //console.log('photoCommand: ', photoCommand);
+
+        photoCommand.forEach((elem) => {
+            elem.addEventListener('mouseenter', (event) => {
+                let originalSrc = event.target.src;
+                event.target.src = event.target.dataset.img;
+                event.target.dataset.img = originalSrc;
+
+            })
+            elem.addEventListener('mouseleave', (event) => {
+                let datasetSrc = event.target.src;
+                event.target.src = event.target.dataset.img;
+                event.target.dataset.img = datasetSrc;
+            })
+        })
+    }
+    command();
+
+    //calc   
+    const calc = () => {
+        const calcItems = document.querySelectorAll('.calc-item');
+
+        calcItems.forEach((elem) => {
+            elem.value = elem.value.replace(/[0-9]]/g, ''); //только  цифры (попадает е)
+        })
+    }
+    calc();
 
 });
