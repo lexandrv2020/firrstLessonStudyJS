@@ -358,11 +358,14 @@ window.addEventListener('DOMContentLoaded', function() {
     //calc   
     const calc = () => {
         const calcItems = document.querySelectorAll('.calc-item');
-
         calcItems.forEach((elem) => {
-            elem.value = elem.value.replace(/[0-9]]/g, ''); //только  цифры (попадает е)
-        })
-    }
+            elem.addEventListener('input', () => {
+                elem.removeAttribute('type');
+                elem.value = elem.value.replace(/[^0-9]/, '');
+            })
+        });
+    };
+
     calc();
 
 });
