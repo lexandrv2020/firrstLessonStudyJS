@@ -397,11 +397,12 @@ window.addEventListener('DOMContentLoaded', function() {
                 total = price * typeValue * squareValue * countValue * dayValue;
                 let init = 0,
                     timer = setInterval(function() {
-                        totalValue.textContent = init++
-                            if (init > total) {
-                                clearInterval(timer);
-                            }
-                    }, .01);
+                        totalValue.textContent = Math.min(init += 2, total);
+                        console.log('init: ', init);
+                        if (init > total) {
+                            clearInterval(timer);
+                        }
+                    }, 1);
             }
             // totalValue.textContent = total;
         }
