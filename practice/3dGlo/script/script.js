@@ -486,9 +486,12 @@ window.addEventListener('DOMContentLoaded', function() {
                     will-change: transform !important;
                 }
                 .glo-slider__item{
+                    display: flex !important;
+                    align-items: center  !important;
+                    justify-content: center  !important;
                     flex: 0 0 ${this.options.widthSlide}% !important;
                     margin: auto 0 !important;
-                }
+                    }
                 
                 .glo-slider__prev,
                 .glo-slider__next{
