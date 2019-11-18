@@ -603,6 +603,4 @@ window.addEventListener('DOMContentLoaded', function() {
     }
     const carousel = new SliderCarousel(options);
     carousel.init();
-
-
 });
