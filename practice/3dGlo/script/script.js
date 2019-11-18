@@ -436,6 +436,7 @@ window.addEventListener('DOMContentLoaded', function() {
             infinity = false,
             position = 0,
             slidesToShow = 5,
+            responsive = [],
         }) {
             if (!main || !wrap) {
                 console.warn('slider-carusel: Необходимо 2 свойства: "main" и "wrap"!');
@@ -451,6 +452,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 infinity,
                 widthSlide: Math.floor(100 / this.slidesToShow),
             };
+            this.responsive = responsive;
         }
         init() {
 
@@ -462,6 +464,9 @@ window.addEventListener('DOMContentLoaded', function() {
             } else {
                 this.addArrow();
                 this.controlSlider();
+            }
+            if (this.responseInit) {
+                this.responseInit();
             }
         };
 
@@ -475,7 +480,10 @@ window.addEventListener('DOMContentLoaded', function() {
 
         addStyle() {
             const style = document.createElement('style')
-            style.id = 'sliderCarousel-style';
+            if (!style) {
+                style = document.createElement('style');
+                style.id = 'sliderCarousel-style';
+            }
             style.textContent = `
                 .glo-slider{
                     overflow: hidden !important;
@@ -527,8 +535,6 @@ window.addEventListener('DOMContentLoaded', function() {
                     this.options.position = this.slides.length - this.slidesToShow;
                 }
                 this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
-                //            console.log('this.options.position: ', this.options.position, this.wrap.style.transform);
-
             };
         }
 
@@ -538,9 +544,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 if (this.options.position > this.slides.length - this.slidesToShow) {
                     this.options.position = 0;
                 }
-
                 this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
-                //           console.log('this.options.position: ', this.options.position, this.wrap.style.transform);
             };
         }
         addArrow() {
@@ -554,12 +558,48 @@ window.addEventListener('DOMContentLoaded', function() {
 
 
         };
+
+        responseInit() {
+            const slidesToShowDefault = this.slidesToShow;
+            const allResponse = this.responsive.map(item => item.breakpoint);
+            const maxResponse = Math.max(...allResponse);
+
+            const checkResponse = () => {
+                const widthWindow = document.documentElement.clientWidth;
+                if (widthWindow < maxResponse) {
+                    for (let i = 0; i < allResponse.length; i++) {
+                        if (widthWindow < allResponse[i]) {
+                            this.slidesToShow = this.responsive[i].slidesToShow;
+                            this.options.widthSlide = Math.floor(100 / this.slidesToShow);
+                            this.addStyle();
+                        }
+                    }
+                } else {
+                    this.slidesToShow = slidesToShowDefault;
+                    this.options.widthSlide = Math.floor(100 / this.slidesToShow);
+                    this.addStyle();
+                }
+            };
+            checkResponse();
+            window.addEventListener('resize', checkResponse);
+        }
     }
     const options = {
         main: '.companies-wrapper',
         wrap: '.companies-hor',
-        slidesToShow: 3,
+        slidesToShow: 4,
         infinity: true,
+        responsive: [{
+            breakpoint: 1024,
+            slidesToShow: 3
+        }, {
+            breakpoint: 768,
+            slidesToShow: 2
+        }, {
+            breakpoint: 576,
+            slidesToShow: 1
+        }, ]
+
     }
     const carousel = new SliderCarousel(options);
     carousel.init();
