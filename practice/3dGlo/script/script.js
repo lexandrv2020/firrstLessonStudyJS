@@ -366,11 +366,16 @@ window.addEventListener('DOMContentLoaded', function() {
             calcItems = document.querySelectorAll('.calc-item');
 
         calcItems.forEach((elem) => {
+            if (elem.getAttribute('min') === '1') {
+                elem.removeAttribute('type');
+            }
+        })
+
+        calcItems.forEach((elem) => {
             elem.addEventListener('input', () => {
-                if (elem.getAttribute('min') === '1') {
-                    elem.removeAttribute('type');
-                    elem.value = elem.value.replace(/[^0-9]/, '');
-                }
+                //if (elem.getAttribute('min') === '1') {
+                elem.value = elem.value.replace(/[^0-9]/, '');
+                //}
             })
         });
 
@@ -394,8 +399,8 @@ window.addEventListener('DOMContentLoaded', function() {
                 total = price * typeValue * squareValue * countValue * dayValue;
                 let init = 0,
                     timer = setInterval(function() {
-                        totalValue.textContent = Math.min(init += 2, total);
-                        console.log('init: ', init);
+                        totalValue.textContent = Math.min(init += 10, total);
+                        //console.log('init: ', init);
                         if (init > total) {
                             clearInterval(timer);
                         }
@@ -426,7 +431,6 @@ window.addEventListener('DOMContentLoaded', function() {
     calc(price);
 
     ///карусель
-
     class SliderCarousel {
         constructor({
             main,
