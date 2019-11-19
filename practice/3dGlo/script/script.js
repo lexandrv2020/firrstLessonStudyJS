@@ -399,7 +399,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 total = price * typeValue * squareValue * countValue * dayValue;
                 let init = 0,
                     timer = setInterval(function() {
-                        totalValue.textContent = Math.min(init += 10, total);
+                        totalValue.textContent = Math.min(init += 25, total);
                         //console.log('init: ', init);
                         if (init > total) {
                             clearInterval(timer);
