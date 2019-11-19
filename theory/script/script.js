@@ -1,123 +1,83 @@
-'use strict';
+//'use strict';
 
-let buttons = document.querySelectorAll('.button');
-const content = document.querySelector('.content'),
-    wrapButton = document.querySelector('.wrapper-button'),
-    addButton = document.querySelector('.add-button');
+//const phone = document.getElementById('phone');
+//!!!!!!!!!!!!!!СОБЫТИЯ
 
-/*  первый способ с навешиванием события на каждую кнопку и установки текста   
+//const showLog = e => console.log(e.type);
 
-const changeText = (element) => {
-    content.textContent = element.textContent;
+//phone.addEventListener('keydown', showLog); //1
+//phone.addEventListener('keyup', showLog); //4
+
+//phone.addEventListener('keypress', showLog); //между keydown и keyup   //2
+// (!!! ТОЛЬКО НА вывод символов (БУКВЫ/ЦИФРЫ))
+
+//phone.addEventListener('input', showLog); //когда изменяется "value"   //3
+
+
+
+//!!!!!!!!!!!!!!ОГРАНИЧЕНИЯ
+//запрет ввода символов
+/*
+const showLog = function() {
+    this.value = this.value.replace(/\D/g, '');
 }
+/*
+phone.addEventListener('keydown', showLog); //1   
+//символы заменяются - но отображаются до нажатия следующего
+//потому что еще не произошел инпут
 
-for (let i = 0; i < buttons.length; i++) {
-    //buttons[i].addEventListener('click', changeText); //без параметров
 
-    //!!!!!!!!!!!!!!!! вот так с параметрами!!!
-    buttons[i].addEventListener('click', () => {
-        changeText(buttons[i]);
-    }); //без параметров
+phone.addEventListener('keyup', showLog); //4 
+//появляется и исчезает 
+//(не красиво - но иногда нужно, когда показываем пользователю его буквы)
+//потому что сперва кейдаун, потом кейпресс затем инпут
+
+phone.addEventListener('keypress', showLog); //между keydown и keyup   //2
+//символы заменяются - но отображаются до нажатия следующего
+//потому что еще не произошел инпут (как в кейдаун)
+
+phone.addEventListener('input', showLog); //когда изменяется "value"   //3
+//"левые" символы даже не появляются
+//САМОЕ ЛУЧШЕЕ ДЛЯ ОГРАНИЧЕНИЯ
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//до этого исполнения мы УЖЕ подключили скрипт валидации ввода телефона
+
+//подключаем функцию через передачу параметра идентификатора формы
+maskPhone('#phone');
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!ВАЛИДАЦИЯ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//проверка значений введенных пользователем и отображение найденных ошибок
+
+//валидация на стороне клиента с помощью js*/
+const myForm = document.getElementById('myform');
+myForm.addEventListener('submit', valid);
+
+const elementsForm = [];
+//console.log(myForm.elements);
+for (const elem of myForm.elements) {
+    if (elem.tagName.toLowerCase() !== 'button' && elem.type !== 'button') {
+        elementsForm.push(elem);
+    }
 }
-//copy button
-const getButton = () => {
-    const newBtn = buttons[0].cloneNode(); //скопировали первую кнопку
-    //wrapButton.appendChild(newBtn); // вставили в родителя wrapButtons !!! без текста
+console.log('elementsForm: ', elementsForm);
 
-    let textButton = buttons.length + 1;
-    if (textButton < 10) {
-        textButton = `0${textButton}`
-    }
-    newBtn.textContent = textButton;
-    //на кнопку навеслили обработчик события
-    newBtn.addEventListener('click', () => {
-        changeText(newBtn);
-    });
-    wrapButton.appendChild(newBtn); // вставили в родителя wrapButtons !!! без текста
-    buttons = document.querySelectorAll('.button');
+function valid(event) {
+    //console.log('event: ', event);
+    const patternForm = /^\d+$/;
+    elementsForm.forEach(elem => {
+        if (!elem.value) {
 
-};
-
-addButton.addEventListener('click', getButton);
-*/
-
-
-
-/*  Оптимальный способ с навешиванием события на родителя кнопок */
-/*const changeText = (event) => {
-    //console.log('event: ', event.target.textContent);
-    content.textContent = event.target.textContent;
+            elem.style.border = 'solid red';
+            event.preventDefault();
+        } else {
+            elem.style.border = '';
+        }
+        if (elem.id === 'phone' && !patternForm.test(elem.value)) {
+            elem.style.border = 'solid red';
+            event.preventDefault();
+        }
+    })
 }
-
-buttons.forEach((elem) => {
-    elem.addEventListener('click', changeText);
-});
-
-const getButton = () => {
-    const newBtn = buttons[0].cloneNode(); //скопировали первую кнопку
-    let textButton = buttons.length + 1;
-    if (textButton < 10) {
-        textButton = `0${textButton}`
-    }
-    newBtn.textContent = textButton;
-    //на кнопку навеслили обработчик события
-    newBtn.addEventListener('click', changeText);
-    wrapButton.appendChild(newBtn); // вставили в родителя wrapButtons !!! без текста
-    buttons = document.querySelectorAll('.button');
-};
-addButton.addEventListener('click', getButton); 
-
-
-ВЫШЕ СЛИШКОМ БОЛЬШОЙ ТЕКСТ*/
-
-
-
-//ДЕЛЕГИРОВАНИЕ
-const changeText = (event) => {
-    content.textContent = event.target.textContent;
-};
-
-
-const getButton = () => {
-    const newBtn = buttons[0].cloneNode();
-    let textButton = buttons.length + 1;
-    if (textButton < 10) {
-        textButton = `0${textButton}`
-    }
-    newBtn.textContent = textButton;
-    wrapButton.appendChild(newBtn);
-    buttons = document.querySelectorAll('.button');
-};
-addButton.addEventListener('click', getButton);
-
-wrapButton.addEventListener('click', () => {
-    //    console.log(event.target); //и по кнопке и между.
-    //    console.log('event.target.tagName: ', event.target.tagName);
-    if (event.target.tagName !== 'BUTTON') {
-        return;
-    }
-    changeText(event);
-
-    //или 
-
-    //  if (event.target.tagName === 'BUTTON') {
-    //    changeText(event);
-    //  }
-
-
-    //или
-
-    //  if (!event.target.classList.contains('button'))) {
-    //    return;
-    //  }
-    //  changeText(event);
-
-    //или ++++
-
-    // if (!event.target.matches('#super')) { //по ID
-    // if (!event.target.matches('.super')) { //по className
-    //     return;
-    // }
-    // changeText(event);
-
-});
