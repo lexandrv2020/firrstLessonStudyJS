@@ -68,12 +68,17 @@ class Validator {
     showError(elem) {
         elem.classList.remove('success');
         elem.classList.add('error');
-        if (elem.nextElementSibling && elem.nextElementSibling.classList.contains('validator-error')) {
+        if (elem.nextElementSibling && (elem.nextElementSibling.classList.contains('validator-error') || elem.nextElementSibling.classList.contains('validator-error-form1'))) {
             return;
         }
         const errorDiv = document.createElement('div');
         errorDiv.textContent = 'Ошибка в этом поле';
-        errorDiv.classList.add('validator-error');
+        //console.log('elem.id: ', elem.id);
+        if (elem.id === 'form1-email' || elem.id === 'form1-name' || elem.id === 'form1-phone') {
+            errorDiv.classList.add('validator-error-form1');
+        } else {
+            errorDiv.classList.add('validator-error');
+        }
         elem.insertAdjacentElement('afterend', errorDiv);
     }
 
@@ -89,14 +94,21 @@ class Validator {
         const style = document.createElement('style');
         style.textContent = `
             input.success {
-                border: 2px solid green;
+                border: 2px solid green !important;
             }
             input.error {
-                border: 2px solid red;
+                border: 2px solid red !important;
+            }
+            .validator-error-form1{
+                font-size: 12px;
+                font-family: sans-serif;
+                margin: -20px;
+                color: red
             }
             .validator-error{
                 font-size: 12px;
                 font-family: sans-serif;
+                margin: 0px;
                 color: red
             }
         `;
