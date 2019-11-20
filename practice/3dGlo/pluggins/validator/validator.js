@@ -26,6 +26,7 @@ class Validator {
 
     isValid(elem) {
         const validatorMethod = {
+
             notEmpty(elem) {
                 if (elem.value === '') {
                     return false;
@@ -37,12 +38,15 @@ class Validator {
                 return pattern.test(elem.value);
             }
         };
-
         if (this.method) {
-            const method = this.method[elem.id];
+            let idElem = elem.id.replace(/[123]/, '');
+            const method = this.method[idElem];
+            //console.log('method: ', method);
+
             if (method) {
                 return method.every(item => validatorMethod[item[0]](elem, this.pattern[item[1]]));
             };
+
         } else {
             console.warn('Необходимо передать id полей ввода и методы проверки эти полей!');
         }
@@ -50,8 +54,8 @@ class Validator {
     }
 
     checkIt(event) {
-
         const target = event.target;
+        //console.log('event: ', event);
         if (this.isValid(target)) {
             this.showSuccess(target);
             this.error.delete(target);
@@ -100,14 +104,19 @@ class Validator {
     }
 
     setPattern() {
-        if (!this.pattern.phone) {
-            this.pattern.phone = /^\+?[78]([-()]*\d){10}$/;
+        if (!this.pattern['form-phone']) {
+            this.pattern['form-phone'] = /^\+?[78]([-()]*\d){10}$/;
         }
 
-        if (!this.pattern.email) {
-            this.pattern.email = /^\w+@\w+\.\w{2,}$/;
+        if (!this.pattern['form-email']) {
+            this.pattern['form-email'] = /^\w+@\w+\.\w{2,}$/;
         }
 
-        //console.log('ptrn', this.pattern);
+        if (!this.pattern['form-name']) {
+            this.pattern['form-name'] = /[А-Яа-я ]/;
+        }
+        if (!this.pattern['form-message']) {
+            this.pattern['form-message'] = /[А-Яа-я ]/;
+        }
     }
 }
