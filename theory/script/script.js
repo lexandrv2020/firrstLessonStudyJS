@@ -1,83 +1,47 @@
-//'use strict';
-
-//const phone = document.getElementById('phone');
-//!!!!!!!!!!!!!!СОБЫТИЯ
-
-//const showLog = e => console.log(e.type);
-
-//phone.addEventListener('keydown', showLog); //1
-//phone.addEventListener('keyup', showLog); //4
-
-//phone.addEventListener('keypress', showLog); //между keydown и keyup   //2
-// (!!! ТОЛЬКО НА вывод символов (БУКВЫ/ЦИФРЫ))
-
-//phone.addEventListener('input', showLog); //когда изменяется "value"   //3
-
-
-
-//!!!!!!!!!!!!!!ОГРАНИЧЕНИЯ
-//запрет ввода символов
 /*
-const showLog = function() {
-    this.value = this.value.replace(/\D/g, '');
-}
-/*
-phone.addEventListener('keydown', showLog); //1   
-//символы заменяются - но отображаются до нажатия следующего
-//потому что еще не произошел инпут
-
-
-phone.addEventListener('keyup', showLog); //4 
-//появляется и исчезает 
-//(не красиво - но иногда нужно, когда показываем пользователю его буквы)
-//потому что сперва кейдаун, потом кейпресс затем инпут
-
-phone.addEventListener('keypress', showLog); //между keydown и keyup   //2
-//символы заменяются - но отображаются до нажатия следующего
-//потому что еще не произошел инпут (как в кейдаун)
-
-phone.addEventListener('input', showLog); //когда изменяется "value"   //3
-//"левые" символы даже не появляются
-//САМОЕ ЛУЧШЕЕ ДЛЯ ОГРАНИЧЕНИЯ
-
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//до этого исполнения мы УЖЕ подключили скрипт валидации ввода телефона
-
-//подключаем функцию через передачу параметра идентификатора формы
-maskPhone('#phone');
-
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!ВАЛИДАЦИЯ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//проверка значений введенных пользователем и отображение найденных ошибок
-
-//валидация на стороне клиента с помощью js*/
-const myForm = document.getElementById('myform');
-myForm.addEventListener('submit', valid);
-
-const elementsForm = [];
-//console.log(myForm.elements);
-for (const elem of myForm.elements) {
-    if (elem.tagName.toLowerCase() !== 'button' && elem.type !== 'button') {
-        elementsForm.push(elem);
+'use strict';
+/////////////////////////////////////////////////////////
+///     JSON            /////////////////////////////////
+/////////////////////////////////////////////////////////
+const smarphone = {
+    brand: 'samsung',
+    rom: 5.5,
+    ram: 128,
+    gps: true,
+    sensor: ['e-compass', 'Acceletometer', 'Gyroscope', 'Fingerprint Sensor'],
+    camera: {
+        back: [32, 5, 8],
+        front: 16
     }
 }
-console.log('elementsForm: ', elementsForm);
 
-function valid(event) {
-    //console.log('event: ', event);
-    const patternForm = /^\d+$/;
-    elementsForm.forEach(elem => {
-        if (!elem.value) {
+//для отправки на сервер в текстововм виде.
+//console.log(JSON);
 
-            elem.style.border = 'solid red';
-            event.preventDefault();
-        } else {
-            elem.style.border = '';
-        }
-        if (elem.id === 'phone' && !patternForm.test(elem.value)) {
-            elem.style.border = 'solid red';
-            event.preventDefault();
-        }
-    })
-}
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!МЕТОДЫ:
+//      1) strigify(obj) -  преобразование в формат json 
+//для отправки на сервер   
+const jsonSmart = JSON.stringify(smarphone);
+//console.log(jsonSmart);
+//      1) parse(obj) -  преобразование из формат json в объект    
+//для преобразования с сервер
+const parseSmart = JSON.parse(jsonSmart);
+//console.log(parseSmart);
+*/
+
+
+
+
+
+/////////////////////////////////////////////////////////////
+///     AJAX         ////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+
+document.addEventListener('DOMContentLoaded', () => {
+    'use strict';
+
+    const select = document.getElementById('cars'),
+        outprt = document.getElementById('output');
+
+
+})
