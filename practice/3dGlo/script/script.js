@@ -524,6 +524,104 @@ window.addEventListener('DOMContentLoaded', function() {
                     background: transparent;
                     outline: transparent;
                     }
+
+                    #circularG{
+                        position:relative;
+                        width:58px;
+                        height:58px;
+                        margin: auto;
+                    }
+                    
+                    .circularG{
+                        position:absolute;
+                        background-color:rgb(0,0,0);
+                        width:14px;
+                        height:14px;
+                        border-radius:9px;
+                            -moz-border-radius:9px;
+                        animation-name:bounce_circularG;
+                            -moz-animation-name:bounce_circularG;
+                        animation-duration:1.1s;
+                            -moz-animation-duration:1.1s;
+                        animation-iteration-count:infinite;
+                            -moz-animation-iteration-count:infinite;
+                        animation-direction:normal;
+                            -moz-animation-direction:normal;
+                    }
+                    
+                    #circularG_1{
+                        left:0;
+                        top:23px;
+                        animation-delay:0.41s;
+                            -moz-animation-delay:0.41s;
+                    }
+                    
+                    #circularG_2{
+                        left:6px;
+                        top:6px;
+                        animation-delay:0.55s;
+                            -moz-animation-delay:0.55s;
+                    }
+                    
+                    #circularG_3{
+                        top:0;
+                        left:23px;
+                        animation-delay:0.69s;
+                            -moz-animation-delay:0.69s;
+                    }
+                    
+                    #circularG_4{
+                        right:6px;
+                        top:6px;
+                        animation-delay:0.83s;
+                            -moz-animation-delay:0.83s;
+                    }
+                    
+                    #circularG_5{
+                        right:0;
+                        top:23px;
+                        animation-delay:0.97s;
+                            -moz-animation-delay:0.97s;
+                    }
+                    
+                    #circularG_6{
+                        right:6px;
+                        bottom:6px;
+                        animation-delay:1.1s;
+                            -moz-animation-delay:1.1s;
+                    }
+                    
+                    #circularG_7{
+                        left:23px;
+                        bottom:0;
+                        animation-delay:1.24s;
+                            -moz-animation-delay:1.24s;
+                    }
+                    
+                    #circularG_8{
+                        left:6px;
+                        bottom:6px;
+                        animation-delay:1.38s;
+                            -moz-animation-delay:1.38s;
+                    }
+                    
+                    @keyframes bounce_circularG{
+                        0%{
+                            transform:scale(1);
+                        }
+                        100%{
+                            transform:scale(.3);
+                        }
+                    }
+                    
+                    @-moz-keyframes bounce_circularG{
+                        0%{
+                            -moz-transform:scale(1);
+                        }
+                        100%{
+                            -moz-transform:scale(.3);
+                        }
+                    }
                 `
             document.head.appendChild(style);
         }
@@ -613,14 +711,53 @@ window.addEventListener('DOMContentLoaded', function() {
 
         const errorMassage = 'Произошла ошибка. Повторите позже....',
             loadMassage = 'Выполняется отправка....',
-            successMassage = 'Спасибо! Мы скоро с Вами свяжемся!';
+            successMassage = 'Спасибо! Мы скоро с Вами свяжемся!',
+
+            errorMassageImg = 'Произошла ошибка. Повторите позже....',
+            loadMassageImg = 'Выполняется отправка....',
+            successMassageImg = 'Спасибо! Мы скоро с Вами свяжемся!';
 
 
         form.forEach(itemForm => {
             const elemForm = document.getElementById(itemForm.id);
-
-            const statusMassage = document.createElement('div');
-            statusMassage.style.cssText = 'font-size: 2rem; color: #fff;text-shadow: 0 1px 0 rgba(255, 255, 255, .5);';
+            //statusCircular
+            const statusMessage = document.createElement('div'),
+                statusCircular0 = document.createElement('div'),
+                statusCircular1 = document.createElement('div'),
+                statusCircular2 = document.createElement('div'),
+                statusCircular3 = document.createElement('div'),
+                statusCircular4 = document.createElement('div'),
+                statusCircular5 = document.createElement('div'),
+                statusCircular6 = document.createElement('div'),
+                statusCircular7 = document.createElement('div'),
+                statusCircular8 = document.createElement('div');
+            statusCircular0.setAttribute('id', 'circularG');
+            statusCircular1.setAttribute('id', 'circularG_1');
+            statusCircular2.setAttribute('id', 'circularG_2');
+            statusCircular3.setAttribute('id', 'circularG_3');
+            statusCircular4.setAttribute('id', 'circularG_4');
+            statusCircular5.setAttribute('id', 'circularG_5');
+            statusCircular6.setAttribute('id', 'circularG_6');
+            statusCircular7.setAttribute('id', 'circularG_7');
+            statusCircular8.setAttribute('id', 'circularG_8');
+            statusCircular1.setAttribute('class', 'circularG');
+            statusCircular2.setAttribute('class', 'circularG');
+            statusCircular3.setAttribute('class', 'circularG');
+            statusCircular4.setAttribute('class', 'circularG');
+            statusCircular5.setAttribute('class', 'circularG');
+            statusCircular6.setAttribute('class', 'circularG');
+            statusCircular7.setAttribute('class', 'circularG');
+            statusCircular8.setAttribute('class', 'circularG');
+            statusCircular0.appendChild(statusCircular1);
+            statusCircular0.appendChild(statusCircular2);
+            statusCircular0.appendChild(statusCircular3);
+            statusCircular0.appendChild(statusCircular4);
+            statusCircular0.appendChild(statusCircular5);
+            statusCircular0.appendChild(statusCircular6);
+            statusCircular0.appendChild(statusCircular7);
+            statusCircular0.appendChild(statusCircular8);
+            statusCircular0.style.display = 'none';
+            statusMessage.style.cssText = 'font-size: 2rem; color: #fff;text-shadow: 0 1px 0 rgba(255, 255, 255, .5);';
 
             //валидация данных
             const inputItems = elemForm.querySelectorAll('input');
@@ -633,7 +770,7 @@ window.addEventListener('DOMContentLoaded', function() {
             inputItems.forEach((elem) => {
                 elem.addEventListener('input', () => {
                     if (elem.name === 'user_name' || elem.name === 'user_message') {
-                        console.log('elem.name: ', elem.name);
+                        //console.log('elem.name: ', elem.name);
 
                         elem.value = elem.value.replace(/[^а-яА-Я\s]/, '');
                     } else if (elem.name === 'user_phone') {
@@ -642,12 +779,16 @@ window.addEventListener('DOMContentLoaded', function() {
                 });
             });
 
-            elemForm.appendChild(statusMassage);
+            elemForm.appendChild(statusMessage);
+
+            elemForm.appendChild(statusCircular0);
 
             elemForm.addEventListener('submit', (event) => {
                 event.preventDefault();
-                elemForm.appendChild(statusMassage);
-                statusMassage.textContent = loadMassage;
+                elemForm.appendChild(statusMessage);
+                elemForm.appendChild(statusCircular0);
+                statusCircular0.style.display = 'block';
+                statusMessage.textContent = loadMassage;
                 const formData = new FormData(elemForm);
                 let body = {};
                 /*            
@@ -665,14 +806,15 @@ window.addEventListener('DOMContentLoaded', function() {
                 });
                 postData(body,
                     () => {
-                        statusMassage.textContent = successMassage;
+                        statusMessage.textContent = successMassage;
                         let inputs = elemForm.querySelectorAll('input');
                         inputs.forEach((item) => {
                             item.value = '';
                         });
+                        statusCircular0.style.display = 'none';
                     },
                     (error) => {
-                        statusMassage.textContent = errorMassage;
+                        statusMessage.textContent = errorMassage;
                         console.error(error);
                     });
             });
