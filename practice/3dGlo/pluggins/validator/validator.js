@@ -85,7 +85,7 @@ class Validator {
     showSuccess(elem) {
         elem.classList.remove('error');
         elem.classList.add('success');
-        if (elem.nextElementSibling && elem.nextElementSibling.classList.contains('validator-error')) {
+        if (elem.nextElementSibling && elem.nextElementSibling.classList.contains('validator-error') || elem.nextElementSibling.classList.contains('validator-error-form1')) {
             elem.nextElementSibling.remove();
         }
     }
@@ -121,7 +121,7 @@ class Validator {
         }
 
         if (!this.pattern['form-email']) {
-            this.pattern['form-email'] = /^\w+@\w+\.\w{2,}$/;
+            this.pattern['form-email'] = /^\w+(\.\w+)*@\w+\.\w{2,}$/;
         }
 
         if (!this.pattern['form-name']) {
