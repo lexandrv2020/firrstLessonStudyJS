@@ -72,8 +72,12 @@ class Validator {
             return;
         }
         const errorDiv = document.createElement('div');
-        errorDiv.textContent = 'Ошибка в этом поле';
         errorDiv.classList.add('validator-error');
+        errorDiv.textContent = 'Ошибка в этом поле';
+        if (elem.id === 'form1-email' || elem.id === 'form1-name' || elem.id === 'form1-phone') {
+            console.log('elem.id: ', elem.id);
+            errorDiv.style.marginTop = '-10px';
+        }
         elem.insertAdjacentElement('afterend', errorDiv);
     }
 
@@ -89,14 +93,21 @@ class Validator {
         const style = document.createElement('style');
         style.textContent = `
             input.success {
-                border: 2px solid green;
+                border: 2px solid green !important;
             }
             input.error {
-                border: 2px solid red;
+                border: 2px solid red !important;
+            }
+            .validator-error-form1{
+                font-size: 12px;
+                font-family: sans-serif;
+                margin: -20px;
+                color: red
             }
             .validator-error{
                 font-size: 12px;
                 font-family: sans-serif;
+                margin: 0px;
                 color: red
             }
         `;
@@ -109,14 +120,14 @@ class Validator {
         }
 
         if (!this.pattern['form-email']) {
-            this.pattern['form-email'] = /^\w+@\w+\.\w{2,}$/;
+            this.pattern['form-email'] = /^\w+(\.\w+)*@\w+\.\w{2,}$/;
         }
 
         if (!this.pattern['form-name']) {
-            this.pattern['form-name'] = /[А-Яа-я ]/;
+            this.pattern['form-name'] = /^[А-Яа-я ]+$/; ///[А-Яа-я ]/;
         }
         if (!this.pattern['form-message']) {
-            this.pattern['form-message'] = /[А-Яа-я ]/;
+            this.pattern['form-message'] = /^[А-Яа-я ]+$/; ///[А-Яа-я ]/;
         }
     }
 }

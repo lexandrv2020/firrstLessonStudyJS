@@ -607,4 +607,92 @@ window.addEventListener('DOMContentLoaded', function() {
     }
     const carousel = new SliderCarousel(options);
     carousel.init();
+
+    //send ajax-form
+    const sendForm = () => {
+
+        const errorMassage = 'Произошла ошибка. Повторите позже....',
+            loadMassage = 'Выполняется отправка....',
+            successMassage = 'Спасибо! Мы скоро с Вами свяжемся!';
+
+
+        form.forEach(itemForm => {
+            const elemForm = document.getElementById(itemForm.id);
+
+            const statusMassage = document.createElement('div');
+            statusMassage.style.cssText = 'font-size: 2rem; color: #fff;text-shadow: 0 1px 0 rgba(255, 255, 255, .5);';
+
+            //валидация данных
+            const inputItems = elemForm.querySelectorAll('input');
+            inputItems.forEach((elem) => {
+                if (elem.name && (elem.name === 'user_name' || elem.name === 'user_email' || elem.name === 'user_phone')) {
+                    elem.removeAttribute('type');
+                }; //|| elem.name === 'user_message'
+            });
+
+            inputItems.forEach((elem) => {
+                elem.addEventListener('input', () => {
+                    if (elem.name === 'user_name' || elem.name === 'user_message') {
+                        console.log('elem.name: ', elem.name);
+
+                        elem.value = elem.value.replace(/[^а-яА-Я\s]/, '');
+                    } else if (elem.name === 'user_phone') {
+                        elem.value = elem.value.replace(/[^0-9\\+]/, '');
+                    }
+                });
+            });
+
+            elemForm.appendChild(statusMassage);
+
+            elemForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                elemForm.appendChild(statusMassage);
+                statusMassage.textContent = loadMassage;
+                const formData = new FormData(elemForm);
+                let body = {};
+                /*            
+если в формате FormData            
+                        request.setRequestHeader('Content-Type', 'multipart/form-data');
+                        const formData = new FormData(form);
+                        request.send(formData);
+в формате JSON
+                        for (let val of formData) {
+                            body[val[0]] = val[1];
+                        }
+                */
+                formData.forEach((value, key) => {
+                    body[key] = value;
+                });
+                postData(body,
+                    () => {
+                        statusMassage.textContent = successMassage;
+                        let inputs = elemForm.querySelectorAll('input');
+                        inputs.forEach((item) => {
+                            item.value = '';
+                        });
+                    },
+                    (error) => {
+                        statusMassage.textContent = errorMassage;
+                        console.error(error);
+                    });
+            });
+        });
+    };
+    const postData = (body, outputData, errorData) => {
+        const request = new XMLHttpRequest();
+        request.addEventListener('readystatechange', () => {
+            if (request.readyState !== 4) {
+                return;
+            }
+            if (request.status === 200) {
+                outputData();
+            } else {
+                errorData(request.status);
+            }
+        });
+        request.open('POST', './server.php');
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(JSON.stringify(body));
+    };
+    sendForm();
 });
