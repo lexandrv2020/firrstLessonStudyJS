@@ -124,10 +124,10 @@ class Validator {
         }
 
         if (!this.pattern['form-name']) {
-            this.pattern['form-name'] = /[А-Яа-я ]/;
+            this.pattern['form-name'] = /^[А-Яа-я ]+$/; ///[А-Яа-я ]/;
         }
         if (!this.pattern['form-message']) {
-            this.pattern['form-message'] = /[А-Яа-я ]/;
+            this.pattern['form-name'] = /^[А-Яа-я ]+$/; ///[А-Яа-я ]/;
         }
     }
 }
