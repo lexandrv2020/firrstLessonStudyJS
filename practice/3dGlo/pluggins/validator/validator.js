@@ -68,16 +68,15 @@ class Validator {
     showError(elem) {
         elem.classList.remove('success');
         elem.classList.add('error');
-        if (elem.nextElementSibling && (elem.nextElementSibling.classList.contains('validator-error') || elem.nextElementSibling.classList.contains('validator-error-form1'))) {
+        if (elem.nextElementSibling && elem.nextElementSibling.classList.contains('validator-error')) {
             return;
         }
         const errorDiv = document.createElement('div');
+        errorDiv.classList.add('validator-error');
         errorDiv.textContent = 'Ошибка в этом поле';
-        //console.log('elem.id: ', elem.id);
         if (elem.id === 'form1-email' || elem.id === 'form1-name' || elem.id === 'form1-phone') {
-            errorDiv.classList.add('validator-error-form1');
-        } else {
-            errorDiv.classList.add('validator-error');
+            console.log('elem.id: ', elem.id);
+            errorDiv.style.marginTop = '-20px';
         }
         elem.insertAdjacentElement('afterend', errorDiv);
     }
@@ -85,7 +84,7 @@ class Validator {
     showSuccess(elem) {
         elem.classList.remove('error');
         elem.classList.add('success');
-        if (elem.nextElementSibling && elem.nextElementSibling.classList.contains('validator-error') || elem.nextElementSibling.classList.contains('validator-error-form1')) {
+        if (elem.nextElementSibling && elem.nextElementSibling.classList.contains('validator-error')) {
             elem.nextElementSibling.remove();
         }
     }
