@@ -524,14 +524,20 @@ window.addEventListener('DOMContentLoaded', function() {
                     background: transparent;
                     outline: transparent;
                     }
-
-                    #circularG{
+                    #statusDone, 
+                    #statusError{
                         position:relative;
                         width:58px;
                         height:58px;
                         margin: auto;
                     }
                     
+                    #circularG{
+                        position:relative;
+                        width:58px;
+                        height:58px;
+                        margin: auto;
+                    }
                     .circularG{
                         position:absolute;
                         background-color:rgb(0,0,0);
@@ -657,8 +663,6 @@ window.addEventListener('DOMContentLoaded', function() {
 
             this.main.appendChild(this.prev);
             this.main.appendChild(this.next);
-
-
         };
 
         responseInit() {
@@ -713,9 +717,9 @@ window.addEventListener('DOMContentLoaded', function() {
             loadMassage = 'Выполняется отправка....',
             successMassage = 'Спасибо! Мы скоро с Вами свяжемся!',
 
-            errorMassageImg = 'Произошла ошибка. Повторите позже....',
-            loadMassageImg = 'Выполняется отправка....',
-            successMassageImg = 'Спасибо! Мы скоро с Вами свяжемся!';
+            errorMassageSrc = "./images/statuses/mark-warning.png",
+            successMassageSrc = "./images/statuses/mark-done.png",
+            loadMassageImg = 'Выполняется отправка....';
 
 
         form.forEach(itemForm => {
@@ -730,7 +734,10 @@ window.addEventListener('DOMContentLoaded', function() {
                 statusCircular5 = document.createElement('div'),
                 statusCircular6 = document.createElement('div'),
                 statusCircular7 = document.createElement('div'),
-                statusCircular8 = document.createElement('div');
+                statusCircular8 = document.createElement('div'),
+                statusDone = document.createElement('img'),
+                statusError = document.createElement('img');
+
             statusCircular0.setAttribute('id', 'circularG');
             statusCircular1.setAttribute('id', 'circularG_1');
             statusCircular2.setAttribute('id', 'circularG_2');
@@ -748,6 +755,10 @@ window.addEventListener('DOMContentLoaded', function() {
             statusCircular6.setAttribute('class', 'circularG');
             statusCircular7.setAttribute('class', 'circularG');
             statusCircular8.setAttribute('class', 'circularG');
+            statusDone.setAttribute('id', 'statusDone');
+            statusError.setAttribute('id', 'statusError');
+            statusDone.setAttribute('src', successMassageSrc);
+            statusError.setAttribute('src', errorMassageSrc);
             statusCircular0.appendChild(statusCircular1);
             statusCircular0.appendChild(statusCircular2);
             statusCircular0.appendChild(statusCircular3);
@@ -757,6 +768,9 @@ window.addEventListener('DOMContentLoaded', function() {
             statusCircular0.appendChild(statusCircular7);
             statusCircular0.appendChild(statusCircular8);
             statusCircular0.style.display = 'none';
+            statusError.style.display = 'none';
+            statusDone.style.display = 'none';
+            statusCircular0.style.display = 'none';
             statusMessage.style.cssText = 'font-size: 2rem; color: #fff;text-shadow: 0 1px 0 rgba(255, 255, 255, .5);';
 
             //валидация данных
@@ -764,13 +778,13 @@ window.addEventListener('DOMContentLoaded', function() {
             inputItems.forEach((elem) => {
                 if (elem.name && (elem.name === 'user_name' || elem.name === 'user_email' || elem.name === 'user_phone')) {
                     elem.removeAttribute('type');
-                }; //|| elem.name === 'user_message'
+                };
             });
 
             inputItems.forEach((elem) => {
                 elem.addEventListener('input', () => {
                     if (elem.name === 'user_name' || elem.name === 'user_message') {
-                        //console.log('elem.name: ', elem.name);
+
 
                         elem.value = elem.value.replace(/[^а-яА-Я\s]/, '');
                     } else if (elem.name === 'user_phone') {
@@ -782,11 +796,15 @@ window.addEventListener('DOMContentLoaded', function() {
             elemForm.appendChild(statusMessage);
 
             elemForm.appendChild(statusCircular0);
+            elemForm.appendChild(statusError);
+            elemForm.appendChild(statusDone);
 
             elemForm.addEventListener('submit', (event) => {
                 event.preventDefault();
                 elemForm.appendChild(statusMessage);
                 elemForm.appendChild(statusCircular0);
+                elemForm.appendChild(statusError);
+                elemForm.appendChild(statusDone);
                 statusCircular0.style.display = 'block';
                 statusMessage.textContent = loadMassage;
                 const formData = new FormData(elemForm);
@@ -810,11 +828,16 @@ window.addEventListener('DOMContentLoaded', function() {
                         let inputs = elemForm.querySelectorAll('input');
                         inputs.forEach((item) => {
                             item.value = '';
+                            item.classList.remove('success');
+                            statusDone.style.display = 'block';
+                            statusError.style.display = 'none';
                         });
                         statusCircular0.style.display = 'none';
                     },
                     (error) => {
                         statusMessage.textContent = errorMassage;
+                        statusDone.style.display = 'none';
+                        statusError.style.display = 'block';
                         console.error(error);
                     });
             });
