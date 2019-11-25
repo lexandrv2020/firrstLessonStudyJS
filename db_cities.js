@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const openAListDefault = () => {
         listDefault.style.display = 'block';
+        listDefault.style.opacity = 1;
         closeButton.style.display = 'block';
         listSelect.style.display = 'none';
         listAutocomplete.style.display = 'none';
@@ -294,13 +295,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const request = new XMLHttpRequest();
             request.open('GET', url);
             request.addEventListener('readystatechange', () => {
-                //console.log('request.readyState: ', request.readyState);
+
                 if (request.readyState !== 4) {
                     return;
                 }
                 if (request.status === 200) {
                     dataObj = JSON.parse(request.responseText);
-                    //console.log('dataObj: ', dataObj);
+                    localStorage.setItem('dataObj', request.responseText);
                     resolve();
                 } else {
                     reject(request.statusText);
@@ -462,14 +463,53 @@ document.addEventListener('DOMContentLoaded', () => {
         dropdown.append(statusCircular0);
     }
 
+    function setItems(name, value, exp_y, exp_m, exp_d, path, domain, security) {
+        //localStorage
+        localStorage.setItem(name, JSON.stringify(value));
+        //cookies
+        let cookieStr = name + '=' + encodeURI(value);
+        if (exp_y) {
+            let expires = new Date(exp_y, exp_m - 1, exp_d);
+            cookieStr += '; expires=' + expires.toGMTString();
+        }
+        cookieStr += path ? '; path=' + path : '';
+        cookieStr += domain ? '; domain=' + domain : '';
+        cookieStr += security ? '; security' : '';
+        cookieStr += '; isLoad=true';
+        document.cookie = cookieStr;
+    };
+
+    function getCookie(name) {
+        let matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    };
+
     const initial = () => {
         applyStyles();
         startASpinner();
+
+        let local = getCookie('local');
+
+
+        if (local !== 'undefined' && localStorage.hasOwnProperty('dataObj')) {
+            console.log(localStorage.getItem('dataObj'));
+            dataObj = JSON.parse(localStorage.getItem('dataObj'));
+            console.log('dataObj: ', dataObj);
+            makeSuccessEnd();
+        }
+
+        do { local = prompt('Укажите вашу локацию (RU, EN или DE)', 'RU') }
+        while (local !== 'RU' && local !== 'EN' && local !== 'DE');
+        setItems('local', local, 2020, 1, 1);
+
         setTimeout(() => {
-            getDataFromJSONServer('http://localhost:3000/RU/')
+            getDataFromJSONServer(`http://localhost:3000/${local}/`)
                 .then(makeSuccessEnd)
                 .catch(error => console.error(error));
         }, 2000);
+
     }
     initial();
 });
