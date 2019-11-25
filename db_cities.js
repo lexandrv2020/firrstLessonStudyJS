@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const openCitiesList = (country) => {
         input.value = '';
         label.textContent = '';
-
+        buttonLink.removeAttribute('href');
         animate({
             duration: 2000,
             timing: function(timeFraction) {
@@ -151,8 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         listSelect.style.display = 'block';
         listDefault.style.display = 'none';
-
-
 
         listAutocomplete.style.display = 'none';
         if (eventNumber === 1) {
@@ -227,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const fillStructure = (typeOfList = 'default', countryName = '') => {
+    const fillStructure = (typeOfList = 'default', countryName = '', local = '') => {
         let mainList = '';
         if (typeOfList === 'default') {
             mainList = dropdownLists;
@@ -250,44 +248,100 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const fillTotalLine = (totalLine, item) => {
-                const country = document.createElement('div');
-                country.className = 'dropdown-lists__country';
-                country.textContent = item.country;
-                totalLine.append(country);
-                country.addEventListener('click', function() {
-                    openCitiesList(item.country);
-                });
+            const country = document.createElement('div');
+            country.className = 'dropdown-lists__country';
+            country.textContent = item.country;
+            totalLine.append(country);
+            country.addEventListener('click', function() {
+                openCitiesList(item.country);
+            });
 
-                const count = document.createElement('div');
-                count.className = 'dropdown-lists__count';
-                count.textContent = item.count;
-                totalLine.append(count);
-                return country;
-            }
+            const count = document.createElement('div');
+            count.className = 'dropdown-lists__count';
+            count.textContent = item.count;
+            totalLine.append(count);
+            return country;
+        }
+        if (local !== '' && local !== 'RU' && typeOfList === 'default') {
+            //console.log('local: ', local);
+            //первый прогон - страна по локации
+            dataObj.forEach((item) => {
+                if (local === 'EN' && item.country !== 'United Kingdom') { return };
+                if (local === 'DE' && item.country !== 'Deutschland') { return };
+
+                const countryBlock = createACountryBlock(mainList);
+                const totalLine = createATotalLine(countryBlock);
+                const country = fillTotalLine(totalLine, item);
+                const cities = item.cities;
+
+                function sDecrease(i, ii) {
+                    if (+i.count > +ii.count)
+                        return -1;
+                    else if (+i.count < +ii.count)
+                        return 1;
+                    else
+                        return 0;
+                }
+
+                cities.sort(sDecrease);
+                let countLength = (countryName !== '' ? cities.length : 3);
+                for (let i = 0; i < countLength; i++) {
+                    const cityLine = createACityLine(countryBlock);
+                    const city = fillCityLine(cityLine, cities[i]);
+                }
+            });
+            //второй прогон - все остальные стран
+            dataObj.forEach((item) => {
+                if (local === 'EN' && item.country === 'United Kingdom') { return };
+                if (local === 'DE' && item.country === 'Deutschland') { return };
+
+                const countryBlock = createACountryBlock(mainList);
+                const totalLine = createATotalLine(countryBlock);
+                const country = fillTotalLine(totalLine, item);
+                const cities = item.cities;
+
+                function sDecrease(i, ii) {
+                    if (+i.count > +ii.count)
+                        return -1;
+                    else if (+i.count < +ii.count)
+                        return 1;
+                    else
+                        return 0;
+                }
+
+                cities.sort(sDecrease);
+                let countLength = (countryName !== '' ? cities.length : 3);
+                for (let i = 0; i < countLength; i++) {
+                    const cityLine = createACityLine(countryBlock);
+                    const city = fillCityLine(cityLine, cities[i]);
+                }
+            });
+        } else {
             //console.log(dataObj);
-        dataObj.forEach((item) => {
-            if (countryName !== '' && item.country !== countryName) { return };
-            const countryBlock = createACountryBlock(mainList);
-            const totalLine = createATotalLine(countryBlock);
-            const country = fillTotalLine(totalLine, item);
-            const cities = item.cities;
+            dataObj.forEach((item) => {
+                if (countryName !== '' && item.country !== countryName) { return };
+                const countryBlock = createACountryBlock(mainList);
+                const totalLine = createATotalLine(countryBlock);
+                const country = fillTotalLine(totalLine, item);
+                const cities = item.cities;
 
-            function sDecrease(i, ii) {
-                if (+i.count > +ii.count)
-                    return -1;
-                else if (+i.count < +ii.count)
-                    return 1;
-                else
-                    return 0;
-            }
+                function sDecrease(i, ii) {
+                    if (+i.count > +ii.count)
+                        return -1;
+                    else if (+i.count < +ii.count)
+                        return 1;
+                    else
+                        return 0;
+                }
 
-            cities.sort(sDecrease);
-            let countLength = (countryName !== '' ? cities.length : 3);
-            for (let i = 0; i < countLength; i++) {
-                const cityLine = createACityLine(countryBlock);
-                const city = fillCityLine(cityLine, cities[i]);
-            }
-        });
+                cities.sort(sDecrease);
+                let countLength = (countryName !== '' ? cities.length : 3);
+                for (let i = 0; i < countLength; i++) {
+                    const cityLine = createACityLine(countryBlock);
+                    const city = fillCityLine(cityLine, cities[i]);
+                }
+            });
+        }
     }
 
     const getDataFromJSONServer = (url) => {
@@ -311,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    const makeSuccessEnd = () => {
+    const makeSuccessEnd = (local = '') => {
         statusCircular0.style.display = 'none';
         closeButton.style.display = 'none';
         listDefault.style.display = 'none';
@@ -321,7 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
         input.addEventListener('click', openAListDefault);
         input.addEventListener('input', openAListAutocomplete);
         clearAllLists();
-        fillStructure('default', '');
+        fillStructure('default', '', local);
 
     };
 
@@ -492,24 +546,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let local = getCookie('local');
 
-
-        if (local !== 'undefined' && localStorage.hasOwnProperty('dataObj')) {
-            console.log(localStorage.getItem('dataObj'));
+        if (local !== undefined && localStorage.hasOwnProperty('dataObj')) {
+            //console.log(localStorage.getItem('dataObj'));
             dataObj = JSON.parse(localStorage.getItem('dataObj'));
-            console.log('dataObj: ', dataObj);
-            makeSuccessEnd();
+            //console.log('dataObj: ', dataObj);
+            makeSuccessEnd(local);
+        } else {
+            do { local = prompt('Укажите вашу локацию (RU, EN или DE)', 'RU') }
+            while (local !== 'RU' && local !== 'EN' && local !== 'DE');
+            setItems('local', local, 2020, 1, 1);
+            const localLang = local;
+            setTimeout(() => {
+                getDataFromJSONServer(`http://localhost:3000/${local}/`)
+                    .then(function() {
+                        makeSuccessEnd(local)
+                    })
+                    .catch(error => console.error(error));
+            }, 2000);
         }
-
-        do { local = prompt('Укажите вашу локацию (RU, EN или DE)', 'RU') }
-        while (local !== 'RU' && local !== 'EN' && local !== 'DE');
-        setItems('local', local, 2020, 1, 1);
-
-        setTimeout(() => {
-            getDataFromJSONServer(`http://localhost:3000/${local}/`)
-                .then(makeSuccessEnd)
-                .catch(error => console.error(error));
-        }, 2000);
-
+        console.log(dataObj);
     }
     initial();
 });
+/*
+.then(function() {
+    makeSuccessEnd(item.local)}) 
+.catch(error => console.error(error));
+*/
