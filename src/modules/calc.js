@@ -16,9 +16,7 @@
 
         calcItems.forEach((elem) => {
             elem.addEventListener('input', () => {
-                //if (elem.getAttribute('min') === '1') {
                 elem.value = elem.value.replace(/[^0-9]/, '');
-                //}
             })
         });
 
@@ -49,21 +47,12 @@
                         }
                     }, 1);
             }
-            // totalValue.textContent = total;
         }
 
         calcBlock.addEventListener('change', (event) => {
             const target = event.target;
-            /*
-                        if (target.matches('.calc-type') || target.matches('.calc-count') || target.matches('.calc-day') || target.matches('.calc-square')) {
-                            console.log(1);
-                        }
-            */
-            /*
-                        if (target === calcType || target === calcCount || target === calcDay || target === calcSquare) {
-                            console.log('target: ', target);
-                        }
-            */
+            console.log(event);
+            console.log(target);
             if (target.matches('select') || target.matches('input')) {
                 countSum();
             }
