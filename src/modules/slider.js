@@ -1,12 +1,12 @@
     //Slider
-    const slider = () => {
+    function slider() {
         let slider = document.querySelector('.portfolio-content'),
             slide = document.querySelectorAll('.portfolio-item'),
             btn = document.querySelectorAll('.portfolio-btn'),
             dots = document.querySelector('.portfolio-dots');
 
         // добавим "точки" на слайдер, по количеству слайдов
-        const setDots = () => {
+        function setDots() {
             slide.forEach((elem, index) => {
 
                 let newElem = document.createElement('li');
@@ -22,16 +22,17 @@
         let dot = document.querySelectorAll('.dot');
 
 
-        const prevSlide = (elem, index, strClass) => {
+        function prevSlide(elem, index, strClass) {
             elem[index].classList.remove(strClass);
         }
-        const nextSlide = (elem, index, strClass) => {
+
+        function nextSlide(elem, index, strClass) {
             elem[index].classList.add(strClass);
         }
         let currentSlide = 0,
             interval;
 
-        const autoPlaySlide = () => {
+        function autoPlaySlide() {
             prevSlide(slide, currentSlide, 'portfolio-item-active');
             prevSlide(dot, currentSlide, 'dot-active');
             currentSlide++;
@@ -41,10 +42,12 @@
             nextSlide(slide, currentSlide, 'portfolio-item-active');
             nextSlide(dot, currentSlide, 'dot-active');
         };
-        const startSlide = (time = 1500) => {
+
+        function startSlide(time = 1500) {
             interval = setInterval(autoPlaySlide, time);
         };
-        const stopSlide = () => {
+
+        function stopSlide() {
             clearInterval(interval);
         };
 

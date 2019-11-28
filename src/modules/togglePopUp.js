@@ -1,32 +1,35 @@
- //popup
- const togglePopUp = () => {
-     const popup = document.querySelector('.popup'),
-         popupContent = document.querySelector('.popup-content'),
-         popupBtn = document.querySelectorAll('.popup-btn');
+import { setInterval } from "timers";
 
-     popup.classList.add('showBlock');
+//popup
+function togglePopUp() {
+    const popup = document.querySelector('.popup'),
+        popupContent = document.querySelector('.popup-content'),
+        popupBtn = document.querySelectorAll('.popup-btn');
 
-     function showBlock() {
-         document.documentElement.clientWidth
-         if (document.documentElement.clientWidth > 768) {
-             popup.style.opacity = '0';
-             popup.style.display = 'block';
-             let num = 0;
-             let stId = setInterval(() => {
-                     let opacity = num / 100;
-                     popup.style.opacity = '' + opacity;
-                     num++;
-                     if (num === 100) {
-                         clearInterval(stId);
-                     }
-                 },
-                 30);
-         } else {
-             popup.style.display = 'block';
-         }
-     };
+    popup.classList.add('showBlock');
 
-     //new animate
+    function showBlock() {
+        document.documentElement.clientWidth
+        if (document.documentElement.clientWidth > 768) {
+            popup.style.opacity = '0';
+            popup.style.display = 'block';
+            let num = 0;
+            let stId = setInterval(function() {
+                    let opacity = num / 100;
+                    popup.style.opacity = '' + opacity;
+                    num++;
+                    if (num === 100) {
+                        clearInterval(stId);
+                    }
+                },
+                30);
+        } else {
+            popup.style.display = 'block';
+        }
+    };
+
+    //new animate
+    /*
      function makeEaseInOut(timing) {
          return function(timeFraction) {
              if (timeFraction < .5)
@@ -68,35 +71,70 @@
      let bounceEaseInOut = makeEaseInOut(bounce);
 
 
-     function makeAnimate() {
-         animate({
-             duration: 3000,
-             timing: bounceEaseInOut,
-             draw: function(progress) {
-                 popupContent.style.left = progress * 500 + 'px';
-             }
-         });
+               function makeAnimate() {
+                   animate({
+                       duration: 3000,
+                       timing: bounceEaseInOut,
+                       draw: function(progress) {
+                           popupContent.style.left = progress * 500 + 'px';
+                       }
+                   });
 
-     }
-     //the end of animation
+               }
+               //the end of animation
+   
+         
+          
+          popupBtn.forEach(element => {
+              element.addEventListener('click', showBlock);
+              element.addEventListener('click', makeAnimate);
+          });
+          */
+    function makeAnimate() {
+        popupContent.style.left = '0px';
+        let initLeft = 0,
+            newAnimation = setInterval(function() {
+
+                popupContent.style.left = (initLeft += 20) + 'px';
+                // console.log('initLeft: ', initLeft);
+                if (initLeft > 500) {
+                    console.log('initLeft: ', initLeft);
+                    clearInterval(newAnimation);
+                }
+            }, 30);
+        /*
+                intPosition = setInterval(() => {
+                    console.log('1 intPosition: ', intPosition);
+                    popupContent.style.left = (initLeft += 15) + 'px';
+                    if (initLeft > 500) {
+                        clearInterval(intPosition);
+                        console.log('2 intPosition: ', intPosition);
+                    }
+                }, 30);
+        */
 
 
-     popupBtn.forEach(element => {
-         element.addEventListener('click', showBlock);
-         element.addEventListener('click', makeAnimate);
-     });
-     popup.addEventListener('click', (event) => {
-         let target = event.target;
+    }
 
-         if (target.classList.contains('popup-close')) {
-             popup.style.display = 'none';
-         } else {
+    for (let i = 0; i < popupBtn.length; i++) {
+        let element = popupBtn[i];
+        element.addEventListener('click', showBlock);
+        element.addEventListener('click', makeAnimate);
+    };
 
-             target = target.closest('.popup-content');
-             if (!target) {
-                 popup.style.display = 'none';
-             }
-         }
-     });
- }
- export default togglePopUp;
+
+    popup.addEventListener('click', function(event) {
+        let target = event.target;
+
+        if (target.classList.contains('popup-close')) {
+            popup.style.display = 'none';
+        } else {
+
+            target = target.closest('.popup-content');
+            if (!target) {
+                popup.style.display = 'none';
+            }
+        }
+    });
+}
+export default togglePopUp;

@@ -132,3 +132,111 @@ class Validator {
         }
     }
 }
+
+
+/*
+const options1 = {
+    selector: '#form1',
+    pattern: {
+        zip: /\d{5,6}/
+    },
+    method: {
+        'form-phone': [
+            ['notEmpty'],
+            ['pattern', 'form-phone']
+        ],
+        'form-name': [
+            ['notEmpty'],
+            ['pattern', 'form-name']
+        ],
+        'form-message': [
+            ['notEmpty'],
+            ['pattern', 'form-message']
+        ],
+        'form-email': [
+            ['notEmpty'],
+            ['pattern', 'form-email']
+        ]
+    },
+};
+
+    
+const validForm1 = new Validator(options);
+    selector: '#form1',
+    pattern: {
+        zip: /\d{5,6}/
+    },
+    method: {
+        'form-phone': [
+            ['notEmpty'],
+            ['pattern', 'form-phone']
+        ],
+        'form-name': [
+            ['notEmpty'],
+            ['pattern', 'form-name']
+        ],
+        'form-message': [
+            ['notEmpty'],
+            ['pattern', 'form-message']
+        ],
+        'form-email': [
+            ['notEmpty'],
+            ['pattern', 'form-email']
+        ]
+    },
+
+});
+
+const validForm2 = new Validator({
+    selector: '#form2',
+    pattern: {
+        zip: /\d{5,6}/
+    },
+    method: {
+        'form-phone': [
+            ['notEmpty'],
+            ['pattern', 'form-phone']
+        ],
+        'form-name': [
+            ['notEmpty'],
+            ['pattern', 'form-name']
+        ],
+        'form-message': [
+            ['notEmpty'],
+            ['pattern', 'form-message']
+        ],
+        'form-email': [
+            ['notEmpty'],
+            ['pattern', 'form-email']
+        ]
+    },
+
+});
+
+const validForm3 = new Validator({
+    selector: '#form3',
+    pattern: {
+        zip: /\d{5,6}/
+    },
+    method: {
+        'form-phone': [
+            ['notEmpty'],
+            ['pattern', 'form-phone']
+        ],
+        'form-name': [
+            ['notEmpty'],
+            ['pattern', 'form-name']
+        ],
+        'form-message': [
+            ['notEmpty'],
+            ['pattern', 'form-message']
+        ],
+        'form-email': [
+            ['notEmpty'],
+            ['pattern', 'form-email']
+        ]
+    },
+
+});
+*/
+export default Validator;

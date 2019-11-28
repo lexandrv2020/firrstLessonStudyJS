@@ -1,11 +1,15 @@
 //Timer
 //function countTimer(deadline) {
-const countTimer = (deadline) => {
 
-    const timerHours = document.querySelector('#timer-hours'),
+
+function countTimer() {
+    const deadline = new Date();
+    deadline.setDate(deadline.getDate() + 1);
+    deadline.setHours(0, 0, 0, 0);
+
+    const timerHours = document.querySelector('#timer-hours1'),
         timerMinutes = document.querySelector('#timer-minutes'),
-        timerSeconds = document.querySelector('#timer-seconds'),
-        timerNumbers = document.querySelector('.timer-numbers');
+        timerSeconds = document.querySelector('#timer-seconds');
 
     function getTimeRemaining() {
         let dateNow = new Date().getTime(),
@@ -20,7 +24,6 @@ const countTimer = (deadline) => {
         updateClock(seconds, minutes, hours);
     };
 
-    //function updateClock(seconds, minutes, hours, theEnd = false) {
     function updateClock(seconds, minutes, hours) {
         timerHours.textContent = (hours < 10) ? '0' + hours : hours;
         timerMinutes.textContent = (minutes < 10) ? '0' + minutes : minutes;
