@@ -11,13 +11,19 @@ import SliderCarousel from './modules/carousel';
 import sendForm from './modules/sendForm';
 import Validator from './modules/validator';
 
-
-countTimer();
+let deadline = new Date();
+deadline.setDate(deadline.getDate() + 1);
+deadline.setHours(0, 0, 0, 0);
+countTimer(deadline);
 
 toggleMenu();
+
 togglePopUp();
+
 tabs();
+
 slider();
+
 command();
 let price = 100;
 calc(price);
@@ -38,6 +44,7 @@ const options = {
         slidesToShow: 1
     }, ]
 };
+
 const carousel_module = new SliderCarousel(options);
 carousel_module.init();
 
@@ -67,6 +74,7 @@ const options1 = {
         ]
     },
 };
+
 const validForm1 = new Validator(options1);
 validForm1.init();
 
@@ -94,6 +102,7 @@ const options2 = {
         ]
     },
 };
+
 const validForm2 = new Validator(options2);
 validForm2.init();
 

@@ -1,7 +1,5 @@
-import { setInterval } from "timers";
-
 //popup
-function togglePopUp() {
+const togglePopUp = () => {
     const popup = document.querySelector('.popup'),
         popupContent = document.querySelector('.popup-content'),
         popupBtn = document.querySelectorAll('.popup-btn');
@@ -14,7 +12,7 @@ function togglePopUp() {
             popup.style.opacity = '0';
             popup.style.display = 'block';
             let num = 0;
-            let stId = setInterval(function() {
+            let stId = setInterval(() => {
                     let opacity = num / 100;
                     popup.style.opacity = '' + opacity;
                     num++;
@@ -29,101 +27,65 @@ function togglePopUp() {
     };
 
     //new animate
-    /*
-     function makeEaseInOut(timing) {
-         return function(timeFraction) {
-             if (timeFraction < .5)
-                 return timing(2 * timeFraction) / 2;
-             else
-                 return (2 - timing(2 * (1 - timeFraction))) / 2;
-         }
-     }
-
-     function animate({ timing, draw, duration }) {
-
-         let start = performance.now();
-
-         requestAnimationFrame(function animate(time) {
-             // timeFraction изменяется от 0 до 1
-             let timeFraction = (time - start) / duration;
-             if (timeFraction > 1) timeFraction = 1;
-
-             // вычисление текущего состояния анимации
-             let progress = timing(timeFraction);
-
-             draw(progress); // отрисовать её
-
-             if (timeFraction < 1) {
-                 requestAnimationFrame(animate);
-             }
-
-         });
-     }
-
-     function bounce(timeFraction) {
-         for (let a = 0, b = 1, result; 1; a += b, b /= 2) {
-             if (timeFraction >= (7 - 4 * a) / 11) {
-                 return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2)
-             }
-         }
-     }
-
-     let bounceEaseInOut = makeEaseInOut(bounce);
-
-
-               function makeAnimate() {
-                   animate({
-                       duration: 3000,
-                       timing: bounceEaseInOut,
-                       draw: function(progress) {
-                           popupContent.style.left = progress * 500 + 'px';
-                       }
-                   });
-
-               }
-               //the end of animation
-   
-         
-          
-          popupBtn.forEach(element => {
-              element.addEventListener('click', showBlock);
-              element.addEventListener('click', makeAnimate);
-          });
-          */
-    function makeAnimate() {
-        popupContent.style.left = '0px';
-        let initLeft = 0,
-            newAnimation = setInterval(function() {
-                debugger;
-                popupContent.style.left = (initLeft += 20) + 'px';
-                // console.log('initLeft: ', initLeft);
-                if (initLeft > 100) {
-                    console.log('initLeft: ', initLeft);
-                    clearInterval(newAnimation);
-                }
-            }, 20);
-        /*
-                intPosition = setInterval(() => {
-                    console.log('1 intPosition: ', intPosition);
-                    popupContent.style.left = (initLeft += 15) + 'px';
-                    if (initLeft > 500) {
-                        clearInterval(intPosition);
-                        console.log('2 intPosition: ', intPosition);
-                    }
-                }, 30);
-        */
-
-
+    function makeEaseInOut(timing) {
+        return function(timeFraction) {
+            if (timeFraction < .5)
+                return timing(2 * timeFraction) / 2;
+            else
+                return (2 - timing(2 * (1 - timeFraction))) / 2;
+        }
     }
 
-    for (let i = 0; i < popupBtn.length; i++) {
-        let element = popupBtn[i];
+    function animate({ timing, draw, duration }) {
+
+        let start = performance.now();
+
+        requestAnimationFrame(function animate(time) {
+            // timeFraction изменяется от 0 до 1
+            let timeFraction = (time - start) / duration;
+            if (timeFraction > 1) timeFraction = 1;
+
+            // вычисление текущего состояния анимации
+            let progress = timing(timeFraction);
+
+            draw(progress); // отрисовать её
+
+            if (timeFraction < 1) {
+                requestAnimationFrame(animate);
+            }
+
+        });
+    }
+
+    function bounce(timeFraction) {
+        for (let a = 0, b = 1, result; 1; a += b, b /= 2) {
+            if (timeFraction >= (7 - 4 * a) / 11) {
+                return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2)
+            }
+        }
+    }
+
+    let bounceEaseInOut = makeEaseInOut(bounce);
+
+
+    function makeAnimate() {
+        animate({
+            duration: 3000,
+            timing: bounceEaseInOut,
+            draw: function(progress) {
+                popupContent.style.left = progress * 500 + 'px';
+            }
+        });
+
+    }
+    //the end of animation
+
+
+    popupBtn.forEach(element => {
         element.addEventListener('click', showBlock);
         element.addEventListener('click', makeAnimate);
-    };
-
-
-    popup.addEventListener('click', function(event) {
+    });
+    popup.addEventListener('click', (event) => {
         let target = event.target;
 
         if (target.classList.contains('popup-close')) {
