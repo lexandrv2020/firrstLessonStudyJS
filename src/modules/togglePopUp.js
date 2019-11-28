@@ -94,14 +94,14 @@ function togglePopUp() {
         popupContent.style.left = '0px';
         let initLeft = 0,
             newAnimation = setInterval(function() {
-
+                debugger;
                 popupContent.style.left = (initLeft += 20) + 'px';
                 // console.log('initLeft: ', initLeft);
-                if (initLeft > 500) {
+                if (initLeft > 100) {
                     console.log('initLeft: ', initLeft);
                     clearInterval(newAnimation);
                 }
-            }, 30);
+            }, 20);
         /*
                 intPosition = setInterval(() => {
                     console.log('1 intPosition: ', intPosition);

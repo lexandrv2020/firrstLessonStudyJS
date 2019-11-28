@@ -123,4 +123,3 @@ const options3 = {
 };
 const validForm3 = new Validator(options3);
 validForm3.init();
-c
