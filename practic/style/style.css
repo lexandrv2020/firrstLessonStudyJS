@@ -1,0 +1,20 @@
+.sectionMult {
+    width: 250px;
+    display: block;
+}
+
+input {
+    display: block;
+    margin: 10px 0;
+    width: 100%;
+}
+
+button {
+    width: 100%;
+    background-color: #faf600;
+}
+
+.sectionNums {
+    width: 250px;
+    padding-bottom: 15px;
+}
