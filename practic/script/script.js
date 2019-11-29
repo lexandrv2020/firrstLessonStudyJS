@@ -8,7 +8,7 @@ let canvas = document.getElementById('cnv'),
 widthSelect.addEventListener('input', function(event) {
     //    console.log(widthSelect.value);
     wdh = widthSelect.value;
-    console.log('wdh: ', wdh);
+    //console.log('wdh: ', wdh);
     drawCircles();
 });
 
@@ -110,7 +110,7 @@ const drawCircles = () => {
     ctx.strokeStyle = 'red';
     ctx.stroke();
     ctx.closePath();
-    console.log('ctx: ', ctx);
+    //console.log('ctx: ', ctx);
 }
 
 drawCircles();
