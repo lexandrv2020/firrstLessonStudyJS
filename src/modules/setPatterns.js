@@ -10,3 +10,4 @@ const setPatterns = () =>{
         });
     });        
 }
+export default setPatterns;
