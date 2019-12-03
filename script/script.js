@@ -773,171 +773,173 @@ window.addEventListener('DOMContentLoaded', function() {
     const carousel = new servicesSlider(options);
     carousel.init();
   
-//Slider
-const gallerySlider = () => {
-    let slider = document.querySelector('.gallery-slider'),
-        slide = slider.querySelectorAll('.slide');
-        let btn_left = document.createElement('a');
-        btn_left.setAttribute('href', '#');
-        btn_left.classList.add('gallery-btn');
-        btn_left.classList.add('prev');
-        btn_left.setAttribute('id', 'arrow-left');
-        let btn_right = document.createElement('a');
-        btn_right.setAttribute('href', '#');
-        btn_right.classList.add('gallery-btn');
-        btn_right.classList.add('next');
-        btn_right.setAttribute('id', 'arrow-right');
-        slider.appendChild(btn_left);
-        slider.appendChild(btn_right);
-        let btn = slider.querySelectorAll('.gallery-btn');
-        let ul = document.createElement('ul');
-        ul.className = 'gallery-dots'; 
-        slider.appendChild(ul);
+    //Slider
+    const gallerySlider = () => {
+        let slider = document.querySelector('.gallery-slider'),
+            slide = slider.querySelectorAll('.slide');
+            let btn_left = document.createElement('a');
+            btn_left.setAttribute('href', '#');
+            btn_left.classList.add('gallery-btn');
+            btn_left.classList.add('prev');
+            btn_left.setAttribute('id', 'arrow-left');
+            let btn_right = document.createElement('a');
+            btn_right.setAttribute('href', '#');
+            btn_right.classList.add('gallery-btn');
+            btn_right.classList.add('next');
+            btn_right.setAttribute('id', 'arrow-right');
+            slider.appendChild(btn_left);
+            slider.appendChild(btn_right);
+            let btn = slider.querySelectorAll('.gallery-btn');
+            let ul = document.createElement('ul');
+            ul.className = 'gallery-dots'; 
+            slider.appendChild(ul);
 
-    const dots = document.querySelector('.gallery-dots');
-    
-    // добавим "точки" на слайдер, по количеству слайдов
-    const setDots = () => {
-        slide.forEach((elem, index) => {
-            slide[index].classList.add('gallery-item');
-            slide[index].classList.remove('slide');
-            let newElem = document.createElement('li');
-            if (index === 0) {
-                newElem.setAttribute('class', 'dot dot-active');
-            } else {
-                newElem.setAttribute('class', 'dot');
-            }
-            dots.appendChild(newElem);
-        });
-    }
-    setDots();
-    let dot = document.querySelectorAll('.dot');
-
-
-    const prevSlide = (elem, index, strClass) => {
-        elem[index].classList.remove(strClass);
-    }
-    const nextSlide = (elem, index, strClass) => {
-        elem[index].classList.add(strClass);
-    }
-    let currentSlide = 0,
-        interval;
-
-    const autoPlaySlide = () => {
-        prevSlide(slide, currentSlide, 'gallery-item-active');
-        prevSlide(dot, currentSlide, 'dot-active');
-        currentSlide++;
-        if (currentSlide >= slide.length) {
-            currentSlide = 0;
-        }
-        nextSlide(slide, currentSlide, 'gallery-item-active');
-        nextSlide(dot, currentSlide, 'dot-active');
-    };
-    const startSlide = (time = 1500) => {
-        interval = setInterval(autoPlaySlide, time);
-    };
-    const stopSlide = () => {
-        clearInterval(interval);
-    };
-
-    slider.addEventListener('click', (event) => {
-        event.preventDefault();
-        let target = event.target;
-
-        if (!target.matches('.gallery-btn, .dot')) {
-            return;
-        }
-
-        prevSlide(slide, currentSlide, 'gallery-item-active');
-        prevSlide(dot, currentSlide, 'dot-active');
-
-        if (target.matches('#arrow-right')) {
-            currentSlide++;
-        } else if (target.matches('#arrow-left')) {
-            currentSlide--;
-        } else if (target.matches('.dot')) {
-            dot.forEach((elem, index) => {
-                if (elem === target) {
-                    currentSlide = index;
+        const dots = document.querySelector('.gallery-dots');
+        
+        // добавим "точки" на слайдер, по количеству слайдов
+        const setDots = () => {
+            slide.forEach((elem, index) => {
+                slide[index].classList.add('gallery-item');
+                slide[index].classList.remove('slide');
+                let newElem = document.createElement('li');
+                if (index === 0) {
+                    newElem.setAttribute('class', 'dot dot-active');
+                } else {
+                    newElem.setAttribute('class', 'dot');
                 }
-            })
+                dots.appendChild(newElem);
+            });
         }
-        if (currentSlide >= slide.length) {
-            currentSlide = 0;
+        setDots();
+        let dot = document.querySelectorAll('.dot');
+
+
+        const prevSlide = (elem, index, strClass) => {
+            elem[index].classList.remove(strClass);
         }
-        if (currentSlide < 0) {
-            currentSlide = slide.length - 1;
+        const nextSlide = (elem, index, strClass) => {
+            elem[index].classList.add(strClass);
         }
+        let currentSlide = 0,
+            interval;
 
-        nextSlide(slide, currentSlide, 'gallery-item-active');
-        nextSlide(dot, currentSlide, 'dot-active');
-    });
+        const autoPlaySlide = () => {
+            prevSlide(slide, currentSlide, 'gallery-item-active');
+            prevSlide(dot, currentSlide, 'dot-active');
+            currentSlide++;
+            if (currentSlide >= slide.length) {
+                currentSlide = 0;
+            }
+            nextSlide(slide, currentSlide, 'gallery-item-active');
+            nextSlide(dot, currentSlide, 'dot-active');
+        };
+        const startSlide = (time = 1500) => {
+            interval = setInterval(autoPlaySlide, time);
+        };
+        const stopSlide = () => {
+            clearInterval(interval);
+        };
 
-    slider.addEventListener('mouseover', (event) => {
-        if (event.target.matches('.gallery-btn, .dot ')) { //||
-            stopSlide();
-        }
-    });
+        slider.addEventListener('click', (event) => {
+            event.preventDefault();
+            let target = event.target;
 
-    slider.addEventListener('mouseout', (event) => {
-        if (event.target.matches('.gallery-btn, .dot')) { // ||
-            startSlide();
-        }
-    });
-    startSlide(4500);
-}
-gallerySlider();
+            if (!target.matches('.gallery-btn, .dot')) {
+                return;
+            }
 
-const calcPrice = () =>{
-    const time = document.querySelector('.time'),
-        price = document.querySelector('.price'),
-        magicWorldBlock = price.querySelector('.input-text'),
-        magicWorldtext = magicWorldBlock.querySelector('input'),
-        clubName = document.querySelectorAll('input[name="club-name"]'),
-        cardType = document.querySelectorAll('input[name="card-type"]'),
-        priceTotal = document.getElementById('price-total'),
-        mozaika_arr   = [0,1999,0,0,0,0,9900,0,0,13900,0,0,19900],
-        schelkovo_arr = [0,2999,0,0,0,0,14990,0,0,21990,0,0,24990];
+            prevSlide(slide, currentSlide, 'gallery-item-active');
+            prevSlide(dot, currentSlide, 'dot-active');
 
-    let period = 1,
-        club = 'mozaika',
-        arr = mozaika_arr,
-        bonus = 0;
-    
-    const getCurrentPrice = () =>{
-        if(magicWorldtext.value.replace(/\s+/g,'') === 'ТЕЛО2019'){
-            bonus = 30;
-        }
-        arr = club === 'mozaika' ? mozaika_arr : schelkovo_arr;
-        priceTotal.textContent = +arr[period] - (+arr[period] / 100 * bonus);
+            if (target.matches('#arrow-right')) {
+                currentSlide++;
+            } else if (target.matches('#arrow-left')) {
+                currentSlide--;
+            } else if (target.matches('.dot')) {
+                dot.forEach((elem, index) => {
+                    if (elem === target) {
+                        currentSlide = index;
+                    }
+                })
+            }
+            if (currentSlide >= slide.length) {
+                currentSlide = 0;
+            }
+            if (currentSlide < 0) {
+                currentSlide = slide.length - 1;
+            }
 
-    }
-
-    const getClubNameValue = (elem) =>{
-        club = elem.value;
-        getCurrentPrice();
-    }
-
-    const getCardTypeValue = (elem) =>{
-        period = +elem.value;
-        getCurrentPrice();
-    }
-    magicWorldtext.addEventListener('input', getCurrentPrice);
-
-    clubName.forEach(element => {
-        element.addEventListener('click', function(){
-             getClubNameValue(element);
-            } );   
-    });
-
-    cardType.forEach(element => {
-        element.addEventListener('click', function(){
-            getCardTypeValue(element);
+            nextSlide(slide, currentSlide, 'gallery-item-active');
+            nextSlide(dot, currentSlide, 'dot-active');
         });
-    });
-    
-}
-calcPrice();
+
+        slider.addEventListener('mouseover', (event) => {
+            if (event.target.matches('.gallery-btn, .dot ')) { //||
+                stopSlide();
+            }
+        });
+
+        slider.addEventListener('mouseout', (event) => {
+            if (event.target.matches('.gallery-btn, .dot')) { // ||
+                startSlide();
+            }
+        });
+        startSlide(4500);
+    }
+    gallerySlider();
+
+    const calcPrice = () =>{
+        let locat = location.href;
+        if (locat.indexOf("index") != -1) {
+            const time = document.querySelector('.time'),
+                price = document.querySelector('.price'),
+                magicWorldBlock = price.querySelector('.input-text'),
+                magicWorldtext = magicWorldBlock.querySelector('input'),
+                clubName = document.querySelectorAll('input[name="club-name"]'),
+                cardType = document.querySelectorAll('input[name="card-type"]'),
+                priceTotal = document.getElementById('price-total'),
+                mozaika_arr   = [0,1999,0,0,0,0,9900,0,0,13900,0,0,19900],
+                schelkovo_arr = [0,2999,0,0,0,0,14990,0,0,21990,0,0,24990];
+
+            let period = 1,
+                club = 'mozaika',
+                arr = mozaika_arr,
+                bonus = 0;
+            
+            const getCurrentPrice = () =>{
+                if(magicWorldtext.value.replace(/\s+/g,'') === 'ТЕЛО2019'){
+                    bonus = 30;
+                }
+                arr = club === 'mozaika' ? mozaika_arr : schelkovo_arr;
+                priceTotal.textContent = +arr[period] - (+arr[period] / 100 * bonus);
+
+            }
+
+            const getClubNameValue = (elem) =>{
+                club = elem.value;
+                getCurrentPrice();
+            }
+
+            const getCardTypeValue = (elem) =>{
+                period = +elem.value;
+                getCurrentPrice();
+            }
+            magicWorldtext.addEventListener('input', getCurrentPrice);
+
+            clubName.forEach(element => {
+                element.addEventListener('click', function(){
+                    getClubNameValue(element);
+                    } );   
+            });
+
+            cardType.forEach(element => {
+                element.addEventListener('click', function(){
+                    getCardTypeValue(element);
+                });
+            });
+        }
+    }
+    calcPrice();
 
 
 
