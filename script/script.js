@@ -1,12 +1,10 @@
 window.addEventListener('DOMContentLoaded', function() {
     'use strict';
     
-    
     //меню
     const clubListMenu = () => {
         const clubListMenu = document.getElementsByClassName('clubs-list')[0],
         menuItems = clubListMenu.querySelectorAll('ul');
-
         const openClubList = (event) => {
             menuItems.forEach(element => {
                 if (element.style.display === 'block') {
@@ -17,7 +15,6 @@ window.addEventListener('DOMContentLoaded', function() {
             });
         }
         clubListMenu.addEventListener('click', openClubList);
-
     }
     clubListMenu();
 
@@ -35,7 +32,6 @@ window.addEventListener('DOMContentLoaded', function() {
             if (event.target.classList.contains('close_icon') || event.target.classList.contains('overlay')) {
                 form.style.cssText = 'display: none';
             }
-            
         }
         openPopup.addEventListener('click', openVisitForm);
         closeIcon.addEventListener('click', closeVisitForm);
@@ -64,14 +60,13 @@ window.addEventListener('DOMContentLoaded', function() {
     }
     callbackForm();
 
-
     const setPatterns = () =>{
         const inputsItems = document.querySelectorAll('input');
         inputsItems.forEach((elem) => {
             elem.addEventListener('input', () => {
                 if (elem.type === 'tel') {
                     elem.value = elem.value.replace(/[^0-9\\+]/, '');
-                }else if (elem.name === 'name') {
+                }else if (elem.name === 'name' && elem.getAttribute('placeholder') !== 'Промокод') {
                     elem.value = elem.value.replace(/[^а-яА-Я\s]/, '')
                 }
             });
@@ -80,11 +75,13 @@ window.addEventListener('DOMContentLoaded', function() {
     setPatterns();
 
     const getGift = () =>{
-        const fixedGift = document.getElementsByClassName('fixed-gift')[0],
-            formGift = document.getElementById('gift'),
-            img = fixedGift.querySelectorAll('img')[0],
-            closeIcon = formGift.getElementsByClassName('close_icon')[0],
-            closeBtn = formGift.getElementsByClassName('close-btn')[0];
+        let locat = location.href;
+        if (locat.indexOf("index") != -1) {
+            const fixedGift = document.getElementsByClassName('fixed-gift')[0],
+                formGift = document.getElementById('gift'),
+                img = fixedGift.querySelectorAll('img')[0],
+                closeIcon = formGift.getElementsByClassName('close_icon')[0],
+                closeBtn = formGift.getElementsByClassName('close-btn')[0];
             const openGift = (event) => {
                 formGift.style.cssText = 'display: block';
                 fixedGift.style.cssText = 'display: none';
@@ -97,6 +94,7 @@ window.addEventListener('DOMContentLoaded', function() {
             img.addEventListener('click', openGift);    
             closeIcon.addEventListener('click', closeGiftForm);
             closeBtn.addEventListener('click', closeGiftForm);
+        }        
     }
     getGift();
 
@@ -104,7 +102,6 @@ window.addEventListener('DOMContentLoaded', function() {
         const mainSlider= document.getElementsByClassName('main-slider')[0],
         slides = mainSlider.querySelectorAll('.slide');
         //console.log('slides: ', slides);
-
         let currentSlide = 0;
         const showSlide = ()=>{
             slides.forEach((elem)=>{
@@ -261,7 +258,7 @@ window.addEventListener('DOMContentLoaded', function() {
             //this.wrap.classList.remove('services-slider');
             //console.log('this.wrap: ', this.wrap);
             for (const item of this.slides) {
-                console.log('this.slides: ', this.slides);
+                //console.log('this.slides: ', this.slides);
 
                 //item.classList.add('glo-slider__item');
             }
@@ -600,9 +597,56 @@ const gallerySlider = () => {
 }
 gallerySlider();
 
+const calcPrice = () =>{
+    const time = document.querySelector('.time'),
+        price = document.querySelector('.price'),
+        magicWorldBlock = price.querySelector('.input-text'),
+        magicWorldtext = magicWorldBlock.querySelector('input'),
+        clubName = document.querySelectorAll('input[name="club-name"]'),
+        cardType = document.querySelectorAll('input[name="card-type"]'),
+        priceTotal = document.getElementById('price-total'),
+        mozaika_arr   = [0,1999,0,0,0,0,9900,0,0,13900,0,0,19900],
+        schelkovo_arr = [0,2999,0,0,0,0,14990,0,0,21990,0,0,24990];
 
+    let period = 1,
+        club = 'mozaika',
+        arr = mozaika_arr,
+        bonus = 0;
+    
+    const getCurrentPrice = () =>{
+        if(magicWorldtext.value.replace(/\s+/g,'') === 'ТЕЛО2019'){
+            bonus = 30;
+        }
+        arr = club === 'mozaika' ? mozaika_arr : schelkovo_arr;
+        priceTotal.textContent = +arr[period] - (+arr[period] / 100 * bonus);
 
+    }
 
+    const getClubNameValue = (elem) =>{
+        club = elem.value;
+        getCurrentPrice();
+    }
+
+    const getCardTypeValue = (elem) =>{
+        period = +elem.value;
+        getCurrentPrice();
+    }
+    magicWorldtext.addEventListener('input', getCurrentPrice);
+
+    clubName.forEach(element => {
+        element.addEventListener('click', function(){
+             getClubNameValue(element);
+            } );   
+    });
+
+    cardType.forEach(element => {
+        element.addEventListener('click', function(){
+            getCardTypeValue(element);
+        });
+    });
+    
+}
+calcPrice();
 
 
 

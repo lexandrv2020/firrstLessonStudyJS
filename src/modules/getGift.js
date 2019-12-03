@@ -1,10 +1,12 @@
 const getGift = () =>{
-    const fixedGift = document.getElementsByClassName('fixed-gift')[0],
-        formGift = document.getElementById('gift'),
-        img = fixedGift.querySelectorAll('img')[0],
-        closeIcon = formGift.getElementsByClassName('close_icon')[0],
-        closeBtn = formGift.getElementsByClassName('close-btn')[0];
-        const openGift = (event) => {
+    let locat = location.href;
+    if ( locat.indexOf("index") != -1 ) {
+        const fixedGift = document.getElementsByClassName('fixed-gift')[0],
+            formGift = document.getElementById('gift'),
+            img = fixedGift.querySelectorAll('img')[0],
+            closeIcon = formGift.getElementsByClassName('close_icon')[0],
+            closeBtn = formGift.getElementsByClassName('close-btn')[0];
+        const openGift = () => {
             formGift.style.cssText = 'display: block';
             fixedGift.style.cssText = 'display: none';
         }
@@ -16,5 +18,6 @@ const getGift = () =>{
         img.addEventListener('click', openGift);    
         closeIcon.addEventListener('click', closeGiftForm);
         closeBtn.addEventListener('click', closeGiftForm);
+    };    
 };
 export default getGift;

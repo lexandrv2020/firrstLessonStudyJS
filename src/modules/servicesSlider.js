@@ -12,7 +12,8 @@ class servicesSlider {
         if (!main || !wrap) {
             
         }
-        this.main = document.querySelector(main);
+        const services =  document.getElementById('services');
+        this.main = services.getElementsByClassName('wrapper')[0];
         this.wrap = document.querySelector(wrap);
         this.slides = document.querySelector(wrap).children;
         this.prev = document.querySelector(prev);
@@ -43,9 +44,12 @@ class servicesSlider {
     addGloClasses() {
         this.main.classList.add('glo-slider');
         this.wrap.classList.add('glo-slider__wrap');
-        console.log('this.wrap: ', this.wrap);
+        //this.wrap.classList.remove('services-slider');
+        //console.log('this.wrap: ', this.wrap);
         for (const item of this.slides) {
-            item.classList.add('glo-slider__item');
+            //console.log('this.slides: ', this.slides);
+
+            //item.classList.add('glo-slider__item');
         }
     }
     addStyle() {
@@ -55,27 +59,31 @@ class servicesSlider {
             style.id = 'sliderCarousel-style';
         }
         style.textContent = `
-            ._glo-slider{
+            .glo-slider{
                 overflow: hidden !important;
             }
-            ._glo-slider__wrap{
+            .glo-slider__wrap{
                 display: flex !important;
                 transition: transform 0.5s !important;
                 will-change: transform !important;
             }
-            ._glo-slider__item{
+            .glo-slider__item{
                 display: flex !important;
                 align-items: center  !important;
                 justify-content: center  !important;
                 flex: 0 0 ${this.options.widthSlide}% !important;
                 margin: auto 0 !important;
                 }
-            
+                .slide{
+                    flex: 0 0 ${this.options.widthSlide}% !important;
+                    }
+                
             .glo-slider__prev,
             .glo-slider__next{
                 margin: 0 10px;
                 border: 20px solid transparent;
                 background: transparent;
+                
             }
             .glo-slider__next{
                 border-left-color: #19b5fe;
@@ -180,7 +188,6 @@ class servicesSlider {
                             background-color: #53c6fe;
                             -webkit-transform: scale(1.2);
                             transform: scale(1.2); }
-
             `
         document.head.appendChild(style);
     }
@@ -242,4 +249,5 @@ class servicesSlider {
         checkResponse();
         window.addEventListener('resize', checkResponse);
     }
-}
+};
+export default servicesSlider;

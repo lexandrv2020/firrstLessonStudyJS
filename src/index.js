@@ -9,6 +9,7 @@ import clubSlider from './modules/clubSlider';
 import sendForm from './modules/sendForm';
 import servicesSlider from './modules/servicesSlider';
 import gallerySlider from './modules/gallerySlider';
+import calcPrice from './modules/calcPrice';
 
 //меню
 clubListMenu();
@@ -45,3 +46,6 @@ const carousel = new servicesSlider(options);
 carousel.init();
 //Slider
 gallerySlider();
+
+//калькулятор
+calcPrice();
