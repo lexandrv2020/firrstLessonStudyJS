@@ -941,37 +941,55 @@ window.addEventListener('DOMContentLoaded', function() {
     }
     calcPrice();
 
-    //фиксация бургер-меню
-    const fixingMenu = () => {
-        const burgerMenu = document.querySelector('.top-menu');
+    //бургер-меню
+    const burgerMenu = () => {
+        const topMenu = document.querySelector('.top-menu'),
+            menuButton = document.querySelector('.menu-button'),
+            popupMenu = document.querySelector('.popup-menu'),
+            closeBtn = popupMenu.querySelector('.close-menu-btn'),
+            menuItemsPopup = popupMenu.querySelectorAll('li');
 
         window.addEventListener('scroll', ()=> {
-            console.log(pageYOffset);
-            console.log('burgerMenu.getAttribute:', burgerMenu.getAttribute('position'));
             if (pageYOffset > 215){
-                burgerMenu.style.cssText = 'position: fixed; top:0; right:0;';
+                topMenu.style.cssText = 'position: fixed; top:0; right:0;';
             }else if (pageYOffset < 215){
-                burgerMenu.style.cssText = '';
+                topMenu.style.cssText = '';
             } 
         });
+
+        const openPopupMenu = () => {
+            if (popupMenu.style.display === 'flex') {
+                popupMenu.style.display = 'none';
+            }else{
+                popupMenu.style.display = 'flex';
+            }
+        };
+        menuButton.addEventListener('click', openPopupMenu);
+
+        const closePopupMenu = ()=>{
+            popupMenu.style.display = 'none';   
+        }
+
+        closeBtn.addEventListener('click', closePopupMenu);
+        menuItemsPopup.forEach(element => {
+            element.addEventListener('click', closePopupMenu);
+        });
     }
-    fixingMenu();
+    burgerMenu();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    //стрелка возврата
+    const arrowUp = () =>{
+        const upBtn = document.getElementById('totop');
+        upBtn.style.display = 'none';
+        window.addEventListener('scroll', ()=> {
+            
+            if (pageYOffset > 600){
+                upBtn.style.display = 'block';
+            }else if (pageYOffset < 600){
+                console.log(pageYOffset);
+                upBtn.style.display = 'none';
+            } 
+        });        
+    }
+    arrowUp();
 }); 

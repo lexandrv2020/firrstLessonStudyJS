@@ -28,7 +28,7 @@ const setPatterns = () =>{
             if (event.type == "blur" && this.value.length < 5) {
                 this.value = "";
             }
-    
+   
         }
     
         elem.addEventListener("input", mask);
