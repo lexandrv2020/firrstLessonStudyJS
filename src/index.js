@@ -10,6 +10,7 @@ import sendForm from './modules/sendForm';
 import servicesSlider from './modules/servicesSlider';
 import gallerySlider from './modules/gallerySlider';
 import calcPrice from './modules/calcPrice';
+import fixingMenu from './modules/fixingMenu';
 
 //меню
 clubListMenu();
@@ -48,3 +49,6 @@ carousel.init();
 gallerySlider();
 //калькулятор
 calcPrice();
+
+//бургер меню. Фиксация
+fixingMenu();

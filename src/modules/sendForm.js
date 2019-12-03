@@ -88,7 +88,7 @@
         };
         makeBannerForm();                    
 
-        //форма2
+        //форма1
         const makeForm1 = () =>{
             const forms1 = document.getElementById('form1'),   
                 errorMassageForm1 = 'Произошла ошибка. Повторите позже....',

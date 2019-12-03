@@ -8,7 +8,6 @@ const clubSlider = () => {
         slides.forEach((elem)=>{
             elem.style.display = 'none';
         })
-        //console.log('slides[currentSlide]: ', slides[currentSlide]);
         slides[currentSlide].style.display = 'flex'; 
         
         currentSlide++;
