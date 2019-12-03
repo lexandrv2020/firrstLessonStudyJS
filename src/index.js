@@ -46,6 +46,5 @@ const carousel = new servicesSlider(options);
 carousel.init();
 //Slider
 gallerySlider();
-
 //калькулятор
 calcPrice();
