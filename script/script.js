@@ -394,7 +394,6 @@ window.addEventListener('DOMContentLoaded', function() {
                                   background-color: #53c6fe;
                                   -webkit-transform: scale(1.2);
                                   transform: scale(1.2); }
-
                     `
                 document.head.appendChild(style);
             }
