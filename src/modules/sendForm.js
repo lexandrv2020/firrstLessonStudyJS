@@ -80,7 +80,7 @@ const sendForm = () =>{
     };
     makeBannerForm();                    
 
-    //форма2
+    //форма1
     const makeForm1 = () =>{
         const forms1 = document.getElementById('form1'),   
             errorMassageForm1 = 'Произошла ошибка. Повторите позже....',
@@ -196,9 +196,7 @@ const sendForm = () =>{
             closeBtn.addEventListener('click', closeThanksForm2);
         });
     };    
-        
     makeForm2();
-
 
     const postData = (body) => {
         return fetch('./server.php', {
