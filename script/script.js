@@ -967,8 +967,7 @@ window.addEventListener('DOMContentLoaded', function() {
                     bonus = 30;
                 }
                 arr = club === 'mozaika' ? mozaika_arr : schelkovo_arr;
-                priceTotal.textContent = +arr[period] - (+arr[period] / 100 * bonus);
-
+                priceTotal.textContent = +arr[period] - Math.floor(+arr[period] / 100 * bonus);
             }
 
             const getClubNameValue = (elem) =>{
