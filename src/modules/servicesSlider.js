@@ -60,6 +60,9 @@ class servicesSlider {
         }
         
         style.textContent = `
+        #services{
+            position: relative;
+        }
             .glo-slider{
                 overflow: hidden !important;
             }
@@ -68,16 +71,10 @@ class servicesSlider {
                 transition: transform 0.5s !important;
                 will-change: transform !important;
             }
-            .glo-slider__item{
-                display: flex !important;
-                align-items: center  !important;
-                justify-content: center  !important;
+            
+            .slide{
                 flex: 0 0 ${this.options.widthSlide}% !important;
-                margin: auto 0 !important;
-                }
-                .slide{
-                    flex: 0 0 ${this.options.widthSlide}% !important;
-                    }
+            }
                 
             .glo-slider__prev,
             .glo-slider__next{
@@ -102,11 +99,14 @@ class servicesSlider {
 
             .glo-slider__prev{    
                 position: absolute;
+                left: 20%;
+                top: 50%;
                 
             }
             .glo-slider__next{    
                 position: absolute;
                 right: 20%;
+                top: 50%;
                 
             }                
             .gallery {
@@ -253,8 +253,12 @@ class servicesSlider {
         this.prev.className = 'glo-slider__prev';
         this.next.className = 'glo-slider__next';
         
-        this.main.appendChild(this.prev);
-        this.main.appendChild(this.next);
+        const wrapperSlider = document.getElementById('services');
+        console.log('wrapperSlider: ', wrapperSlider);
+        wrapperSlider.appendChild(this.prev);
+        wrapperSlider.appendChild(this.next);
+//            this.main.appendChild(this.prev);
+//            this.main.appendChild(this.next);
     };
 
     responseInit() {
@@ -282,4 +286,5 @@ class servicesSlider {
         window.addEventListener('resize', checkResponse);
     }
 };
+
 export default servicesSlider;
