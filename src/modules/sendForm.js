@@ -9,6 +9,7 @@
             form1Check = document.getElementById('check2'),
             form2Check = document.getElementById('check'),
             formBannerCheck = document.getElementById('check1'),
+            formOrderCheck = document.getElementById('card_check'),
 
             statusDone = document.createElement('img'),
             statusMessage = document.createElement('div'),
@@ -226,6 +227,13 @@
                 errorMassageOrder = 'Произошла ошибка. Повторите позже....',
                 loadMassageOrder = 'Выполняется отправка брони....',
                 successMassageOrder = 'Спасибо! Вы сделали Правильный Выбор!';
+
+                formOrderCheck.style.display = 'block';
+                formOrderCheck.style.position = 'absolute';
+                formOrderCheck.style.zIndex = -100;
+                formOrderCheck.style.left = -50+'%';
+                formOrderCheck.setAttribute('required','');
+
             cardOrderForm.addEventListener('submit', (event) => {
                 event.preventDefault();
                 cardOrderForm.appendChild(statusMessage);
