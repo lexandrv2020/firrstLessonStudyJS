@@ -32,6 +32,7 @@ const gallerySlider = () => {
             }
             dots.appendChild(newElem);
         });
+        slide[0].classList.add('gallery-item-active');
     }
     setDots();
     let dot = document.querySelectorAll('.dot');

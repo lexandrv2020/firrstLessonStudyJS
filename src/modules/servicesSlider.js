@@ -97,97 +97,117 @@ class servicesSlider {
             .glo-slider__prev:focus{
                 background: transparent;
                 outline: transparent;
-                }
-                .gallery {
-                    padding: 5rem 0; }
+            }
+            .gallery {
+                padding: 5rem 0; 
+            }
+            .gallery-slider {
+                position: relative;
+                height: 775px;
+                margin: 0 auto;
+                display: block; }
+                @media (max-width: 1024px) {
                     .gallery-slider {
-                        position: relative;
-                        height: 775px;
-                        margin: 0 auto;
-                        display: block; }
-                        @media (max-width: 1024px) {
-                        .gallery-slider {
-                            height: 650px; } }
-                    .gallery-item {
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        -webkit-transform: translate(-50%, -50%);
-                        transform: translate(-50%, -50%);
-                        width: 100%;
-                        opacity: 0;
-                        -webkit-transition: opacity .5s ease;
-                        transition: opacity .5s ease; }
-                        .gallery-item img {
-                        height: auto;
-                        width: 100%;
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        -webkit-transform: translate(-50%, -50%);
-                        transform: translate(-50%, -50%); }
-                        .gallery-item-active {
-                        opacity: 1;
-                        -webkit-transition: opacity .5s ease;
-                        transition: opacity .5s ease; }
-                    .gallery-btn {
-                        position: absolute;
-                        cursor: pointer;
-                        top: 50%;
-                        z-index: 5;
-                        width: 50px;
-                        height: 50px;
-                        background-color: rgba(0, 0, 0, 0.5);
-                        background-repeat: no-repeat;
-                        background-size: 34px;
-                        border-radius: 50%;
-                        -webkit-transition: background-color 0.2s ease;
-                        transition: background-color 0.2s ease; }
-                        .gallery-btn.prev {
-                        left: 20px;
-                        background-image: url("./images/arrow-left.png");
-                        background-position: 25% 50%; }
-                        .gallery-btn.next {
-                        right: 20px;
-                        background-image: url("./images/arrow-right.png");
-                        background-position: 75% 50%; }
-                        .gallery-btn:hover {
-                        background-color: rgba(0, 0, 0, 0.8);
-                        -webkit-transition: background-color 0.2s ease;
-                        transition: background-color 0.2s ease; }
-                    .gallery-dots {
-                        position: absolute;
-                        bottom: 20px;
-                        width: 100%;
-                        margin: 0 auto;
-                        margin-top: 20px;
-                        display: -webkit-box;
-                        display: -ms-flexbox;
-                        display: flex;
-                        -webkit-box-pack: center;
-                        -ms-flex-pack: center;
-                        justify-content: center;
-                        z-index: 5; }
-                        .gallery-dots .dot {
-                        cursor: pointer;
-                        height: 16px;
-                        width: 16px;
-                        margin: 0 10px;
-                        border-radius: 50%;
-                        border: solid #fff;
-                        display: inline-block;
-                        -webkit-transition: background-color, -webkit-transform 0.4s ease;
-                        transition: background-color, -webkit-transform 0.4s ease;
-                        transition: background-color, transform 0.4s ease;
-                        transition: background-color, transform 0.4s ease, -webkit-transform 0.4s ease; }
-                        .gallery-dots .dot-active {
-                            background-color: #19b5fe;
-                            -webkit-transform: scale(1.2);
-                            transform: scale(1.2); }
-                        .gallery-dots .dot:hover {
-                            background-color: #53c6fe;
-                            -webkit-transform: scale(1.2);
-                            transform: scale(1.2); }
+                        height: 650px;
+                    } 
+                }
+            .gallery-item {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    -webkit-transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%);
+                    width: 100%;
+                    opacity: 0;
+                    -webkit-transition: opacity .5s ease;
+                    transition: opacity .5s ease; }
+            .gallery-item img {
+                height: auto;
+                width: 100%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%); 
+            }
+            .gallery-item-active {
+                opacity: 1;
+                -webkit-transition: opacity .5s ease;
+                transition: opacity .5s ease; 
+            }
+            .gallery-btn {
+                position: absolute;
+                cursor: pointer;
+                top: 50%;
+                z-index: 5;
+                background-color: rgba(0, 0, 0, 0.5);
+                background-repeat: no-repeat;
+                background-size: 28px;
+                border-radius: 50%;
+                -webkit-transition: background-color 0.2s ease;
+                transition: background-color 0.2s ease; 
+            }
+            .gallery-btn.prev {
+                left: 20px;
+                background-image: url("./images/arrow-left.png");
+                background-position: 25% 50%;
+                background-color: #ffd11a;
+                width: 35px;
+                height: 35px;
+                background-size: contain;
+                font-size: inherit;
+            }
+            .gallery-btn.next {
+                right: 20px;
+                background-image: url("./images/arrow-right.png");
+                background-position: 75% 50%; 
+                background-color: #ffd11a;
+                width: 35px;
+                height: 35px;
+                background-size: contain;
+                font-size: inherit;
+            }
+            .gallery-btn:hover {
+                background-color: rgba(0, 0, 0, 0.8);
+                -webkit-transition: background-color 0.2s ease;
+                transition: background-color 0.2s ease; 
+            }
+            .gallery-dots {
+                position: absolute;
+                width: 100%;
+                bottom: 180px;
+                left: 0;
+                margin: 0 auto;
+                margin-top: 20px;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                z-index: 5; 
+            }
+            .gallery-dots .dot {
+                cursor: pointer;
+                height: 16px;
+                width: 16px;
+                margin: 0 10px;
+                border-radius: 50%;
+                border: solid #fff;
+                display: inline-block;
+                -webkit-transition: background-color, -webkit-transform 0.4s ease;
+                transition: background-color, -webkit-transform 0.4s ease;
+                transition: background-color, transform 0.4s ease;
+                transition: background-color, transform 0.4s ease, -webkit-transform 0.4s ease; 
+            }
+            .gallery-dots .dot-active {
+                    background-color: #19b5fe;
+                    -webkit-transform: scale(1.2);
+                    transform: scale(1.2); }
+            .gallery-dots .dot:hover {
+                    background-color: #53c6fe;
+                    -webkit-transform: scale(1.2);
+                    transform: scale(1.2); }
             `
         document.head.appendChild(style);
     }
