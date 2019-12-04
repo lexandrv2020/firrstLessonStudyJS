@@ -603,6 +603,9 @@ window.addEventListener('DOMContentLoaded', function() {
             }
             
             style.textContent = `
+            #services{
+                position: relative;
+            }
                 .glo-slider{
                     overflow: hidden !important;
                 }
@@ -640,11 +643,13 @@ window.addEventListener('DOMContentLoaded', function() {
                 .glo-slider__prev{    
                     position: absolute;
                     left: 20%;
+                    top: 50%;
                     
                 }
                 .glo-slider__next{    
                     position: absolute;
                     right: 20%;
+                    top: 50%;
                     
                 }                
                 .gallery {
