@@ -84,10 +84,10 @@ class servicesSlider {
             }
             
             .glo-slider__next{
-                border-left-color: #19b5fe;
+                border-left-color: #ffd11a;
             }
             .glo-slider__prev{
-                border-right-color: #19b5fe;
+                border-right-color: #ffd11a;
             }
             .glo-slider__next:hover,
             .glo-slider__next:focus,

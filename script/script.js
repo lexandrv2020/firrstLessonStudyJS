@@ -627,10 +627,18 @@ window.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 .glo-slider__next{
-                    border-left-color: #19b5fe;
+                    background-image: url("./images/arrow-left.png");
+                    background-position: 25% 50%;
+                    background-color: #ffd11a;
+                    background-size: contain;
+                    width: 35px;
+                    height: 35px;
+                    font-size: inherit;
+
+                    /*border-left-color: #ffd11a;*/
                 }
                 .glo-slider__prev{
-                    border-right-color: #19b5fe;
+                    border-right-color: #ffd11a;
                 }
                 .glo-slider__next:hover,
                 .glo-slider__next:focus,
@@ -639,7 +647,8 @@ window.addEventListener('DOMContentLoaded', function() {
                     background: transparent;
                     outline: transparent;
                 }
-
+ 
+ 
                 .glo-slider__prev{    
                     position: absolute;
                     left: 20%;
@@ -763,6 +772,13 @@ window.addEventListener('DOMContentLoaded', function() {
                         background-color: #53c6fe;
                         -webkit-transform: scale(1.2);
                         transform: scale(1.2); }
+
+                        .next-glo{
+                            right: 20%;
+                        }
+                        .prev-glo{
+                            left: 20%;
+                        }                        
                 `
             document.head.appendChild(style);
         }
@@ -793,13 +809,14 @@ window.addEventListener('DOMContentLoaded', function() {
         addArrow() {
             this.prev = document.createElement('button');
             this.next = document.createElement('button');
-            this.prev.className = 'glo-slider__prev';
-            this.next.className = 'glo-slider__next';
+            this.prev.className = 'gallery-btn prev prev-glo';
+            this.next.className = 'gallery-btn next next-glo';
             
-            const wrapperSlider = document.getElementById('services');
-            console.log('wrapperSlider: ', wrapperSlider);
-            wrapperSlider.appendChild(this.prev);
-            wrapperSlider.appendChild(this.next);
+            const wrapperSlider = document.getElementById('services'),
+            wrapper = document.getElementsByClassName('wrapper glo-slider')[0];
+            //console.log('wrapperSlider: ', wrapperSlider);
+            wrapper.appendChild(this.prev);
+            wrapper.appendChild(this.next);
 //            this.main.appendChild(this.prev);
 //            this.main.appendChild(this.next);
         };
