@@ -989,7 +989,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
     const calcPrice = () =>{
         let locat = location.href;
-        if (locat.indexOf("index") != -1) {
+        if (locat.indexOf("mozaika") != -1 || locat.indexOf("schelkovo") != -1) {
+        }else{
             const time = document.querySelector('.time'),
                 price = document.querySelector('.price'),
                 magicWorldBlock = price.querySelector('.input-text'),
