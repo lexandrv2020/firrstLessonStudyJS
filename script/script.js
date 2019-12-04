@@ -773,12 +773,14 @@ window.addEventListener('DOMContentLoaded', function() {
                         -webkit-transform: scale(1.2);
                         transform: scale(1.2); }
 
-                        .next-glo{
-                            right: 20%;
-                        }
-                        .prev-glo{
-                            left: 20%;
-                        }                        
+                .next-glo{
+                    right: 20%;
+                    margin-right: 16%;
+                }
+                .prev-glo{
+                    left: 20%;
+                    margin-left: 16%;
+                }                        
                 `
             document.head.appendChild(style);
         }
