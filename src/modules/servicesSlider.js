@@ -84,7 +84,15 @@ class servicesSlider {
             }
             
             .glo-slider__next{
-                border-left-color: #ffd11a;
+                background-image: url("./images/arrow-left.png");
+                background-position: 25% 50%;
+                background-color: #ffd11a;
+                background-size: contain;
+                width: 35px;
+                height: 35px;
+                font-size: inherit;
+
+                /*border-left-color: #ffd11a;*/
             }
             .glo-slider__prev{
                 border-right-color: #ffd11a;
@@ -96,6 +104,7 @@ class servicesSlider {
                 background: transparent;
                 outline: transparent;
             }
+
 
             .glo-slider__prev{    
                 position: absolute;
@@ -220,6 +229,15 @@ class servicesSlider {
                     background-color: #53c6fe;
                     -webkit-transform: scale(1.2);
                     transform: scale(1.2); }
+
+            .next-glo{
+                right: 20%;
+                margin-right: 16%;
+            }
+            .prev-glo{
+                left: 20%;
+                margin-left: 16%;
+            }                        
             `
         document.head.appendChild(style);
     }
@@ -250,13 +268,14 @@ class servicesSlider {
     addArrow() {
         this.prev = document.createElement('button');
         this.next = document.createElement('button');
-        this.prev.className = 'glo-slider__prev';
-        this.next.className = 'glo-slider__next';
+        this.prev.className = 'gallery-btn prev prev-glo';
+        this.next.className = 'gallery-btn next next-glo';
         
-        const wrapperSlider = document.getElementById('services');
-        console.log('wrapperSlider: ', wrapperSlider);
-        wrapperSlider.appendChild(this.prev);
-        wrapperSlider.appendChild(this.next);
+        const wrapperSlider = document.getElementById('services'),
+        wrapper = document.getElementsByClassName('wrapper glo-slider')[0];
+        //console.log('wrapperSlider: ', wrapperSlider);
+        wrapper.appendChild(this.prev);
+        wrapper.appendChild(this.next);
 //            this.main.appendChild(this.prev);
 //            this.main.appendChild(this.next);
     };
@@ -286,5 +305,6 @@ class servicesSlider {
         window.addEventListener('resize', checkResponse);
     }
 };
+
 
 export default servicesSlider;
