@@ -4,18 +4,25 @@ window.addEventListener('DOMContentLoaded', function() {
     //меню
     const clubListMenu = () => {
         const clubListMenu = document.getElementsByClassName('clubs-list')[0],
-        menuItems = clubListMenu.querySelectorAll('ul');
+        menuItems = clubListMenu.querySelector('ul'),
+        body = document.querySelector('body');
+    
         const openClubList = (event) => {
-            menuItems.forEach(element => {
-                if (element.style.display === 'block') {
-                    element.style.display = 'none';
-                }else{
-                    element.style.display = 'block';
-                }
-            });
+            if (menuItems.style.display === 'block') {
+                //element.style.display = 'none';
+            }else{
+                menuItems.style.display = 'block';
+            }
         }
+/*        
+        const closeClubList = (event) => {
+            if (event.target.classList.contains('clubs-list') || event.target.classList.contains('overlay')) {
+            console.log('event: ', event);
+        }
+*/
         clubListMenu.addEventListener('click', openClubList);
-    }
+//        body.addEventListener('click', closeClubList);
+    }    
     clubListMenu();
 
     //Бесплатный визит
@@ -48,7 +55,6 @@ window.addEventListener('DOMContentLoaded', function() {
             callBackForm = document.getElementById('callback_form'),
             closeIcon = callBackForm.getElementsByClassName('close_icon')[0],
             body = document.querySelector('body');
-//          console.log('footerLetoMozaika.checked: ', footerLetoMozaika.checked);
         const openVisitForm = (event) => {
             callBackForm.style.cssText = 'display: block';
         }
@@ -119,7 +125,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
     const getGift = () =>{
         let locat = location.href;
-        if (locat.indexOf("mozaika") != -1 && locat.indexOf("schelkovo") != -1) {
+        if (locat.indexOf("mozaika") != -1 || locat.indexOf("schelkovo") != -1) {
         }else{
 
             const fixedGift = document.getElementsByClassName('fixed-gift')[0],
