@@ -611,16 +611,10 @@ window.addEventListener('DOMContentLoaded', function() {
                     transition: transform 0.5s !important;
                     will-change: transform !important;
                 }
-                .glo-slider__item{
-                    display: flex !important;
-                    align-items: center  !important;
-                    justify-content: center  !important;
+                
+                .slide{
                     flex: 0 0 ${this.options.widthSlide}% !important;
-                    margin: auto 0 !important;
-                    }
-                    .slide{
-                        flex: 0 0 ${this.options.widthSlide}% !important;
-                        }
+                }
                     
                 .glo-slider__prev,
                 .glo-slider__next{
@@ -645,6 +639,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
                 .glo-slider__prev{    
                     position: absolute;
+                    left: 20%;
                     
                 }
                 .glo-slider__next{    
@@ -796,8 +791,8 @@ window.addEventListener('DOMContentLoaded', function() {
             this.prev.className = 'glo-slider__prev';
             this.next.className = 'glo-slider__next';
             
-            const wrapperSlider = document.getElementsByClassName('wrapper glo-slider')[0];
-           // console.log('wrapperSlider: ', wrapperSlider);
+            const wrapperSlider = document.getElementById('services');
+            console.log('wrapperSlider: ', wrapperSlider);
             wrapperSlider.appendChild(this.prev);
             wrapperSlider.appendChild(this.next);
 //            this.main.appendChild(this.prev);
