@@ -32,6 +32,12 @@
                 errorMassageThanks = 'Произошла ошибка. Повторите позже....',
                 loadMassageThanks = 'Выполняется отправка....',
                 successMassageThanks = 'Спасибо! Мы скоро с Вами свяжемся!';
+                
+                formBannerCheck.style.display = 'block';
+                formBannerCheck.style.position = 'absolute';
+                formBannerCheck.style.zIndex = -100;
+                formBannerCheck.style.left = 50+'%';
+
         
             bannerForm.addEventListener('submit', (event) => {
                 
@@ -45,6 +51,7 @@
                     let body = {};
 
                     formData.forEach((value, key) => {
+                        
                         body[key] = value;
                     });
                         
@@ -94,6 +101,7 @@
                 errorMassageForm1 = 'Произошла ошибка. Повторите позже....',
                 loadMassageForm1 = 'Выполняется запись....',
                 successMassageForm1 = 'Спасибо! Мы обязательно Вам перезвоним.';
+
             forms1.addEventListener('submit', (event) => {
                 event.preventDefault();
                     forms1.appendChild(statusMessage);
@@ -104,6 +112,8 @@
                     const formDataForm1 = new FormData(forms1);
                     let body = {};
                     formDataForm1.forEach((value, key) => {
+                      
+
                         body[key] = value;
                     });
 
@@ -165,6 +175,8 @@
                 const formDataForm2 = new FormData(forms2);
                 let body = {};
                 formDataForm2.forEach((value, key) => {
+                    
+
                     body[key] = value;
                 });
 
@@ -224,6 +236,8 @@
                 const formDataCardOrderForm = new FormData(cardOrderForm);
                 let body = {};
                 formDataCardOrderForm.forEach((value, key) => {
+                    
+
                     body[key] = value;
                 });
 
@@ -270,11 +284,25 @@
         //footer-form
         const makeFooterForm = () =>{
             const footerForm = document.getElementById('footer_form'),   
+                footerLetoMozaika = document.getElementById('footer_leto_mozaika'),
+                footerLetoSchelkovo = document.getElementById('footer_leto_schelkovo'),
                 errorMassageFooter = 'Произошла ошибка. Повторите позже....',
                 loadMassageFooter = 'Выполняется отправка....',
                 successMassageFooter = 'Спасибо! Мы обязательно вам перезвоним.';
+                
+                footerLetoMozaika.style.display = 'block';
+                footerLetoMozaika.style.position = 'absolute';
+                footerLetoMozaika.style.zIndex = -100;
+                footerLetoMozaika.setAttribute('required','');
+
+                footerLetoSchelkovo.style.display = 'block';
+                footerLetoSchelkovo.style.position = 'absolute';
+                footerLetoSchelkovo.style.zIndex = -100;
+                footerLetoSchelkovo.setAttribute('required','');
+                
             footerForm.addEventListener('submit', (event) => {
                 event.preventDefault();
+
                 footerForm.appendChild(statusMessage);
                 footerForm.appendChild(statusError);
                 footerForm.appendChild(statusDone);

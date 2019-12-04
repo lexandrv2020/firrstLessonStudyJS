@@ -1,9 +1,12 @@
 const callbackForm = () => {
     const right = document.getElementsByClassName('right')[0],
-    openPopup = right.getElementsByClassName('callback-btn')[0],
-    callBackForm = document.getElementById('callback_form'),
-    closeIcon = callBackForm.getElementsByClassName('close_icon')[0],
-    body = document.querySelector('body');
+        openPopup = right.getElementsByClassName('callback-btn')[0],
+        callBackForm = document.getElementById('callback_form'),
+        closeIcon = callBackForm.getElementsByClassName('close_icon')[0],
+        footerLetoMozaika = document.getElementById('footer_leto_mozaika'),
+        footerLetoSchelkovo = document.getElementById('footer_leto_schelkovo'),
+        body = document.querySelector('body');
+    console.log(footerLetoMozaika);
     const openVisitForm = (event) => {
         callBackForm.style.cssText = 'display: block';
     }

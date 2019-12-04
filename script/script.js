@@ -21,9 +21,9 @@ window.addEventListener('DOMContentLoaded', function() {
     //Бесплатный визит
     const visitForm = () => {
         const openPopup = document.getElementsByClassName('open-popup')[0],
-        form = document.getElementById('free_visit_form'),
-        closeIcon = form.getElementsByClassName('close_icon')[0],
-        body = document.querySelector('body');
+            form = document.getElementById('free_visit_form'),
+            closeIcon = form.getElementsByClassName('close_icon')[0],
+            body = document.querySelector('body');
        // console.log('form: ', form);
         const openVisitForm = (event) => {
             form.style.cssText = 'display: block';
@@ -44,10 +44,11 @@ window.addEventListener('DOMContentLoaded', function() {
     //callbackForm
     const callbackForm = () => {
         const right = document.getElementsByClassName('right')[0],
-        openPopup = right.getElementsByClassName('callback-btn')[0],
-        callBackForm = document.getElementById('callback_form'),
-        closeIcon = callBackForm.getElementsByClassName('close_icon')[0],
-        body = document.querySelector('body');
+            openPopup = right.getElementsByClassName('callback-btn')[0],
+            callBackForm = document.getElementById('callback_form'),
+            closeIcon = callBackForm.getElementsByClassName('close_icon')[0],
+            body = document.querySelector('body');
+//          console.log('footerLetoMozaika.checked: ', footerLetoMozaika.checked);
         const openVisitForm = (event) => {
             callBackForm.style.cssText = 'display: block';
         }
@@ -194,6 +195,12 @@ window.addEventListener('DOMContentLoaded', function() {
                 loadMassageThanks = 'Выполняется отправка....',
                 successMassageThanks = 'Спасибо! Мы скоро с Вами свяжемся!';
         
+                formBannerCheck.style.display = 'block';
+                formBannerCheck.style.position = 'absolute';
+                formBannerCheck.style.zIndex = -100;
+                formBannerCheck.style.left = 50+'%';
+
+
             bannerForm.addEventListener('submit', (event) => {
                 
                     event.preventDefault();
@@ -431,57 +438,74 @@ window.addEventListener('DOMContentLoaded', function() {
         //footer-form
         const makeFooterForm = () =>{
             const footerForm = document.getElementById('footer_form'),   
+                footerLetoMozaika = document.getElementById('footer_leto_mozaika'),
+                footerLetoSchelkovo = document.getElementById('footer_leto_schelkovo'),
                 errorMassageFooter = 'Произошла ошибка. Повторите позже....',
                 loadMassageFooter = 'Выполняется отправка....',
                 successMassageFooter = 'Спасибо! Мы обязательно вам перезвоним.';
+
+                footerLetoMozaika.style.display = 'block';
+                footerLetoMozaika.style.position = 'absolute';
+                footerLetoMozaika.style.zIndex = -100;
+                footerLetoMozaika.setAttribute('required','');
+
+                footerLetoSchelkovo.style.display = 'block';
+                footerLetoSchelkovo.style.position = 'absolute';
+                footerLetoSchelkovo.style.zIndex = -100;
+                footerLetoSchelkovo.setAttribute('required','');
+
             footerForm.addEventListener('submit', (event) => {
-                event.preventDefault();
-                footerForm.appendChild(statusMessage);
-                footerForm.appendChild(statusError);
-                footerForm.appendChild(statusDone);
-                statusMessage.textContent = loadMassageFooter;
-            
-                const formDataFooterForm = new FormData(footerForm);
-                let body = {};
-                formDataFooterForm.forEach((value, key) => {
-                    body[key] = value;
-                });
 
-                const makeSuccessEndFooterForm = () => {
-                    statusMessage.textContent = successMassageFooter;
-                    formThanks.style.display = 'block';
-                };
-
-                const makeErrorEndFooterForm = () => {
-                    statusMessage.textContent = errorMassageFooter;
-                    formThanks.style.display = 'block';
-                    let headPhrase = "ВНИМАНИЕ!",
-                        mainText = "К сожалениею запись не удалась! Повторите позднее...",
-                        formContent = formThanks.querySelector('.form-content'),
-                        head_txt = formContent.querySelector('h4'),
-                        main_txt = formContent.querySelector('p');
-                        head_txt.textContent = headPhrase;
-                        main_txt.textContent = mainText;
-                };
-                postData(body)
-                    .then((response) => {
-                        if (response.status !== 200) {
-                            throw new Error('status network not 200');
-                        }
-                        makeSuccessEndFooterForm();
-                    })
-                    .catch((error) => {
-                        makeErrorEndFooterForm();
+                    event.preventDefault();
+                    footerForm.appendChild(statusMessage);
+                    footerForm.appendChild(statusError);
+                    footerForm.appendChild(statusDone);
+                    statusMessage.textContent = loadMassageFooter;
+                
+                    const formDataFooterForm = new FormData(footerForm);
+                    let body = {};
+                    formDataFooterForm.forEach((value, key) => {
+                       
+    
+                        body[key] = value;
                     });
-
-                const closeThanksFooterForm = (event) => {
-                    if (event.target.classList.contains('close-btn') || event.target.classList.contains('close_icon') || event.target.classList.contains('overlay')) {
-                        formThanks.style.cssText = 'display: none';
-                        statusMessage.textContent = '';
+    
+                    const makeSuccessEndFooterForm = () => {
+                        statusMessage.textContent = successMassageFooter;
+                        formThanks.style.display = 'block';
+                    };
+    
+                    const makeErrorEndFooterForm = () => {
+                        statusMessage.textContent = errorMassageFooter;
+                        formThanks.style.display = 'block';
+                        let headPhrase = "ВНИМАНИЕ!",
+                            mainText = "К сожалениею запись не удалась! Повторите позднее...",
+                            formContent = formThanks.querySelector('.form-content'),
+                            head_txt = formContent.querySelector('h4'),
+                            main_txt = formContent.querySelector('p');
+                            head_txt.textContent = headPhrase;
+                            main_txt.textContent = mainText;
+                    };
+                    postData(body)
+                        .then((response) => {
+                            if (response.status !== 200) {
+                                throw new Error('status network not 200');
+                            }
+                            makeSuccessEndFooterForm();
+                        })
+                        .catch((error) => {
+                            makeErrorEndFooterForm();
+                        });
+    
+                    const closeThanksFooterForm = (event) => {
+                        if (event.target.classList.contains('close-btn') || event.target.classList.contains('close_icon') || event.target.classList.contains('overlay')) {
+                            formThanks.style.cssText = 'display: none';
+                            statusMessage.textContent = '';
+                        }
                     }
-                }
-                closeIcon.addEventListener('click', closeThanksFooterForm);
-                closeBtn.addEventListener('click', closeThanksFooterForm);
+                    closeIcon.addEventListener('click', closeThanksFooterForm);
+                    closeBtn.addEventListener('click', closeThanksFooterForm);
+    
                 
             });
         };    
