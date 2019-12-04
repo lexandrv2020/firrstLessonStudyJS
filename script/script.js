@@ -592,6 +592,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 style = document.createElement('style');
                 style.id = 'sliderCarousel-style';
             }
+            
             style.textContent = `
                 .glo-slider{
                     overflow: hidden !important;
@@ -617,8 +618,8 @@ window.addEventListener('DOMContentLoaded', function() {
                     margin: 0 10px;
                     border: 20px solid transparent;
                     background: transparent;
-                    
                 }
+                
                 .glo-slider__next{
                     border-left-color: #19b5fe;
                 }
@@ -632,6 +633,16 @@ window.addEventListener('DOMContentLoaded', function() {
                     background: transparent;
                     outline: transparent;
                 }
+
+                .glo-slider__prev{    
+                    position: absolute;
+                    
+                }
+                .glo-slider__next{    
+                    position: absolute;
+                    right: 20%;
+                    
+                }                
                 .gallery {
                     padding: 5rem 0; 
                 }
@@ -776,8 +787,12 @@ window.addEventListener('DOMContentLoaded', function() {
             this.prev.className = 'glo-slider__prev';
             this.next.className = 'glo-slider__next';
             
-            this.main.appendChild(this.prev);
-            this.main.appendChild(this.next);
+            const wrapperSlider = document.getElementsByClassName('wrapper glo-slider')[0];
+           // console.log('wrapperSlider: ', wrapperSlider);
+            wrapperSlider.appendChild(this.prev);
+            wrapperSlider.appendChild(this.next);
+//            this.main.appendChild(this.prev);
+//            this.main.appendChild(this.next);
         };
 
         responseInit() {

@@ -58,6 +58,7 @@ class servicesSlider {
             style = document.createElement('style');
             style.id = 'sliderCarousel-style';
         }
+        
         style.textContent = `
             .glo-slider{
                 overflow: hidden !important;
@@ -83,8 +84,8 @@ class servicesSlider {
                 margin: 0 10px;
                 border: 20px solid transparent;
                 background: transparent;
-                
             }
+            
             .glo-slider__next{
                 border-left-color: #19b5fe;
             }
@@ -98,6 +99,16 @@ class servicesSlider {
                 background: transparent;
                 outline: transparent;
             }
+
+            .glo-slider__prev{    
+                position: absolute;
+                
+            }
+            .glo-slider__next{    
+                position: absolute;
+                right: 20%;
+                
+            }                
             .gallery {
                 padding: 5rem 0; 
             }
@@ -152,10 +163,11 @@ class servicesSlider {
                 background-image: url("./images/arrow-left.png");
                 background-position: 25% 50%;
                 background-color: #ffd11a;
+                background-size: contain;
                 width: 35px;
                 height: 35px;
-                background-size: contain;
                 font-size: inherit;
+                
             }
             .gallery-btn.next {
                 right: 20px;
