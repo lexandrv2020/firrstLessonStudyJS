@@ -13,7 +13,6 @@ window.addEventListener('DOMContentLoaded', function() {
                 menuItems.style.display = 'block';
             }
         }
-        
         const closeClubList = (event) => {
             let target = event.target;
             target = target.closest('.clubs-list');
@@ -21,7 +20,6 @@ window.addEventListener('DOMContentLoaded', function() {
                 menuItems.style.display = 'none';
             }
         }
-
         clubListMenu.addEventListener('click', openClubList);
         body.addEventListener('click', closeClubList);
     }    
