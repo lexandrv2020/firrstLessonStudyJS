@@ -9,19 +9,21 @@ window.addEventListener('DOMContentLoaded', function() {
     
         const openClubList = (event) => {
             if (menuItems.style.display === 'block') {
-                //element.style.display = 'none';
             }else{
                 menuItems.style.display = 'block';
             }
         }
-/*        
+        
         const closeClubList = (event) => {
-            if (event.target.classList.contains('clubs-list') || event.target.classList.contains('overlay')) {
-            console.log('event: ', event);
+            let target = event.target;
+            target = target.closest('.clubs-list');
+            if (!target){
+                menuItems.style.display = 'none';
+            }
         }
-*/
+
         clubListMenu.addEventListener('click', openClubList);
-//        body.addEventListener('click', closeClubList);
+        body.addEventListener('click', closeClubList);
     }    
     clubListMenu();
 
