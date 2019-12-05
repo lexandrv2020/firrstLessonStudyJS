@@ -1011,6 +1011,8 @@ window.addEventListener('DOMContentLoaded', function() {
                     bonus = 30;
                 }
                 arr = club === 'mozaika' ? mozaika_arr : schelkovo_arr;
+                
+                
                 priceTotal.textContent = +arr[period] - Math.floor(+arr[period] / 100 * bonus);
             }
 
@@ -1036,6 +1038,7 @@ window.addEventListener('DOMContentLoaded', function() {
                     getCardTypeValue(element);
                 });
             });
+            getCurrentPrice();
         }
     }
     calcPrice();

@@ -47,6 +47,7 @@ const calcPrice = () =>{
                 getCardTypeValue(element);
             });
         });
+        getCurrentPrice();
     }
 }
 export default calcPrice;
