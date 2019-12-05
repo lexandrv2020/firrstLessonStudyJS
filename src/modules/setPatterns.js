@@ -1,8 +1,9 @@
-const setPatterns = () =>{
+const setPatterns = () => {
 
     function maskPhone(selector, masked = '+7 (___) ___-__-__') {
         //const elem = document.querySelector(selector);
         const elem = selector;
+
         function mask(event) {
             const keyCode = event.keyCode;
             const template = masked,
@@ -10,7 +11,7 @@ const setPatterns = () =>{
                 val = this.value.replace(/\D/g, "");
             //console.log(template);
             let i = 0,
-                newValue = template.replace(/[_\d]/g, function (a) {
+                newValue = template.replace(/[_\d]/g, function(a) {
                     return i < val.length ? val.charAt(i++) || def.charAt(i) : a;
                 });
             i = newValue.indexOf("_");
@@ -18,7 +19,7 @@ const setPatterns = () =>{
                 newValue = newValue.slice(0, i);
             }
             let reg = template.substr(0, this.value.length).replace(/_+/g,
-                function (a) {
+                function(a) {
                     return "\\d{1," + a.length + "}";
                 }).replace(/[+()]/g, "\\$&");
             reg = new RegExp("^" + reg + "$");
@@ -28,9 +29,8 @@ const setPatterns = () =>{
             if (event.type == "blur" && this.value.length < 5) {
                 this.value = "";
             }
-   
         }
-    
+
         elem.addEventListener("input", mask);
         elem.addEventListener("focus", mask);
         elem.addEventListener("blur", mask);
@@ -41,13 +41,13 @@ const setPatterns = () =>{
         if (elem.type === 'tel') {
             //console.log('elem: ', elem);
             maskPhone(elem);
-        }else{
+        } else {
             elem.addEventListener('input', () => {
                 if (elem.name === 'name' && elem.getAttribute('placeholder') !== 'Промокод') {
-                  elem.value = elem.value.replace(/[^а-яА-Я\s]/, '')
+                    elem.value = elem.value.replace(/[^а-яА-Я\s]/, '')
                 }
-            })   
+            })
         }
-    });        
+    });
 }
 export default setPatterns;

@@ -21,30 +21,37 @@ window.addEventListener('DOMContentLoaded', function() {
         }
         clubListMenu.addEventListener('click', openClubList);
         body.addEventListener('click', closeClubList);
-    }
+    };
     clubListMenu();
 
     //Бесплатный визит
     const visitForm = () => {
         const openPopup = document.getElementsByClassName('open-popup')[0],
             form = document.getElementById('free_visit_form'),
+            checkDats = document.getElementById('check2'),
             closeIcon = form.getElementsByClassName('close_icon')[0],
             body = document.querySelector('body');
-        // console.log('form: ', form);
-        const openVisitForm = (event) => {
-            form.style.cssText = 'display: block';
+        let inputs = form.querySelectorAll('input');
+        const cleanFormInputs = () => {
+            inputs.forEach((elems) => {
+                elems.value = '';
+            });
+            checkDats.innerHTML = '';
+        }
 
+        const openVisitForm = () => {
+            form.style.cssText = 'display: block';
         }
         const closeVisitForm = (event) => {
             if (event.target.classList.contains('close_icon') || event.target.classList.contains('overlay')) {
+                cleanFormInputs();
                 form.style.cssText = 'display: none';
-
             }
         }
         openPopup.addEventListener('click', openVisitForm);
         closeIcon.addEventListener('click', closeVisitForm);
         body.addEventListener('click', closeVisitForm);
-    }
+    };
     visitForm();
 
     //callbackForm
@@ -54,18 +61,26 @@ window.addEventListener('DOMContentLoaded', function() {
             callBackForm = document.getElementById('callback_form'),
             closeIcon = callBackForm.getElementsByClassName('close_icon')[0],
             body = document.querySelector('body');
+        let inputs = callBackForm.querySelectorAll('input');
+        const cleanFormInputs = () => {
+            inputs.forEach((elems) => {
+                elems.value = '';
+            })
+        }
+
         const openVisitForm = (event) => {
             callBackForm.style.cssText = 'display: block';
         }
         const closeVisitForm = (event) => {
             if (event.target.classList.contains('close_icon') || event.target.classList.contains('overlay')) {
                 callBackForm.style.cssText = 'display: none';
+                cleanFormInputs();
             }
         }
         openPopup.addEventListener('click', openVisitForm);
         closeIcon.addEventListener('click', closeVisitForm);
         body.addEventListener('click', closeVisitForm);
-    }
+    };
     callbackForm();
 
     const setPatterns = () => {
@@ -119,8 +134,9 @@ window.addEventListener('DOMContentLoaded', function() {
                 })
             }
         });
-    }
+    };
     setPatterns();
+
     //подарок
     const getGift = () => {
         let locat = location.href;
@@ -146,8 +162,9 @@ window.addEventListener('DOMContentLoaded', function() {
             closeBtn.addEventListener('click', closeGiftForm);
             body.addEventListener('click', closeGiftForm);
         }
-    }
+    };
     getGift();
+
     //слайдер клуба
     const clubSlider = () => {
         const mainSlider = document.getElementsByClassName('main-slider')[0],
@@ -163,7 +180,7 @@ window.addEventListener('DOMContentLoaded', function() {
             if (currentSlide === slides.length) { currentSlide = 0 };
         }
         setInterval(showSlide, 2000);
-    }
+    };
     clubSlider();
 
     //отправка формы
@@ -174,8 +191,8 @@ window.addEventListener('DOMContentLoaded', function() {
             errorMassageSrc = "./images/statuses/mark-warning.png",
             successMassageSrc = "./images/statuses/mark-done.png",
 
-            form1Check = document.getElementById('check2'),
-            form2Check = document.getElementById('check'),
+            form1Check = document.getElementById('check'),
+            form2Check = document.getElementById('check2'),
             formBannerCheck = document.getElementById('check1'),
             formOrderCheck = document.getElementById('card_check'),
 
@@ -200,12 +217,18 @@ window.addEventListener('DOMContentLoaded', function() {
                 errorMassageThanks = 'Произошла ошибка. Повторите позже....',
                 loadMassageThanks = 'Выполняется отправка....',
                 successMassageThanks = 'Спасибо! Мы скоро с Вами свяжемся!';
-
             formBannerCheck.style.display = 'block';
             formBannerCheck.style.position = 'absolute';
             formBannerCheck.style.zIndex = -100;
             formBannerCheck.style.left = 50 + '%';
-
+            let inputs = bannerForm.querySelectorAll('input');
+            const cleanFormInputs = () => {
+                inputs.forEach((elems) => {
+                    elems.value = '';
+                    statusMessage.textContent = '';
+                });
+                formBannerCheck.setAttribute('checked', false);
+            }
             bannerForm.addEventListener('submit', (event) => {
 
                 event.preventDefault();
@@ -224,6 +247,8 @@ window.addEventListener('DOMContentLoaded', function() {
                 const makeSuccessEnd = () => {
                     statusMessage.textContent = successMassageThanks;
                     formThanks.style.display = 'block';
+
+                    setTimeout(cleanFormInputs(), 4000);
                 };
 
                 const makeErrorEnd = () => {
@@ -236,6 +261,7 @@ window.addEventListener('DOMContentLoaded', function() {
                         main_txt = formContent.querySelector('p');
                     head_txt.textContent = headPhrase;
                     main_txt.textContent = mainText;
+                    setTimeout(cleanFormInputs(), 4000);
                 };
                 postData(body)
                     .then((response) => {
@@ -251,6 +277,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 const closeThanksForm = (event) => {
                     if (event.target.classList.contains('close-btn') || event.target.classList.contains('close_icon') || event.target.classList.contains('overlay')) {
                         formThanks.style.cssText = 'display: none';
+                        cleanFormInputs();
                     }
                 }
                 closeIcon.addEventListener('click', closeThanksForm);
@@ -259,12 +286,25 @@ window.addEventListener('DOMContentLoaded', function() {
         };
         makeBannerForm();
 
-        //форма2
+        //форма1
         const makeForm1 = () => {
             const forms1 = document.getElementById('form1'),
                 errorMassageForm1 = 'Произошла ошибка. Повторите позже....',
                 loadMassageForm1 = 'Выполняется запись....',
                 successMassageForm1 = 'Спасибо! Мы обязательно Вам перезвоним.';
+
+            form1Check.style.display = 'block';
+            form1Check.style.position = 'absolute';
+            form1Check.style.opacity = 0;
+            form1Check.style.left = 20 + '%';
+            let inputs = forms1.querySelectorAll('input');
+            const cleanFormInputs = () => {
+                inputs.forEach((elems) => {
+                    elems.value = '';
+                    statusMessage.textContent = '';
+                });
+                form1Check.setAttribute('checked', false);
+            }
 
             forms1.addEventListener('submit', (event) => {
                 event.preventDefault();
@@ -281,6 +321,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
                 const makeSuccessEndForm1 = () => {
                     statusMessage.textContent = successMassageForm1;
+                    cleanFormInputs();
                 };
 
                 const makeErrorEndForm1 = () => {
@@ -309,7 +350,7 @@ window.addEventListener('DOMContentLoaded', function() {
                     if (event.target.classList.contains('close-btn') || event.target.classList.contains('close_icon') || event.target.classList.contains('overlay')) {
                         //formThanks.style.cssText = 'display: none';
                         statusMessage.textContent = '';
-                        form1Check.close();
+                        //form1Check.close();
                     }
                 }
                 closeIcon.addEventListener('click', closeThanksForm1);
@@ -324,6 +365,19 @@ window.addEventListener('DOMContentLoaded', function() {
                 errorMassageForm2 = 'Произошла ошибка. Повторите позже....',
                 loadMassageForm2 = 'Выполняется запись....',
                 successMassageForm2 = 'Спасибо! Вы успешно записаны.';
+            form2Check.style.display = 'block';
+            form2Check.style.position = 'absolute';
+            form2Check.style.opacity = 0;
+            form2Check.style.left = 20 + '%';
+            let inputs = forms2.querySelectorAll('input');
+            const cleanFormInputs = () => {
+                inputs.forEach((elems) => {
+                    elems.value = '';
+                    statusMessage.textContent = '';
+                });
+                form1Check.setAttribute('checked', false);
+            }
+
             forms2.addEventListener('submit', (event) => {
                 event.preventDefault();
                 forms2.appendChild(statusMessage);
@@ -339,8 +393,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
                 const makeSuccessEndForm2 = () => {
                     statusMessage.textContent = successMassageForm2;
-                    //formThanks.style.display = 'block';
-                    //forms2.style.display = 'none';
+                    cleanFormInputs();
                 };
 
                 const makeErrorEndForm2 = () => {
@@ -381,14 +434,28 @@ window.addEventListener('DOMContentLoaded', function() {
         //card-order
         const makeCardOrder = () => {
             const cardOrderForm = document.getElementById('card_order'),
+                formBottom = cardOrderForm.querySelector('.submit'),
                 errorMassageOrder = 'Произошла ошибка. Повторите позже....',
                 loadMassageOrder = 'Выполняется отправка брони....',
                 successMassageOrder = 'Спасибо! Вы сделали Правильный Выбор!';
+
+            formOrderCheck.style.display = 'block';
+            formOrderCheck.style.position = 'absolute';
+            formOrderCheck.style.opacity = 0;
+            let inputs = cardOrderForm.querySelectorAll('input');
+            const cleanFormInputs = () => {
+                inputs.forEach((elems) => {
+                    elems.value = '';
+                    statusMessage.textContent = '';
+                });
+                form1Check.setAttribute('checked', false);
+            }
+
             cardOrderForm.addEventListener('submit', (event) => {
                 event.preventDefault();
-                cardOrderForm.appendChild(statusMessage);
-                cardOrderForm.appendChild(statusError);
-                cardOrderForm.appendChild(statusDone);
+                formBottom.appendChild(statusMessage);
+                formBottom.appendChild(statusError);
+                formBottom.appendChild(statusDone);
                 statusMessage.textContent = loadMassageOrder;
 
                 const formDataCardOrderForm = new FormData(cardOrderForm);
@@ -400,6 +467,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 const makeSuccessEndCardOrder = () => {
                     statusMessage.textContent = successMassageOrder;
                     formThanks.style.display = 'block';
+                    cleanFormInputs();
                 };
 
                 const makeErrorEndCardOrder = () => {
@@ -456,6 +524,15 @@ window.addEventListener('DOMContentLoaded', function() {
             footerLetoSchelkovo.style.zIndex = -100;
             footerLetoSchelkovo.setAttribute('required', '');
 
+            let inputs = footerForm.querySelectorAll('input');
+            const cleanFormInputs = () => {
+                inputs.forEach((elems) => {
+                    elems.value = '';
+                    statusMessage.textContent = '';
+                });
+                footerLetoMozaika.innerHTML = '';
+                footerLetoSchelkovo.innerHTML = '';
+            }
             footerForm.addEventListener('submit', (event) => {
 
                 event.preventDefault();
@@ -473,6 +550,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 const makeSuccessEndFooterForm = () => {
                     statusMessage.textContent = successMassageFooter;
                     formThanks.style.display = 'block';
+                    cleanFormInputs();
                 };
 
                 const makeErrorEndFooterForm = () => {
@@ -518,7 +596,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify(body)
             });
         }
-    }
+    };
     sendForm();
 
     //слайдер услуг клуба
@@ -547,7 +625,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 widthSlide: Math.floor(100 / this.slidesToShow),
             };
             this.responsive = responsive;
-        }
+        };
         init() {
 
             this.addGloClasses();
@@ -562,11 +640,10 @@ window.addEventListener('DOMContentLoaded', function() {
                 this.responseInit();
             }
         };
-
         addGloClasses() {
             this.main.classList.add('glo-slider');
             this.wrap.classList.add('glo-slider__wrap');
-        }
+        };
         addStyle() {
             const style = document.createElement('style')
             if (!style) {
@@ -749,12 +826,11 @@ window.addEventListener('DOMContentLoaded', function() {
                 }                        
                 `
             document.head.appendChild(style);
-        }
+        };
         controlSlider() {
             this.prev.addEventListener('click', this.prevSlider.bind(this));
             this.next.addEventListener('click', this.nextSlider.bind(this));
         };
-
         prevSlider() {
             if (this.options.infinity || this.options.position > 0) {
                 --this.options.position;
@@ -763,8 +839,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 }
                 this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
             };
-        }
-
+        };
         nextSlider() {
             if (this.options.infinity || this.options.position < this.slides.length - this.slidesToShow) {
                 ++this.options.position;
@@ -773,7 +848,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 }
                 this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
             };
-        }
+        };
         addArrow() {
             this.prev = document.createElement('button');
             this.next = document.createElement('button');
@@ -784,7 +859,6 @@ window.addEventListener('DOMContentLoaded', function() {
             wrapper.appendChild(this.prev);
             wrapper.appendChild(this.next);
         };
-
         responseInit() {
             const slidesToShowDefault = this.slidesToShow;
             const allResponse = this.responsive.map(item => item.breakpoint);
@@ -808,8 +882,8 @@ window.addEventListener('DOMContentLoaded', function() {
             };
             checkResponse();
             window.addEventListener('resize', checkResponse);
-        }
-    }
+        };
+    };
     const options = {
         main: '.wrapper',
         wrap: '.services-slider',
@@ -826,7 +900,7 @@ window.addEventListener('DOMContentLoaded', function() {
             slidesToShow: 1
         }, ]
 
-    }
+    };
     const carousel = new servicesSlider(options);
     carousel.init();
 
@@ -942,7 +1016,7 @@ window.addEventListener('DOMContentLoaded', function() {
             }
         });
         startSlide(4500);
-    }
+    };
     gallerySlider();
 
     //калькулятор
@@ -997,7 +1071,7 @@ window.addEventListener('DOMContentLoaded', function() {
             });
             getCurrentPrice();
         }
-    }
+    };
     calcPrice();
 
     //бургер-меню
@@ -1033,7 +1107,7 @@ window.addEventListener('DOMContentLoaded', function() {
         menuItemsPopup.forEach(element => {
             element.addEventListener('click', closePopupMenu);
         });
-    }
+    };
     burgerMenu();
 
     //стрелка возврата
@@ -1047,6 +1121,6 @@ window.addEventListener('DOMContentLoaded', function() {
                 upBtn.style.display = 'none';
             }
         });
-    }
+    };
     arrowUp();
 });

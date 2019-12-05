@@ -9,10 +9,8 @@ class servicesSlider {
         slidesToShow = 5,
         responsive = [],
     }) {
-        if (!main || !wrap) {
-            
-        }
-        const services =  document.getElementById('services');
+        if (!main || !wrap) {}
+        const services = document.getElementById('services');
         this.main = services.getElementsByClassName('wrapper')[0];
         this.wrap = document.querySelector(wrap);
         this.slides = document.querySelector(wrap).children;
@@ -25,7 +23,7 @@ class servicesSlider {
             widthSlide: Math.floor(100 / this.slidesToShow),
         };
         this.responsive = responsive;
-    }
+    };
     init() {
 
         this.addGloClasses();
@@ -40,29 +38,21 @@ class servicesSlider {
             this.responseInit();
         }
     };
-
     addGloClasses() {
         this.main.classList.add('glo-slider');
         this.wrap.classList.add('glo-slider__wrap');
-        //this.wrap.classList.remove('services-slider');
-        //console.log('this.wrap: ', this.wrap);
-        for (const item of this.slides) {
-            //console.log('this.slides: ', this.slides);
-
-            //item.classList.add('glo-slider__item');
-        }
-    }
+    };
     addStyle() {
         const style = document.createElement('style')
         if (!style) {
             style = document.createElement('style');
             style.id = 'sliderCarousel-style';
         }
-        
+
         style.textContent = `
-        #services{
-            position: relative;
-        }
+            #services{
+                position: relative;
+            }
             .glo-slider{
                 overflow: hidden !important;
             }
@@ -71,18 +61,15 @@ class servicesSlider {
                 transition: transform 0.5s !important;
                 will-change: transform !important;
             }
-            
             .slide{
                 flex: 0 0 ${this.options.widthSlide}% !important;
             }
-                
             .glo-slider__prev,
             .glo-slider__next{
                 margin: 0 10px;
                 border: 20px solid transparent;
                 background: transparent;
             }
-            
             .glo-slider__next{
                 background-image: url("./images/arrow-left.png");
                 background-position: 25% 50%;
@@ -104,8 +91,6 @@ class servicesSlider {
                 background: transparent;
                 outline: transparent;
             }
-
-
             .glo-slider__prev{    
                 position: absolute;
                 left: 20%;
@@ -176,7 +161,6 @@ class servicesSlider {
                 width: 35px;
                 height: 35px;
                 font-size: inherit;
-                
             }
             .gallery-btn.next {
                 right: 20px;
@@ -240,12 +224,11 @@ class servicesSlider {
             }                        
             `
         document.head.appendChild(style);
-    }
+    };
     controlSlider() {
         this.prev.addEventListener('click', this.prevSlider.bind(this));
         this.next.addEventListener('click', this.nextSlider.bind(this));
     };
-
     prevSlider() {
         if (this.options.infinity || this.options.position > 0) {
             --this.options.position;
@@ -254,8 +237,7 @@ class servicesSlider {
             }
             this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
         };
-    }
-
+    };
     nextSlider() {
         if (this.options.infinity || this.options.position < this.slides.length - this.slidesToShow) {
             ++this.options.position;
@@ -264,22 +246,17 @@ class servicesSlider {
             }
             this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
         };
-    }
+    };
     addArrow() {
         this.prev = document.createElement('button');
         this.next = document.createElement('button');
         this.prev.className = 'gallery-btn prev prev-glo';
         this.next.className = 'gallery-btn next next-glo';
-        
-        const wrapperSlider = document.getElementById('services'),
-        wrapper = document.getElementsByClassName('wrapper glo-slider')[0];
-        //console.log('wrapperSlider: ', wrapperSlider);
+
+        const wrapper = document.getElementsByClassName('wrapper glo-slider')[0];
         wrapper.appendChild(this.prev);
         wrapper.appendChild(this.next);
-//            this.main.appendChild(this.prev);
-//            this.main.appendChild(this.next);
     };
-
     responseInit() {
         const slidesToShowDefault = this.slidesToShow;
         const allResponse = this.responsive.map(item => item.breakpoint);
@@ -303,8 +280,7 @@ class servicesSlider {
         };
         checkResponse();
         window.addEventListener('resize', checkResponse);
-    }
-};
-
+    };
+}
 
 export default servicesSlider;

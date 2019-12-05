@@ -21,6 +21,7 @@ const calcPrice = () => {
                 bonus = 30;
             }
             arr = club === 'mozaika' ? mozaika_arr : schelkovo_arr;
+
             priceTotal.textContent = +arr[period] - Math.floor(+arr[period] / 100 * bonus);
         }
 
@@ -48,5 +49,6 @@ const calcPrice = () => {
         });
         getCurrentPrice();
     }
-}
+};
+
 export default calcPrice;

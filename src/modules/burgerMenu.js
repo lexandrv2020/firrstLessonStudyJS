@@ -5,31 +5,31 @@ const burgerMenu = () => {
         closeBtn = popupMenu.querySelector('.close-menu-btn'),
         menuItemsPopup = popupMenu.querySelectorAll('li');
 
-    window.addEventListener('scroll', ()=> {
-        if (pageYOffset > 215){
+    window.addEventListener('scroll', () => {
+        if (pageYOffset > 215) {
             topMenu.style.cssText = 'position: fixed; top:0; right:0;';
-        }else if (pageYOffset < 215){
+        } else if (pageYOffset < 215) {
             topMenu.style.cssText = '';
-        } 
+        }
     });
 
     const openPopupMenu = () => {
         if (popupMenu.style.display === 'flex') {
             popupMenu.style.display = 'none';
-        }else{
+        } else {
             popupMenu.style.display = 'flex';
         }
     };
     menuButton.addEventListener('click', openPopupMenu);
 
-    const closePopupMenu = ()=>{
-        popupMenu.style.display = 'none';   
+    const closePopupMenu = () => {
+        popupMenu.style.display = 'none';
     }
 
     closeBtn.addEventListener('click', closePopupMenu);
     menuItemsPopup.forEach(element => {
         element.addEventListener('click', closePopupMenu);
     });
-}
+};
 
 export default burgerMenu;

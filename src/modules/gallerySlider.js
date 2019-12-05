@@ -1,25 +1,26 @@
 const gallerySlider = () => {
     let slider = document.querySelector('.gallery-slider'),
         slide = slider.querySelectorAll('.slide');
-        let btn_left = document.createElement('a');
-        btn_left.setAttribute('href', '#');
-        btn_left.classList.add('gallery-btn');
-        btn_left.classList.add('prev');
-        btn_left.setAttribute('id', 'arrow-left');
-        let btn_right = document.createElement('a');
-        btn_right.setAttribute('href', '#');
-        btn_right.classList.add('gallery-btn');
-        btn_right.classList.add('next');
-        btn_right.setAttribute('id', 'arrow-right');
-        slider.appendChild(btn_left);
-        slider.appendChild(btn_right);
-        let btn = slider.querySelectorAll('.gallery-btn');
-        let ul = document.createElement('ul');
-        ul.className = 'gallery-dots'; 
-        slider.appendChild(ul);
+    let btn_left = document.createElement('a');
+    btn_left.setAttribute('href', '#');
+    btn_left.classList.add('gallery-btn');
+    btn_left.classList.add('prev');
+    btn_left.setAttribute('id', 'arrow-left');
+    let btn_right = document.createElement('a');
+    btn_right.setAttribute('href', '#');
+    btn_right.classList.add('gallery-btn');
+    btn_right.classList.add('next');
+    btn_right.setAttribute('id', 'arrow-right');
+    slider.appendChild(btn_left);
+    slider.appendChild(btn_right);
+    let btn = slider.querySelectorAll('.gallery-btn');
+    let ul = document.createElement('ul');
+    ul.className = 'gallery-dots';
+    slider.appendChild(ul);
 
     const dots = document.querySelector('.gallery-dots');
-    
+
+    // добавим "точки" на слайдер, по количеству слайдов
     const setDots = () => {
         slide.forEach((elem, index) => {
             slide[index].classList.add('gallery-item');
@@ -108,5 +109,6 @@ const gallerySlider = () => {
         }
     });
     startSlide(4500);
-};
+}
+
 export default gallerySlider;
