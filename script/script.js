@@ -121,7 +121,7 @@ window.addEventListener('DOMContentLoaded', function() {
         });
     }
     setPatterns();
-
+    //подарок
     const getGift = () => {
         let locat = location.href;
         if (locat.indexOf("mozaika") != -1 || locat.indexOf("schelkovo") != -1) {} else {
@@ -130,7 +130,8 @@ window.addEventListener('DOMContentLoaded', function() {
                 formGift = document.getElementById('gift'),
                 img = fixedGift.querySelectorAll('img')[0],
                 closeIcon = formGift.getElementsByClassName('close_icon')[0],
-                closeBtn = formGift.getElementsByClassName('close-btn')[0];
+                closeBtn = formGift.getElementsByClassName('close-btn')[0],
+                body = document.querySelector('body');
             const openGift = (event) => {
                 formGift.style.cssText = 'display: block';
                 fixedGift.style.cssText = 'display: none';
@@ -143,10 +144,11 @@ window.addEventListener('DOMContentLoaded', function() {
             img.addEventListener('click', openGift);
             closeIcon.addEventListener('click', closeGiftForm);
             closeBtn.addEventListener('click', closeGiftForm);
+            body.addEventListener('click', closeGiftForm);
         }
     }
     getGift();
-
+    //слайдер клуба
     const clubSlider = () => {
         const mainSlider = document.getElementsByClassName('main-slider')[0],
             slides = mainSlider.querySelectorAll('.slide');
@@ -825,7 +827,6 @@ window.addEventListener('DOMContentLoaded', function() {
         }, ]
 
     }
-
     const carousel = new servicesSlider(options);
     carousel.init();
 
@@ -944,6 +945,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }
     gallerySlider();
 
+    //калькулятор
     const calcPrice = () => {
         let locat = location.href;
         if (locat.indexOf("mozaika") != -1 || locat.indexOf("schelkovo") != -1) {} else {
@@ -1039,11 +1041,9 @@ window.addEventListener('DOMContentLoaded', function() {
         const upBtn = document.getElementById('totop');
         upBtn.style.display = 'none';
         window.addEventListener('scroll', () => {
-
             if (pageYOffset > 600) {
                 upBtn.style.display = 'block';
             } else if (pageYOffset < 600) {
-                // console.log(pageYOffset);
                 upBtn.style.display = 'none';
             }
         });
