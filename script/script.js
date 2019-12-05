@@ -1,28 +1,27 @@
 window.addEventListener('DOMContentLoaded', function() {
     'use strict';
-    
+
     //меню
     const clubListMenu = () => {
         const clubListMenu = document.getElementsByClassName('clubs-list')[0],
-        menuItems = clubListMenu.querySelector('ul'),
-        body = document.querySelector('body');
-    
+            menuItems = clubListMenu.querySelector('ul'),
+            body = document.querySelector('body');
+
         const openClubList = (event) => {
-            if (menuItems.style.display === 'block') {
-            }else{
+            if (menuItems.style.display === 'block') {} else {
                 menuItems.style.display = 'block';
             }
         }
         const closeClubList = (event) => {
             let target = event.target;
             target = target.closest('.clubs-list');
-            if (!target){
+            if (!target) {
                 menuItems.style.display = 'none';
             }
         }
         clubListMenu.addEventListener('click', openClubList);
         body.addEventListener('click', closeClubList);
-    }    
+    }
     clubListMenu();
 
     //Бесплатный визит
@@ -31,7 +30,7 @@ window.addEventListener('DOMContentLoaded', function() {
             form = document.getElementById('free_visit_form'),
             closeIcon = form.getElementsByClassName('close_icon')[0],
             body = document.querySelector('body');
-       // console.log('form: ', form);
+        // console.log('form: ', form);
         const openVisitForm = (event) => {
             form.style.cssText = 'display: block';
 
@@ -69,11 +68,12 @@ window.addEventListener('DOMContentLoaded', function() {
     }
     callbackForm();
 
-    const setPatterns = () =>{
+    const setPatterns = () => {
 
         function maskPhone(selector, masked = '+7 (___) ___-__-__') {
             //const elem = document.querySelector(selector);
             const elem = selector;
+
             function mask(event) {
                 const keyCode = event.keyCode;
                 const template = masked,
@@ -81,7 +81,7 @@ window.addEventListener('DOMContentLoaded', function() {
                     val = this.value.replace(/\D/g, "");
                 //console.log(template);
                 let i = 0,
-                    newValue = template.replace(/[_\d]/g, function (a) {
+                    newValue = template.replace(/[_\d]/g, function(a) {
                         return i < val.length ? val.charAt(i++) || def.charAt(i) : a;
                     });
                 i = newValue.indexOf("_");
@@ -89,7 +89,7 @@ window.addEventListener('DOMContentLoaded', function() {
                     newValue = newValue.slice(0, i);
                 }
                 let reg = template.substr(0, this.value.length).replace(/_+/g,
-                    function (a) {
+                    function(a) {
                         return "\\d{1," + a.length + "}";
                     }).replace(/[+()]/g, "\\$&");
                 reg = new RegExp("^" + reg + "$");
@@ -99,9 +99,8 @@ window.addEventListener('DOMContentLoaded', function() {
                 if (event.type == "blur" && this.value.length < 5) {
                     this.value = "";
                 }
-        
             }
-        
+
             elem.addEventListener("input", mask);
             elem.addEventListener("focus", mask);
             elem.addEventListener("blur", mask);
@@ -112,21 +111,20 @@ window.addEventListener('DOMContentLoaded', function() {
             if (elem.type === 'tel') {
                 //console.log('elem: ', elem);
                 maskPhone(elem);
-            }else{
+            } else {
                 elem.addEventListener('input', () => {
                     if (elem.name === 'name' && elem.getAttribute('placeholder') !== 'Промокод') {
-                      elem.value = elem.value.replace(/[^а-яА-Я\s]/, '')
+                        elem.value = elem.value.replace(/[^а-яА-Я\s]/, '')
                     }
-                })   
+                })
             }
-        });        
+        });
     }
     setPatterns();
 
-    const getGift = () =>{
+    const getGift = () => {
         let locat = location.href;
-        if (locat.indexOf("mozaika") != -1 || locat.indexOf("schelkovo") != -1) {
-        }else{
+        if (locat.indexOf("mozaika") != -1 || locat.indexOf("schelkovo") != -1) {} else {
 
             const fixedGift = document.getElementsByClassName('fixed-gift')[0],
                 formGift = document.getElementById('gift'),
@@ -142,35 +140,32 @@ window.addEventListener('DOMContentLoaded', function() {
                     formGift.style.cssText = 'display: none';
                 }
             }
-            img.addEventListener('click', openGift);    
+            img.addEventListener('click', openGift);
             closeIcon.addEventListener('click', closeGiftForm);
             closeBtn.addEventListener('click', closeGiftForm);
-        }        
-    
+        }
     }
     getGift();
 
     const clubSlider = () => {
-        const mainSlider= document.getElementsByClassName('main-slider')[0],
-        slides = mainSlider.querySelectorAll('.slide');
-        //console.log('slides: ', slides);
+        const mainSlider = document.getElementsByClassName('main-slider')[0],
+            slides = mainSlider.querySelectorAll('.slide');
         let currentSlide = 0;
-        const showSlide = ()=>{
-            slides.forEach((elem)=>{
+        const showSlide = () => {
+            slides.forEach((elem) => {
                 elem.style.display = 'none';
             })
-            //console.log('slides[currentSlide]: ', slides[currentSlide]);
-            slides[currentSlide].style.display = 'flex'; 
-            
+            slides[currentSlide].style.display = 'flex';
+
             currentSlide++;
-            if(currentSlide===slides.length){currentSlide=0};
+            if (currentSlide === slides.length) { currentSlide = 0 };
         }
         setInterval(showSlide, 2000);
     }
     clubSlider();
 
     //отправка формы
-    const sendForm = () =>{
+    const sendForm = () => {
         const formThanks = document.getElementById('thanks'),
             closeIcon = formThanks.getElementsByClassName('close_icon')[0],
             closeBtn = formThanks.getElementsByClassName('close-btn')[0],
@@ -185,64 +180,62 @@ window.addEventListener('DOMContentLoaded', function() {
             statusDone = document.createElement('img'),
             statusMessage = document.createElement('div'),
             statusError = document.createElement('img');
-            
-            form1Check.setAttribute('name','name');
-            statusDone.setAttribute('id', 'statusDone');
-            statusError.setAttribute('id', 'statusError');
-            statusDone.setAttribute('width', 'statusDone');
-            statusDone.setAttribute('src', successMassageSrc);
-            statusError.setAttribute('src', errorMassageSrc);
-            statusError.style.display = 'none';
-            statusDone.style.display = 'none';
-            statusMessage.style.cssText = 'font-size: 1rem; color: green;text-shadow: 0 1px 0 rgba(255, 255, 255, .5);';
 
-        
+        form1Check.setAttribute('name', 'name');
+        statusDone.setAttribute('id', 'statusDone');
+        statusError.setAttribute('id', 'statusError');
+        statusDone.setAttribute('width', 'statusDone');
+        statusDone.setAttribute('src', successMassageSrc);
+        statusError.setAttribute('src', errorMassageSrc);
+        statusError.style.display = 'none';
+        statusDone.style.display = 'none';
+        statusMessage.style.cssText = 'font-size: 1rem; color: green;text-shadow: 0 1px 0 rgba(255, 255, 255, .5);';
+
         //форма баннера
-        const makeBannerForm = () =>{
-            
+        const makeBannerForm = () => {
+
             const bannerForm = document.getElementById('banner-form'),
                 errorMassageThanks = 'Произошла ошибка. Повторите позже....',
                 loadMassageThanks = 'Выполняется отправка....',
                 successMassageThanks = 'Спасибо! Мы скоро с Вами свяжемся!';
-        
-                formBannerCheck.style.display = 'block';
-                formBannerCheck.style.position = 'absolute';
-                formBannerCheck.style.zIndex = -100;
-                formBannerCheck.style.left = 50+'%';
 
+            formBannerCheck.style.display = 'block';
+            formBannerCheck.style.position = 'absolute';
+            formBannerCheck.style.zIndex = -100;
+            formBannerCheck.style.left = 50 + '%';
 
             bannerForm.addEventListener('submit', (event) => {
-                
-                    event.preventDefault();
-                    bannerForm.appendChild(statusMessage);
-                    bannerForm.appendChild(statusError);
-                    bannerForm.appendChild(statusDone);
-                    statusMessage.textContent = loadMassageThanks;
-                    
-                    let formData = new FormData(bannerForm);
-                    let body = {};
 
-                    formData.forEach((value, key) => {
-                        body[key] = value;
-                    });
-                        
-                    const makeSuccessEnd = () => {
-                        statusMessage.textContent = successMassageThanks;
-                        formThanks.style.display = 'block';
-                    };
+                event.preventDefault();
+                bannerForm.appendChild(statusMessage);
+                bannerForm.appendChild(statusError);
+                bannerForm.appendChild(statusDone);
+                statusMessage.textContent = loadMassageThanks;
 
-                    const makeErrorEnd = () => {
-                        statusMessage.textContent = errorMassageThanks;
-                        formThanks.style.display = 'block';
-                        const headPhrase = "ВНИМАНИЕ!",
-                            mainText = "К сожалениею нам не удалось отправить Вашу заявку! Повторите позднее...",
-                            formContent = formThanks.querySelector('.form-content'),
-                            head_txt = formContent.querySelector('h4'),
-                            main_txt = formContent.querySelector('p');
-                            head_txt.textContent = headPhrase;
-                            main_txt.textContent = mainText;
-                    };
-                    postData(body)
+                let formData = new FormData(bannerForm);
+                let body = {};
+
+                formData.forEach((value, key) => {
+                    body[key] = value;
+                });
+
+                const makeSuccessEnd = () => {
+                    statusMessage.textContent = successMassageThanks;
+                    formThanks.style.display = 'block';
+                };
+
+                const makeErrorEnd = () => {
+                    statusMessage.textContent = errorMassageThanks;
+                    formThanks.style.display = 'block';
+                    const headPhrase = "ВНИМАНИЕ!",
+                        mainText = "К сожалениею нам не удалось отправить Вашу заявку! Повторите позднее...",
+                        formContent = formThanks.querySelector('.form-content'),
+                        head_txt = formContent.querySelector('h4'),
+                        main_txt = formContent.querySelector('p');
+                    head_txt.textContent = headPhrase;
+                    main_txt.textContent = mainText;
+                };
+                postData(body)
                     .then((response) => {
                         if (response.status !== 200) {
                             throw new Error('status network not 200');
@@ -252,84 +245,80 @@ window.addEventListener('DOMContentLoaded', function() {
                     .catch((error) => {
                         makeErrorEnd();
                     });
-        
-                    const closeThanksForm = (event) => {
-                        if (event.target.classList.contains('close-btn') || event.target.classList.contains('close_icon') || event.target.classList.contains('overlay')) {
-                            formThanks.style.cssText = 'display: none';
-                        }
+
+                const closeThanksForm = (event) => {
+                    if (event.target.classList.contains('close-btn') || event.target.classList.contains('close_icon') || event.target.classList.contains('overlay')) {
+                        formThanks.style.cssText = 'display: none';
                     }
-                    closeIcon.addEventListener('click', closeThanksForm);
-                    closeBtn.addEventListener('click', closeThanksForm);
-                
-                
+                }
+                closeIcon.addEventListener('click', closeThanksForm);
+                closeBtn.addEventListener('click', closeThanksForm);
             })
         };
-        makeBannerForm();                    
+        makeBannerForm();
 
         //форма2
-        const makeForm1 = () =>{
-            const forms1 = document.getElementById('form1'),   
+        const makeForm1 = () => {
+            const forms1 = document.getElementById('form1'),
                 errorMassageForm1 = 'Произошла ошибка. Повторите позже....',
                 loadMassageForm1 = 'Выполняется запись....',
                 successMassageForm1 = 'Спасибо! Мы обязательно Вам перезвоним.';
+
             forms1.addEventListener('submit', (event) => {
                 event.preventDefault();
-                    forms1.appendChild(statusMessage);
-                    forms1.appendChild(statusError);
-                    forms1.appendChild(statusDone);
-                    statusMessage.textContent = loadMassageForm1;
-                
-                    const formDataForm1 = new FormData(forms1);
-                    let body = {};
-                    formDataForm1.forEach((value, key) => {
-                        body[key] = value;
+                forms1.appendChild(statusMessage);
+                forms1.appendChild(statusError);
+                forms1.appendChild(statusDone);
+                statusMessage.textContent = loadMassageForm1;
+
+                const formDataForm1 = new FormData(forms1);
+                let body = {};
+                formDataForm1.forEach((value, key) => {
+                    body[key] = value;
+                });
+
+                const makeSuccessEndForm1 = () => {
+                    statusMessage.textContent = successMassageForm1;
+                };
+
+                const makeErrorEndForm1 = () => {
+                    statusMessage.textContent = errorMassageForm1;
+                    //formThanks.style.display = 'block';
+                    let headPhrase = "ВНИМАНИЕ!",
+                        mainText = "К сожалениею связь не удалась! Повторите позднее...",
+                        formContent = formThanks.querySelector('.form-content'),
+                        head_txt = formContent.querySelector('h4'),
+                        main_txt = formContent.querySelector('p');
+                    head_txt.textContent = headPhrase;
+                    main_txt.textContent = mainText;
+                };
+                postData(body)
+                    .then((response) => {
+                        if (response.status !== 200) {
+                            throw new Error('status network not 200');
+                        }
+                        makeSuccessEndForm1();
+                    })
+                    .catch((error) => {
+                        makeErrorEndForm1();
                     });
 
-                    const makeSuccessEndForm1 = () => {
-                        statusMessage.textContent = successMassageForm1;
-                    };
-
-                    const makeErrorEndForm1 = () => {
-                        statusMessage.textContent = errorMassageForm1;
-                        //formThanks.style.display = 'block';
-                        let headPhrase = "ВНИМАНИЕ!",
-                            mainText = "К сожалениею связь не удалась! Повторите позднее...",
-                            formContent = formThanks.querySelector('.form-content'),
-                            head_txt = formContent.querySelector('h4'),
-                            main_txt = formContent.querySelector('p');
-                            head_txt.textContent = headPhrase;
-                            main_txt.textContent = mainText;
-                    };
-                    postData(body)
-                        .then((response) => {
-                            if (response.status !== 200) {
-                                throw new Error('status network not 200');
-                            }
-                            makeSuccessEndForm1();
-                        })
-                        .catch((error) => {
-                            makeErrorEndForm1();
-                        });
-                        
-                    const closeThanksForm1 = (event) => {
-                        if (event.target.classList.contains('close-btn') || event.target.classList.contains('close_icon') || event.target.classList.contains('overlay')) {
-                            //formThanks.style.cssText = 'display: none';
-                            statusMessage.textContent = '';
-                            form1Check.close();
-                        }
+                const closeThanksForm1 = (event) => {
+                    if (event.target.classList.contains('close-btn') || event.target.classList.contains('close_icon') || event.target.classList.contains('overlay')) {
+                        //formThanks.style.cssText = 'display: none';
+                        statusMessage.textContent = '';
+                        form1Check.close();
                     }
-                    closeIcon.addEventListener('click', closeThanksForm1);
-                    closeBtn.addEventListener('click', closeThanksForm1);
-                /*}else{
-                    alert('')
-                } */   
+                }
+                closeIcon.addEventListener('click', closeThanksForm1);
+                closeBtn.addEventListener('click', closeThanksForm1);
             });
-        };    
+        };
         makeForm1();
-        
+
         //форма2
-        const makeForm2 = () =>{
-            const forms2 = document.getElementById('form2'),   
+        const makeForm2 = () => {
+            const forms2 = document.getElementById('form2'),
                 errorMassageForm2 = 'Произошла ошибка. Повторите позже....',
                 loadMassageForm2 = 'Выполняется запись....',
                 successMassageForm2 = 'Спасибо! Вы успешно записаны.';
@@ -339,7 +328,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 forms2.appendChild(statusError);
                 forms2.appendChild(statusDone);
                 statusMessage.textContent = loadMassageForm2;
-                
+
                 const formDataForm2 = new FormData(forms2);
                 let body = {};
                 formDataForm2.forEach((value, key) => {
@@ -360,9 +349,10 @@ window.addEventListener('DOMContentLoaded', function() {
                         formContent = formThanks.querySelector('.form-content'),
                         head_txt = formContent.querySelector('h4'),
                         main_txt = formContent.querySelector('p');
-                        head_txt.textContent = headPhrase;
-                        main_txt.textContent = mainText;
+                    head_txt.textContent = headPhrase;
+                    main_txt.textContent = mainText;
                 };
+
                 postData(body)
                     .then((response) => {
                         if (response.status !== 200) {
@@ -383,29 +373,22 @@ window.addEventListener('DOMContentLoaded', function() {
                 closeIcon.addEventListener('click', closeThanksForm2);
                 closeBtn.addEventListener('click', closeThanksForm2);
             });
-        };    
+        };
         makeForm2();
 
         //card-order
-        const makeCardOrder = () =>{
-            const cardOrderForm = document.getElementById('card_order'),   
+        const makeCardOrder = () => {
+            const cardOrderForm = document.getElementById('card_order'),
                 errorMassageOrder = 'Произошла ошибка. Повторите позже....',
                 loadMassageOrder = 'Выполняется отправка брони....',
                 successMassageOrder = 'Спасибо! Вы сделали Правильный Выбор!';
-/*
-                formOrderCheck.style.display = 'block';
-                formOrderCheck.style.position = 'absolute';
-                formOrderCheck.style.zIndex = -100;
-                formOrderCheck.style.left = -50+'%';
-                formOrderCheck.setAttribute('required','');
-*/
             cardOrderForm.addEventListener('submit', (event) => {
                 event.preventDefault();
                 cardOrderForm.appendChild(statusMessage);
                 cardOrderForm.appendChild(statusError);
                 cardOrderForm.appendChild(statusDone);
                 statusMessage.textContent = loadMassageOrder;
-            
+
                 const formDataCardOrderForm = new FormData(cardOrderForm);
                 let body = {};
                 formDataCardOrderForm.forEach((value, key) => {
@@ -425,8 +408,8 @@ window.addEventListener('DOMContentLoaded', function() {
                         formContent = formThanks.querySelector('.form-content'),
                         head_txt = formContent.querySelector('h4'),
                         main_txt = formContent.querySelector('p');
-                        head_txt.textContent = headPhrase;
-                        main_txt.textContent = mainText;
+                    head_txt.textContent = headPhrase;
+                    main_txt.textContent = mainText;
                 };
                 postData(body)
                     .then((response) => {
@@ -447,97 +430,93 @@ window.addEventListener('DOMContentLoaded', function() {
                 }
                 closeIcon.addEventListener('click', closeThanksCardOrder);
                 closeBtn.addEventListener('click', closeThanksCardOrder);
-                
+
             });
-        };    
-        makeCardOrder();   
+        };
+        makeCardOrder();
 
         //footer-form
-        const makeFooterForm = () =>{
-            const footerForm = document.getElementById('footer_form'),   
+        const makeFooterForm = () => {
+            const footerForm = document.getElementById('footer_form'),
                 footerLetoMozaika = document.getElementById('footer_leto_mozaika'),
                 footerLetoSchelkovo = document.getElementById('footer_leto_schelkovo'),
                 errorMassageFooter = 'Произошла ошибка. Повторите позже....',
                 loadMassageFooter = 'Выполняется отправка....',
                 successMassageFooter = 'Спасибо! Мы обязательно вам перезвоним.';
 
-                footerLetoMozaika.style.display = 'block';
-                footerLetoMozaika.style.position = 'absolute';
-                footerLetoMozaika.style.zIndex = -100;
-                footerLetoMozaika.setAttribute('required','');
+            footerLetoMozaika.style.display = 'block';
+            footerLetoMozaika.style.position = 'absolute';
+            footerLetoMozaika.style.zIndex = -100;
+            footerLetoMozaika.setAttribute('required', '');
 
-                footerLetoSchelkovo.style.display = 'block';
-                footerLetoSchelkovo.style.position = 'absolute';
-                footerLetoSchelkovo.style.zIndex = -100;
-                footerLetoSchelkovo.setAttribute('required','');
+            footerLetoSchelkovo.style.display = 'block';
+            footerLetoSchelkovo.style.position = 'absolute';
+            footerLetoSchelkovo.style.zIndex = -100;
+            footerLetoSchelkovo.setAttribute('required', '');
 
             footerForm.addEventListener('submit', (event) => {
 
-                    event.preventDefault();
-                    footerForm.appendChild(statusMessage);
-                    footerForm.appendChild(statusError);
-                    footerForm.appendChild(statusDone);
-                    statusMessage.textContent = loadMassageFooter;
-                
-                    const formDataFooterForm = new FormData(footerForm);
-                    let body = {};
-                    formDataFooterForm.forEach((value, key) => {
-                       
-    
-                        body[key] = value;
-                    });
-    
-                    const makeSuccessEndFooterForm = () => {
-                        statusMessage.textContent = successMassageFooter;
-                        formThanks.style.display = 'block';
-                    };
-    
-                    const makeErrorEndFooterForm = () => {
-                        statusMessage.textContent = errorMassageFooter;
-                        formThanks.style.display = 'block';
-                        let headPhrase = "ВНИМАНИЕ!",
-                            mainText = "К сожалениею запись не удалась! Повторите позднее...",
-                            formContent = formThanks.querySelector('.form-content'),
-                            head_txt = formContent.querySelector('h4'),
-                            main_txt = formContent.querySelector('p');
-                            head_txt.textContent = headPhrase;
-                            main_txt.textContent = mainText;
-                    };
-                    postData(body)
-                        .then((response) => {
-                            if (response.status !== 200) {
-                                throw new Error('status network not 200');
-                            }
-                            makeSuccessEndFooterForm();
-                        })
-                        .catch((error) => {
-                            makeErrorEndFooterForm();
-                        });
-    
-                    const closeThanksFooterForm = (event) => {
-                        if (event.target.classList.contains('close-btn') || event.target.classList.contains('close_icon') || event.target.classList.contains('overlay')) {
-                            formThanks.style.cssText = 'display: none';
-                            statusMessage.textContent = '';
+                event.preventDefault();
+                footerForm.appendChild(statusMessage);
+                footerForm.appendChild(statusError);
+                footerForm.appendChild(statusDone);
+                statusMessage.textContent = loadMassageFooter;
+
+                const formDataFooterForm = new FormData(footerForm);
+                let body = {};
+                formDataFooterForm.forEach((value, key) => {
+                    body[key] = value;
+                });
+
+                const makeSuccessEndFooterForm = () => {
+                    statusMessage.textContent = successMassageFooter;
+                    formThanks.style.display = 'block';
+                };
+
+                const makeErrorEndFooterForm = () => {
+                    statusMessage.textContent = errorMassageFooter;
+                    formThanks.style.display = 'block';
+                    let headPhrase = "ВНИМАНИЕ!",
+                        mainText = "К сожалениею запись не удалась! Повторите позднее...",
+                        formContent = formThanks.querySelector('.form-content'),
+                        head_txt = formContent.querySelector('h4'),
+                        main_txt = formContent.querySelector('p');
+                    head_txt.textContent = headPhrase;
+                    main_txt.textContent = mainText;
+                };
+                postData(body)
+                    .then((response) => {
+                        if (response.status !== 200) {
+                            throw new Error('status network not 200');
                         }
+                        makeSuccessEndFooterForm();
+                    })
+                    .catch((error) => {
+                        makeErrorEndFooterForm();
+                    });
+
+                const closeThanksFooterForm = (event) => {
+                    if (event.target.classList.contains('close-btn') || event.target.classList.contains('close_icon') || event.target.classList.contains('overlay')) {
+                        formThanks.style.cssText = 'display: none';
+                        statusMessage.textContent = '';
                     }
-                    closeIcon.addEventListener('click', closeThanksFooterForm);
-                    closeBtn.addEventListener('click', closeThanksFooterForm);
-    
-                
+                }
+                closeIcon.addEventListener('click', closeThanksFooterForm);
+                closeBtn.addEventListener('click', closeThanksFooterForm);
             });
-        };    
-        makeFooterForm();   
+        };
+        makeFooterForm();
 
         const postData = (body) => {
             return fetch('./server.php', {
-                method: 'POST', 
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(body)
-            });             
-        } 
-    }        
+            });
+        }
+    }
     sendForm();
 
     //слайдер услуг клуба
@@ -552,10 +531,8 @@ window.addEventListener('DOMContentLoaded', function() {
             slidesToShow = 5,
             responsive = [],
         }) {
-            if (!main || !wrap) {
-                
-            }
-            const services =  document.getElementById('services');
+            if (!main || !wrap) {}
+            const services = document.getElementById('services');
             this.main = services.getElementsByClassName('wrapper')[0];
             this.wrap = document.querySelector(wrap);
             this.slides = document.querySelector(wrap).children;
@@ -587,13 +564,6 @@ window.addEventListener('DOMContentLoaded', function() {
         addGloClasses() {
             this.main.classList.add('glo-slider');
             this.wrap.classList.add('glo-slider__wrap');
-            //this.wrap.classList.remove('services-slider');
-            //console.log('this.wrap: ', this.wrap);
-            for (const item of this.slides) {
-                //console.log('this.slides: ', this.slides);
-
-                //item.classList.add('glo-slider__item');
-            }
         }
         addStyle() {
             const style = document.createElement('style')
@@ -601,11 +571,11 @@ window.addEventListener('DOMContentLoaded', function() {
                 style = document.createElement('style');
                 style.id = 'sliderCarousel-style';
             }
-            
+
             style.textContent = `
-            #services{
-                position: relative;
-            }
+                #services{
+                    position: relative;
+                }
                 .glo-slider{
                     overflow: hidden !important;
                 }
@@ -614,18 +584,15 @@ window.addEventListener('DOMContentLoaded', function() {
                     transition: transform 0.5s !important;
                     will-change: transform !important;
                 }
-                
                 .slide{
                     flex: 0 0 ${this.options.widthSlide}% !important;
                 }
-                    
                 .glo-slider__prev,
                 .glo-slider__next{
                     margin: 0 10px;
                     border: 20px solid transparent;
                     background: transparent;
                 }
-                
                 .glo-slider__next{
                     background-image: url("./images/arrow-left.png");
                     background-position: 25% 50%;
@@ -647,8 +614,6 @@ window.addEventListener('DOMContentLoaded', function() {
                     background: transparent;
                     outline: transparent;
                 }
- 
- 
                 .glo-slider__prev{    
                     position: absolute;
                     left: 20%;
@@ -719,7 +684,6 @@ window.addEventListener('DOMContentLoaded', function() {
                     width: 35px;
                     height: 35px;
                     font-size: inherit;
-                    
                 }
                 .gallery-btn.next {
                     right: 20px;
@@ -813,14 +777,10 @@ window.addEventListener('DOMContentLoaded', function() {
             this.next = document.createElement('button');
             this.prev.className = 'gallery-btn prev prev-glo';
             this.next.className = 'gallery-btn next next-glo';
-            
-            const wrapperSlider = document.getElementById('services'),
-            wrapper = document.getElementsByClassName('wrapper glo-slider')[0];
-            //console.log('wrapperSlider: ', wrapperSlider);
+
+            const wrapper = document.getElementsByClassName('wrapper glo-slider')[0];
             wrapper.appendChild(this.prev);
             wrapper.appendChild(this.next);
-//            this.main.appendChild(this.prev);
-//            this.main.appendChild(this.next);
         };
 
         responseInit() {
@@ -868,32 +828,30 @@ window.addEventListener('DOMContentLoaded', function() {
 
     const carousel = new servicesSlider(options);
     carousel.init();
-  
+
     //Slider
     const gallerySlider = () => {
         let slider = document.querySelector('.gallery-slider'),
             slide = slider.querySelectorAll('.slide');
-            let btn_left = document.createElement('a');
-            btn_left.setAttribute('href', '#');
-            btn_left.classList.add('gallery-btn');
-            btn_left.classList.add('prev');
-            //btn_left.textContent = '<';
-            btn_left.setAttribute('id', 'arrow-left');
-            let btn_right = document.createElement('a');
-            btn_right.setAttribute('href', '#');
-            btn_right.classList.add('gallery-btn');
-            btn_right.classList.add('next');
-            btn_right.setAttribute('id', 'arrow-right');
-            //btn_right.textContent = '>';
-            slider.appendChild(btn_left);
-            slider.appendChild(btn_right);
-            let btn = slider.querySelectorAll('.gallery-btn');
-            let ul = document.createElement('ul');
-            ul.className = 'gallery-dots'; 
-            slider.appendChild(ul);
+        let btn_left = document.createElement('a');
+        btn_left.setAttribute('href', '#');
+        btn_left.classList.add('gallery-btn');
+        btn_left.classList.add('prev');
+        btn_left.setAttribute('id', 'arrow-left');
+        let btn_right = document.createElement('a');
+        btn_right.setAttribute('href', '#');
+        btn_right.classList.add('gallery-btn');
+        btn_right.classList.add('next');
+        btn_right.setAttribute('id', 'arrow-right');
+        slider.appendChild(btn_left);
+        slider.appendChild(btn_right);
+        let btn = slider.querySelectorAll('.gallery-btn');
+        let ul = document.createElement('ul');
+        ul.className = 'gallery-dots';
+        slider.appendChild(ul);
 
         const dots = document.querySelector('.gallery-dots');
-        
+
         // добавим "точки" на слайдер, по количеству слайдов
         const setDots = () => {
             slide.forEach((elem, index) => {
@@ -911,7 +869,6 @@ window.addEventListener('DOMContentLoaded', function() {
         }
         setDots();
         let dot = document.querySelectorAll('.dot');
-
 
         const prevSlide = (elem, index, strClass) => {
             elem[index].classList.remove(strClass);
@@ -987,10 +944,9 @@ window.addEventListener('DOMContentLoaded', function() {
     }
     gallerySlider();
 
-    const calcPrice = () =>{
+    const calcPrice = () => {
         let locat = location.href;
-        if (locat.indexOf("mozaika") != -1 || locat.indexOf("schelkovo") != -1) {
-        }else{
+        if (locat.indexOf("mozaika") != -1 || locat.indexOf("schelkovo") != -1) {} else {
             const time = document.querySelector('.time'),
                 price = document.querySelector('.price'),
                 magicWorldBlock = price.querySelector('.input-text'),
@@ -998,43 +954,42 @@ window.addEventListener('DOMContentLoaded', function() {
                 clubName = document.querySelectorAll('input[name="club-name"]'),
                 cardType = document.querySelectorAll('input[name="card-type"]'),
                 priceTotal = document.getElementById('price-total'),
-                mozaika_arr   = [0,1999,0,0,0,0,9900,0,0,13900,0,0,19900],
-                schelkovo_arr = [0,2999,0,0,0,0,14990,0,0,21990,0,0,24990];
+                mozaika_arr = [0, 1999, 0, 0, 0, 0, 9900, 0, 0, 13900, 0, 0, 19900],
+                schelkovo_arr = [0, 2999, 0, 0, 0, 0, 14990, 0, 0, 21990, 0, 0, 24990];
 
             let period = 1,
                 club = 'mozaika',
                 arr = mozaika_arr,
                 bonus = 0;
-            
-            const getCurrentPrice = () =>{
-                if(magicWorldtext.value.replace(/\s+/g,'') === 'ТЕЛО2019'){
+
+            const getCurrentPrice = () => {
+                if (magicWorldtext.value.replace(/\s+/g, '') === 'ТЕЛО2019') {
                     bonus = 30;
                 }
                 arr = club === 'mozaika' ? mozaika_arr : schelkovo_arr;
-                
-                
+
                 priceTotal.textContent = +arr[period] - Math.floor(+arr[period] / 100 * bonus);
             }
 
-            const getClubNameValue = (elem) =>{
+            const getClubNameValue = (elem) => {
                 club = elem.value;
                 getCurrentPrice();
             }
 
-            const getCardTypeValue = (elem) =>{
+            const getCardTypeValue = (elem) => {
                 period = +elem.value;
                 getCurrentPrice();
             }
             magicWorldtext.addEventListener('input', getCurrentPrice);
 
             clubName.forEach(element => {
-                element.addEventListener('click', function(){
+                element.addEventListener('click', function() {
                     getClubNameValue(element);
-                    } );   
+                });
             });
 
             cardType.forEach(element => {
-                element.addEventListener('click', function(){
+                element.addEventListener('click', function() {
                     getCardTypeValue(element);
                 });
             });
@@ -1051,25 +1006,25 @@ window.addEventListener('DOMContentLoaded', function() {
             closeBtn = popupMenu.querySelector('.close-menu-btn'),
             menuItemsPopup = popupMenu.querySelectorAll('li');
 
-        window.addEventListener('scroll', ()=> {
-            if (pageYOffset > 215){
+        window.addEventListener('scroll', () => {
+            if (pageYOffset > 215) {
                 topMenu.style.cssText = 'position: fixed; top:0; right:0;';
-            }else if (pageYOffset < 215){
+            } else if (pageYOffset < 215) {
                 topMenu.style.cssText = '';
-            } 
+            }
         });
 
         const openPopupMenu = () => {
             if (popupMenu.style.display === 'flex') {
                 popupMenu.style.display = 'none';
-            }else{
+            } else {
                 popupMenu.style.display = 'flex';
             }
         };
         menuButton.addEventListener('click', openPopupMenu);
 
-        const closePopupMenu = ()=>{
-            popupMenu.style.display = 'none';   
+        const closePopupMenu = () => {
+            popupMenu.style.display = 'none';
         }
 
         closeBtn.addEventListener('click', closePopupMenu);
@@ -1080,18 +1035,18 @@ window.addEventListener('DOMContentLoaded', function() {
     burgerMenu();
 
     //стрелка возврата
-    const arrowUp = () =>{
+    const arrowUp = () => {
         const upBtn = document.getElementById('totop');
         upBtn.style.display = 'none';
-        window.addEventListener('scroll', ()=> {
-            
-            if (pageYOffset > 600){
+        window.addEventListener('scroll', () => {
+
+            if (pageYOffset > 600) {
                 upBtn.style.display = 'block';
-            }else if (pageYOffset < 600){
-               // console.log(pageYOffset);
+            } else if (pageYOffset < 600) {
+                // console.log(pageYOffset);
                 upBtn.style.display = 'none';
-            } 
-        });        
+            }
+        });
     }
     arrowUp();
-}); 
+});
