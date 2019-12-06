@@ -1,0 +1,25 @@
+{
+  "name": "diplom_middle",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lexandrv2020/firrstLessonStudyJS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lexandrv2020/firrstLessonStudyJS/issues"
+  },
+  "homepage": "https://github.com/lexandrv2020/firrstLessonStudyJS#readme",
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {},
+  "description": ""
+}
