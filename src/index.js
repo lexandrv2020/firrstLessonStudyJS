@@ -13,7 +13,6 @@ import calcPrice from './modules/calcPrice';
 import burgerMenu from './modules/burgerMenu';
 import arrowUp from './modules/arrowUp';
 
-
 //меню
 clubListMenu();
 //Бесплатный визит
@@ -53,6 +52,5 @@ gallerySlider();
 calcPrice();
 //бургер меню.
 burgerMenu();
-
 //arrow up
 arrowUp();
