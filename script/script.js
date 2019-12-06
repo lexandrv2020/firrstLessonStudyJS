@@ -94,7 +94,6 @@ window.addEventListener('DOMContentLoaded', function() {
                 const template = masked,
                     def = template.replace(/\D/g, ""),
                     val = this.value.replace(/\D/g, "");
-                //console.log(template);
                 let i = 0,
                     newValue = template.replace(/[_\d]/g, function(a) {
                         return i < val.length ? val.charAt(i++) || def.charAt(i) : a;
@@ -124,7 +123,6 @@ window.addEventListener('DOMContentLoaded', function() {
         const inputsItems = document.querySelectorAll('input');
         inputsItems.forEach((elem) => {
             if (elem.type === 'tel') {
-                //console.log('elem: ', elem);
                 maskPhone(elem);
             } else {
                 elem.addEventListener('input', () => {
@@ -186,8 +184,11 @@ window.addEventListener('DOMContentLoaded', function() {
     //отправка формы
     const sendForm = () => {
         const formThanks = document.getElementById('thanks'),
+            freeVisitForm = document.getElementById('free_visit_form'),
+            callbackForm = document.getElementById('callback_form'),
             closeIcon = formThanks.getElementsByClassName('close_icon')[0],
             closeBtn = formThanks.getElementsByClassName('close-btn')[0],
+
             errorMassageSrc = "./images/statuses/mark-warning.png",
             successMassageSrc = "./images/statuses/mark-done.png",
 
@@ -212,8 +213,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
         //форма баннера
         const makeBannerForm = () => {
-
             const bannerForm = document.getElementById('banner-form'),
+                bodyBanner = document.querySelector('body'),
                 errorMassageThanks = 'Произошла ошибка. Повторите позже....',
                 loadMassageThanks = 'Выполняется отправка....',
                 successMassageThanks = 'Спасибо! Мы скоро с Вами свяжемся!';
@@ -248,7 +249,7 @@ window.addEventListener('DOMContentLoaded', function() {
                     statusMessage.textContent = successMassageThanks;
                     formThanks.style.display = 'block';
 
-                    setTimeout(cleanFormInputs(), 4000);
+                    //setTimeout(cleanFormInputs(), 4000);
                 };
 
                 const makeErrorEnd = () => {
@@ -282,6 +283,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 }
                 closeIcon.addEventListener('click', closeThanksForm);
                 closeBtn.addEventListener('click', closeThanksForm);
+                bodyBanner.addEventListener('click', closeThanksForm);
             })
         };
         makeBannerForm();
@@ -289,6 +291,7 @@ window.addEventListener('DOMContentLoaded', function() {
         //форма1
         const makeForm1 = () => {
             const forms1 = document.getElementById('form1'),
+                bodyForm1 = document.querySelector('body'),
                 errorMassageForm1 = 'Произошла ошибка. Повторите позже....',
                 loadMassageForm1 = 'Выполняется запись....',
                 successMassageForm1 = 'Спасибо! Мы обязательно Вам перезвоним.';
@@ -322,11 +325,14 @@ window.addEventListener('DOMContentLoaded', function() {
                 const makeSuccessEndForm1 = () => {
                     statusMessage.textContent = successMassageForm1;
                     cleanFormInputs();
+                    formThanks.style.display = 'block';
+                    callbackForm.style.display = 'none';
                 };
 
                 const makeErrorEndForm1 = () => {
                     statusMessage.textContent = errorMassageForm1;
-                    //formThanks.style.display = 'block';
+                    formThanks.style.display = 'block';
+                    callbackForm.style.display = 'none';
                     let headPhrase = "ВНИМАНИЕ!",
                         mainText = "К сожалениею связь не удалась! Повторите позднее...",
                         formContent = formThanks.querySelector('.form-content'),
@@ -348,13 +354,13 @@ window.addEventListener('DOMContentLoaded', function() {
 
                 const closeThanksForm1 = (event) => {
                     if (event.target.classList.contains('close-btn') || event.target.classList.contains('close_icon') || event.target.classList.contains('overlay')) {
-                        //formThanks.style.cssText = 'display: none';
+                        formThanks.style.cssText = 'display: none';
                         statusMessage.textContent = '';
-                        //form1Check.close();
                     }
                 }
                 closeIcon.addEventListener('click', closeThanksForm1);
                 closeBtn.addEventListener('click', closeThanksForm1);
+                bodyForm1.addEventListener('click', closeThanksForm1);
             });
         };
         makeForm1();
@@ -362,6 +368,7 @@ window.addEventListener('DOMContentLoaded', function() {
         //форма2
         const makeForm2 = () => {
             const forms2 = document.getElementById('form2'),
+                bodyForm2 = document.querySelector('body'),
                 errorMassageForm2 = 'Произошла ошибка. Повторите позже....',
                 loadMassageForm2 = 'Выполняется запись....',
                 successMassageForm2 = 'Спасибо! Вы успешно записаны.';
@@ -394,11 +401,14 @@ window.addEventListener('DOMContentLoaded', function() {
                 const makeSuccessEndForm2 = () => {
                     statusMessage.textContent = successMassageForm2;
                     cleanFormInputs();
+                    formThanks.style.display = 'block';
+                    freeVisitForm.style.display = 'none';
+
                 };
 
                 const makeErrorEndForm2 = () => {
                     statusMessage.textContent = errorMassageForm2;
-                    //formThanks.style.display = 'block';
+                    formThanks.style.display = 'block';
                     let headPhrase = "ВНИМАНИЕ!",
                         mainText = "К сожалениею запись не удалась! Повторите позднее...",
                         formContent = formThanks.querySelector('.form-content'),
@@ -406,6 +416,7 @@ window.addEventListener('DOMContentLoaded', function() {
                         main_txt = formContent.querySelector('p');
                     head_txt.textContent = headPhrase;
                     main_txt.textContent = mainText;
+                    freeVisitForm.style.display = 'none';
                 };
 
                 postData(body)
@@ -421,12 +432,13 @@ window.addEventListener('DOMContentLoaded', function() {
 
                 const closeThanksForm2 = (event) => {
                     if (event.target.classList.contains('close-btn') || event.target.classList.contains('close_icon') || event.target.classList.contains('overlay')) {
-                        //formThanks.style.cssText = 'display: none';
+                        formThanks.style.cssText = 'display: none';
                         statusMessage.textContent = '';
                     }
                 }
                 closeIcon.addEventListener('click', closeThanksForm2);
                 closeBtn.addEventListener('click', closeThanksForm2);
+                bodyForm2.addEventListener('click', closeThanksForm2);
             });
         };
         makeForm2();
@@ -434,6 +446,7 @@ window.addEventListener('DOMContentLoaded', function() {
         //card-order
         const makeCardOrder = () => {
             const cardOrderForm = document.getElementById('card_order'),
+                bodyOrder = document.querySelector('body'),
                 formBottom = cardOrderForm.querySelector('.submit'),
                 errorMassageOrder = 'Произошла ошибка. Повторите позже....',
                 loadMassageOrder = 'Выполняется отправка брони....',
@@ -500,6 +513,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 }
                 closeIcon.addEventListener('click', closeThanksCardOrder);
                 closeBtn.addEventListener('click', closeThanksCardOrder);
+                bodyOrder.addEventListener('click', closeThanksCardOrder);
 
             });
         };
@@ -508,6 +522,7 @@ window.addEventListener('DOMContentLoaded', function() {
         //footer-form
         const makeFooterForm = () => {
             const footerForm = document.getElementById('footer_form'),
+                bodyFooter = document.querySelector('body'),
                 footerLetoMozaika = document.getElementById('footer_leto_mozaika'),
                 footerLetoSchelkovo = document.getElementById('footer_leto_schelkovo'),
                 errorMassageFooter = 'Произошла ошибка. Повторите позже....',
@@ -583,6 +598,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 }
                 closeIcon.addEventListener('click', closeThanksFooterForm);
                 closeBtn.addEventListener('click', closeThanksFooterForm);
+                bodyFooter.addEventListener('click', closeThanksFooterForm);
             });
         };
         makeFooterForm();
@@ -680,7 +696,6 @@ window.addEventListener('DOMContentLoaded', function() {
                     width: 35px;
                     height: 35px;
                     font-size: inherit;
-
                     /*border-left-color: #ffd11a;*/
                 }
                 .glo-slider__prev{
@@ -815,7 +830,6 @@ window.addEventListener('DOMContentLoaded', function() {
                         background-color: #53c6fe;
                         -webkit-transform: scale(1.2);
                         transform: scale(1.2); }
-
                 .next-glo{
                     right: 20%;
                     margin-right: 16%;

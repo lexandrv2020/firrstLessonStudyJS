@@ -24,6 +24,6 @@ const visitForm = () => {
     openPopup.addEventListener('click', openVisitForm);
     closeIcon.addEventListener('click', closeVisitForm);
     body.addEventListener('click', closeVisitForm);
-}
+};
 
 export default visitForm;
