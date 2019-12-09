@@ -4,7 +4,9 @@ const clubListMenu = () => {
         body = document.querySelector('body');
 
     const openClubList = (event) => {
-        if (menuItems.style.display === 'block') {} else {
+        if (menuItems.style.display === 'block') {
+            menuItems.style.display = 'none';
+        } else {
             menuItems.style.display = 'block';
         }
     }
@@ -17,6 +19,5 @@ const clubListMenu = () => {
     }
     clubListMenu.addEventListener('click', openClubList);
     body.addEventListener('click', closeClubList);
-}
-
+};
 export default clubListMenu;

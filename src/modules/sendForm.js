@@ -18,7 +18,7 @@ const sendForm = () => {
         statusMessage = document.createElement('div'),
         statusError = document.createElement('img');
 
-    form1Check.setAttribute('name', 'name');
+    form1Check.setAttribute('name', 'namecheck');
     statusDone.setAttribute('id', 'statusDone');
     statusError.setAttribute('id', 'statusError');
     statusDone.setAttribute('width', 'statusDone');
