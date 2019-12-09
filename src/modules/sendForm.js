@@ -31,6 +31,7 @@ const sendForm = () => {
     //форма баннера
     const makeBannerForm = () => {
         const bannerForm = document.getElementById('banner-form'),
+            bannerFormCheck = document.getElementById('check1'),
             bodyBanner = document.querySelector('body'),
             errorMassageThanks = 'Произошла ошибка. Повторите позже....',
             loadMassageThanks = 'Выполняется отправка....',
@@ -46,6 +47,7 @@ const sendForm = () => {
                 statusMessage.textContent = '';
             });
             formBannerCheck.setAttribute('checked', false);
+            bannerFormCheck.checked = false;
         }
         bannerForm.addEventListener('submit', (event) => {
 
