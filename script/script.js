@@ -467,10 +467,10 @@ window.addEventListener('DOMContentLoaded', function() {
             formOrderCheck.style.opacity = 0;
 
             let inputs = cardOrderForm.querySelectorAll('input');
-            //console.log('inputs: ', inputs);
             const cleanFormInputs = () => {
+
                 inputs.forEach((elems) => {
-                    if (elems.name === 'name' || elems.name === 'tel') {
+                    if (elems.name === 'name' || elems.name === 'phone') {
                         elems.value = '';
                         statusMessage.textContent = '';
                     }

@@ -280,7 +280,7 @@ const sendForm = () => {
         let inputs = cardOrderForm.querySelectorAll('input');
         const cleanFormInputs = () => {
             inputs.forEach((elems) => {
-                if (elems.name === 'name' || elems.name === 'tel') {
+                if (elems.name === 'name' || elems.name === 'phone') {
                     elems.value = '';
                     statusMessage.textContent = '';
                 }
