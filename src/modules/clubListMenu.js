@@ -4,6 +4,7 @@ const clubListMenu = () => {
         body = document.querySelector('body');
 
     const openClubList = (event) => {
+        //console.log('menuItems.style.display: ', menuItems.style.display);
         if (menuItems.style.display === 'block') {
             menuItems.style.display = 'none';
         } else {

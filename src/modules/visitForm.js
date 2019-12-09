@@ -10,6 +10,7 @@ const visitForm = () => {
             elems.value = '';
         });
         checkDats.innerHTML = '';
+        checkDats.checked = false;
     }
 
     const openVisitForm = () => {
@@ -25,5 +26,4 @@ const visitForm = () => {
     closeIcon.addEventListener('click', closeVisitForm);
     body.addEventListener('click', closeVisitForm);
 };
-
 export default visitForm;

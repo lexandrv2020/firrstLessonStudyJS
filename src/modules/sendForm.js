@@ -264,6 +264,7 @@ const sendForm = () => {
     const makeCardOrder = () => {
         const cardOrderForm = document.getElementById('card_order'),
             bodyOrder = document.querySelector('body'),
+            cardСheck = document.getElementById('card_check'),
             formBottom = cardOrderForm.querySelector('.submit'),
             errorMassageOrder = 'Произошла ошибка. Повторите позже....',
             loadMassageOrder = 'Выполняется отправка брони....',
@@ -272,13 +273,16 @@ const sendForm = () => {
         formOrderCheck.style.display = 'block';
         formOrderCheck.style.position = 'absolute';
         formOrderCheck.style.opacity = 0;
+
         let inputs = cardOrderForm.querySelectorAll('input');
         const cleanFormInputs = () => {
             inputs.forEach((elems) => {
+
                 elems.value = '';
                 statusMessage.textContent = '';
             });
-            form1Check.setAttribute('checked', false);
+            cardСheck.setAttribute('checked', false);
+
         }
 
         cardOrderForm.addEventListener('submit', (event) => {
@@ -287,7 +291,6 @@ const sendForm = () => {
             formBottom.appendChild(statusError);
             formBottom.appendChild(statusDone);
             statusMessage.textContent = loadMassageOrder;
-
             const formDataCardOrderForm = new FormData(cardOrderForm);
             let body = {};
             formDataCardOrderForm.forEach((value, key) => {
