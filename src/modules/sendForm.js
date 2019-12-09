@@ -135,10 +135,13 @@ const sendForm = () => {
 
             const formDataForm1 = new FormData(forms1);
             let body = {};
+
             formDataForm1.forEach((value, key) => {
+                console.log('key: ', key);
+                console.log('value: ', value);
                 body[key] = value;
             });
-
+            console.log('body: ', body);
             const makeSuccessEndForm1 = () => {
                 statusMessage.textContent = successMassageForm1;
                 cleanFormInputs();
@@ -277,12 +280,12 @@ const sendForm = () => {
         let inputs = cardOrderForm.querySelectorAll('input');
         const cleanFormInputs = () => {
             inputs.forEach((elems) => {
-
-                elems.value = '';
-                statusMessage.textContent = '';
+                if (elems.name === 'name' || elems.name === 'tel') {
+                    elems.value = '';
+                    statusMessage.textContent = '';
+                }
             });
-            cardСheck.setAttribute('checked', false);
-
+            cardСheck.checked = false;
         }
 
         cardOrderForm.addEventListener('submit', (event) => {
@@ -291,6 +294,7 @@ const sendForm = () => {
             formBottom.appendChild(statusError);
             formBottom.appendChild(statusDone);
             statusMessage.textContent = loadMassageOrder;
+
             const formDataCardOrderForm = new FormData(cardOrderForm);
             let body = {};
             formDataCardOrderForm.forEach((value, key) => {
@@ -433,5 +437,4 @@ const sendForm = () => {
         });
     }
 };
-
 export default sendForm;

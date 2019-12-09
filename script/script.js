@@ -467,10 +467,13 @@ window.addEventListener('DOMContentLoaded', function() {
             formOrderCheck.style.opacity = 0;
 
             let inputs = cardOrderForm.querySelectorAll('input');
+            //console.log('inputs: ', inputs);
             const cleanFormInputs = () => {
                 inputs.forEach((elems) => {
-                    elems.value = '';
-                    statusMessage.textContent = '';
+                    if (elems.name === 'name' || elems.name === 'tel') {
+                        elems.value = '';
+                        statusMessage.textContent = '';
+                    }
                 });
                 cardСheck.checked = false;
             }
@@ -1067,6 +1070,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 if (magicWorldtext.value.replace(/\s+/g, '') === 'ТЕЛО2019') {
                     bonus = 30;
                 }
+                period = period === 0 ? 1 : period;
                 arr = club === 'mozaika' ? mozaika_arr : schelkovo_arr;
 
                 priceTotal.textContent = +arr[period] - Math.floor(+arr[period] / 100 * bonus);
