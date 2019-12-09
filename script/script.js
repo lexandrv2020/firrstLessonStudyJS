@@ -456,6 +456,9 @@ window.addEventListener('DOMContentLoaded', function() {
         const makeCardOrder = () => {
             const cardOrderForm = document.getElementById('card_order'),
                 bodyOrder = document.querySelector('body'),
+                m1 = document.getElementById('m1'),
+                cardMozaika = document.getElementById('card_leto_mozaika'),
+                priceTotal = document.getElementById('price-total'),
                 cardСheck = document.getElementById('card_check'),
                 formBottom = cardOrderForm.querySelector('.submit'),
                 errorMassageOrder = 'Произошла ошибка. Повторите позже....',
@@ -468,7 +471,6 @@ window.addEventListener('DOMContentLoaded', function() {
 
             let inputs = cardOrderForm.querySelectorAll('input');
             const cleanFormInputs = () => {
-
                 inputs.forEach((elems) => {
                     if (elems.name === 'name' || elems.name === 'phone') {
                         elems.value = '';
@@ -476,6 +478,9 @@ window.addEventListener('DOMContentLoaded', function() {
                     }
                 });
                 cardСheck.checked = false;
+                m1.checked = true;
+                cardMozaika.checked = true;
+                priceTotal.textContent = 1999;
             }
 
             cardOrderForm.addEventListener('submit', (event) => {
@@ -1057,6 +1062,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 magicWorldtext = magicWorldBlock.querySelector('input'),
                 clubName = document.querySelectorAll('input[name="club-name"]'),
                 cardType = document.querySelectorAll('input[name="card-type"]'),
+                cardMozaika = document.getElementById('card_leto_mozaika'),
                 priceTotal = document.getElementById('price-total'),
                 mozaika_arr = [0, 1999, 0, 0, 0, 0, 9900, 0, 0, 13900, 0, 0, 19900],
                 schelkovo_arr = [0, 2999, 0, 0, 0, 0, 14990, 0, 0, 21990, 0, 0, 24990];
@@ -1069,10 +1075,15 @@ window.addEventListener('DOMContentLoaded', function() {
             const getCurrentPrice = () => {
                 if (magicWorldtext.value.replace(/\s+/g, '') === 'ТЕЛО2019') {
                     bonus = 30;
-                }
-                period = period === 0 ? 1 : period;
-                arr = club === 'mozaika' ? mozaika_arr : schelkovo_arr;
+                } else { bonus = 0 }
+                if (cardMozaika.checked) {
 
+                    club = 'mozaika';
+                }
+
+                period = period === 0 ? 1 : period;
+
+                arr = club === 'mozaika' ? mozaika_arr : schelkovo_arr;
                 priceTotal.textContent = +arr[period] - Math.floor(+arr[period] / 100 * bonus);
             }
 

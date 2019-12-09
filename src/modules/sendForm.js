@@ -267,6 +267,9 @@ const sendForm = () => {
     const makeCardOrder = () => {
         const cardOrderForm = document.getElementById('card_order'),
             bodyOrder = document.querySelector('body'),
+            m1 = document.getElementById('m1'),
+            cardMozaika = document.getElementById('card_leto_mozaika'),
+            priceTotal = document.getElementById('price-total'),
             cardСheck = document.getElementById('card_check'),
             formBottom = cardOrderForm.querySelector('.submit'),
             errorMassageOrder = 'Произошла ошибка. Повторите позже....',
@@ -286,6 +289,9 @@ const sendForm = () => {
                 }
             });
             cardСheck.checked = false;
+            m1.checked = true;
+            cardMozaika.checked = true;
+            priceTotal.textContent = 1999;
         }
 
         cardOrderForm.addEventListener('submit', (event) => {
